@@ -14,8 +14,12 @@ from metrics.train_metrics import TrainLossDiscrete
 from metrics.abstract_metrics import SumExceptBatchMetric, SumExceptBatchKL, NLL
 import utils
 
+# to do 
+# 1. noise scheduler for continuous node features X
+# 2. new loss function for continuous node features X
 
-class DiscreteDenoisingDiffusion(pl.LightningModule):
+
+class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_features 
     def __init__(self, cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics):
         super().__init__()
 
@@ -40,7 +44,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):
         self.node_types = node_types
         self.edge_types = edge_types
 
-        self.train_loss = TrainLossDiscrete(self.cfg.model.lambda_train)
+        self.train_loss = TrainLossDiscrete(self.cfg.model.lambda_train)  # replace with TrainLoss which use MSE for X
         self.sampling_metrics = sampling_metrics
 
         self.val_nll = NLL()
@@ -89,6 +93,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):
             print(f"Marginal distribution of the classes: {x_marginals} for nodes, {e_marginals} for edges")
             self.transition_model = MarginalUniformTransition(x_marginals=x_marginals, e_marginals=e_marginals,
                                                               y_classes=self.ydim_output)
+            # what is this limit_dist?
             self.limit_dist = utils.PlaceHolder(X=x_marginals, E=e_marginals,
                                                 y=torch.ones(self.ydim_output) / self.ydim_output)
 

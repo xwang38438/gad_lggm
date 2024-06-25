@@ -17,12 +17,13 @@ def main(cfg: DictConfig):
     data_loaders, num_classes, max_n_nodes, nodes_dist, edge_types, node_types, n_nodes = init_dataset(cfg.dataset.name, cfg.train.batch_size, hydra_path, cfg.dataset.sample, cfg.general.num_train)
 
     extra_features = ExtraFeatures(cfg.model.extra_features, max_n_nodes)
-    domain_features = DummyExtraFeatures()
+    domain_features = DummyExtraFeatures()   # may need to change
 
     input_dims, output_dims = compute_input_output_dims(data_loaders['train'], extra_features, domain_features)
 
+    # need change
     sampling_metrics = CrossDomainSamplingMetrics(data_loaders)
-
+    # need change
     model = DiscreteDenoisingDiffusion(cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics) 
 
 
@@ -45,7 +46,7 @@ def main(cfg: DictConfig):
         callbacks.append(ema_callback)
 
 
-    use_gpu = 1 > 0 and torch.cuda.is_available()
+    use_gpu = 1 > 0 and torch.cuda.is_available() # multiple gpus
     trainer = Trainer(gradient_clip_val=cfg.train.clip_grad,
                       strategy="ddp_find_unused_parameters_true",  # Needed to load old checkpoints
                       accelerator='gpu' if use_gpu else 'cpu',

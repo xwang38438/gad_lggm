@@ -21,7 +21,7 @@ def arrange_data(adj_matrix):
 
     return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
 
-
+# replace the domain with the dataset name 
 
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
     domains = ['asn', 'bio', 'chem', 'col', 'eco', 'econ', 'email', 'power', 'road', 'rt', 'socfb', 'web', 'citation', 'soc', 'qm9topo']
@@ -109,13 +109,12 @@ def init_dataset(dataname, batch_size, hydra_path, sample, num_train):
     train_loader, val_loader, test_loader = load_dataset(dataname, batch_size, hydra_path, sample, num_train)
 
     n_nodes = node_counts(1000, train_loader, val_loader)
-    node_types = torch.tensor([1]) #No node types
+    node_types = torch.tensor([1]) #No node types    # need to change; How to consider continuous node features?
     edge_types = edge_counts(train_loader)
     
     num_classes = len(node_types)
     max_n_nodes = len(n_nodes) - 1
     nodes_dist = DistributionNodes(n_nodes)
-
 
     # print('Distribution of Number of Nodes:', n_nodes)
     # print('Distribution of Node Types:', node_types)
