@@ -26,34 +26,34 @@ def arrange_data(adj_matrix):
 
 # update for the GAD dataset
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['asn'] # , 'tolokers', 'questions', 'reddit'    
-    # for domain in domains:
-    #     if not os.path.exists(f'{hydra_path}/../graphs{sample}/{domain}/train.pt'):
-    #         print(111, domain)
-    #         data = torch.load(f'{hydra_path}/../graphs{sample}/{domain}/{domain}.pt')
+    domains = ['reddit'] # , 'tolokers', 'questions', 'reddit'    
+    for domain in domains:
+        if not os.path.exists(f'{hydra_path}/../graphs{sample}/{domain}/train.pt'):
+            print(111, domain)
+            data = torch.load(f'{hydra_path}/../graphs{sample}/{domain}/{domain}.pt')
 
-    #         #fix seed
-    #         torch.manual_seed(0)
+            #fix seed
+            torch.manual_seed(0)
 
-    #         #random permute and split
-    #         n = len(data)
-    #         indices = torch.randperm(n)
+            #random permute and split
+            n = len(data)
+            indices = torch.randperm(n)
 
-    #         train_indices = indices[:int(0.8 * n)]
-    #         val_indices = indices[int(0.8 * n):int(0.9 * n)]
-    #         test_indices = indices[int(0.9 * n):]
+            train_indices = indices[:int(0.8 * n)]
+            val_indices = indices[int(0.8 * n):int(0.9 * n)]
+            test_indices = indices[int(0.9 * n):]
 
-    #         train_data = [data[_] for _ in train_indices]
-    #         val_data = [data[_] for _ in val_indices]
-    #         test_data = [data[_] for _ in test_indices]
+            train_data = [data[_] for _ in train_indices]
+            val_data = [data[_] for _ in val_indices]
+            test_data = [data[_] for _ in test_indices]
 
-    #         torch.save(train_indices, f'{hydra_path}/../graphs{sample}/{domain}/train_indices.pt')
-    #         torch.save(val_indices, f'{hydra_path}/../graphs{sample}/{domain}/val_indices.pt')
-    #         torch.save(test_indices, f'{hydra_path}/../graphs{sample}/{domain}/test_indices.pt')
+            torch.save(train_indices, f'{hydra_path}/../graphs{sample}/{domain}/train_indices.pt')
+            torch.save(val_indices, f'{hydra_path}/../graphs{sample}/{domain}/val_indices.pt')
+            torch.save(test_indices, f'{hydra_path}/../graphs{sample}/{domain}/test_indices.pt')
             
-    #         torch.save(train_data, f'{hydra_path}/../graphs{sample}/{domain}/train.pt')
-    #         torch.save(val_data, f'{hydra_path}/../graphs{sample}/{domain}/val.pt')
-    #         torch.save(test_data, f'{hydra_path}/../graphs{sample}/{domain}/test.pt')
+            torch.save(train_data, f'{hydra_path}/../graphs{sample}/{domain}/train.pt')
+            torch.save(val_data, f'{hydra_path}/../graphs{sample}/{domain}/val.pt')
+            torch.save(test_data, f'{hydra_path}/../graphs{sample}/{domain}/test.pt')
 
     if dataname in domains:
         print(222, dataname)
