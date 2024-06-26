@@ -4,7 +4,7 @@ hydra:
   run:
     dir: ../outputs/${general.name}
 general:
-    name: 'bio'
+    name: 'asn'
     wandb: 'disabled'                # online | offline | disabled
     gpus: 1
     setting: 'train_scratch'
@@ -23,7 +23,7 @@ general:
     num_train: -1
 model:
     type: 'discrete'
-    transition: 'marginal'                  
+    transition: 'uniform'                  
     model: 'graph_tf'
     diffusion_steps: 500
     diffusion_noise_schedule: 'cosine'
