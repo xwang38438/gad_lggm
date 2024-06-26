@@ -47,19 +47,19 @@ def cosine_beta_schedule(timesteps, s=0.008, raise_to_power: float = 1):
     cosine schedule
     as proposed in https://openreview.net/forum?id=-NEXDKk8gZ
     """
-    steps = timesteps + 2
-    x = np.linspace(0, steps, steps)
-    alphas_cumprod = np.cos(((x / steps) + s) / (1 + s) * np.pi * 0.5) ** 2
-    alphas_cumprod = alphas_cumprod / alphas_cumprod[0]
-    betas = 1 - (alphas_cumprod[1:] / alphas_cumprod[:-1])
-    betas = np.clip(betas, a_min=0, a_max=0.999)
-    alphas = 1. - betas
-    alphas_cumprod = np.cumprod(alphas, axis=0)
+    steps = timesteps + 2 
+    x = np.linspace(0, steps, steps)  # (timesteps +2)
+    alphas_cumprod = np.cos(((x / steps) + s) / (1 + s) * np.pi * 0.5) ** 2 # (timesteps + 2)
+    alphas_cumprod = alphas_cumprod / alphas_cumprod[0] # (timesteps +2)
+    betas = 1 - (alphas_cumprod[1:] / alphas_cumprod[:-1]) # (timesteps + 1)
+    betas = np.clip(betas, a_min=0, a_max=0.999) # (timesteps + 1)
+    alphas = 1. - betas # (timesteps + 1)
+    alphas_cumprod = np.cumprod(alphas, axis=0) # (timesteps + 1)
 
     if raise_to_power != 1:
         alphas_cumprod = np.power(alphas_cumprod, raise_to_power)
 
-    return alphas_cumprod
+    return alphas_cumprod # (timesteps + 1)
 
 
 def cosine_beta_schedule_discrete(timesteps, s=0.008):
@@ -268,7 +268,7 @@ def sample_discrete_features(probX, probE, node_mask):
 
 def compute_posterior_distribution(M, M_t, Qt_M, Qsb_M, Qtb_M):
     ''' M: X or E
-        Compute xt @ Qt.T * x0 @ Qsb / x0 @ Qtb @ xt.T
+        Compute xt @ Qt.T * x0 @ (Qsb / x0 @ Qtb @ xt.T)
     '''
     # Flatten feature tensors
     M = M.flatten(start_dim=1, end_dim=-2).to(torch.float32)        # (bs, N, d) with N = n or n * n

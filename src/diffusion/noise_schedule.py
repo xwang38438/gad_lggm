@@ -14,7 +14,7 @@ class PredefinedNoiseSchedule(torch.nn.Module):
         self.timesteps = timesteps
 
         if noise_schedule == 'cosine':
-            alphas2 = diffusion_utils.cosine_beta_schedule(timesteps)
+            alphas2 = diffusion_utils.cosine_beta_schedule(timesteps) # (timesteps + 1, )
         elif noise_schedule == 'custom':
             raise NotImplementedError()
         else:

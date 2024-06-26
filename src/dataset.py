@@ -23,8 +23,10 @@ def arrange_data(adj_matrix):
 
 # replace the domain with the dataset name 
 
+
+# update for the GAD dataset
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['asn', 'bio', 'chem', 'col', 'eco', 'econ', 'email', 'power', 'road', 'rt', 'socfb', 'web', 'citation', 'soc', 'qm9topo']
+    domains = ['asn', 'tolokers', 'questions', 'reddit']
     
     for domain in domains:
         if not os.path.exists(f'{hydra_path}/../graphs{sample}/{domain}/train.pt'):
@@ -38,14 +40,9 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
             n = len(data)
             indices = torch.randperm(n)
 
-            if domain == 'eco':
-                train_indices = indices[:4].repeat(50)
-                val_indices = indices[4:5].repeat(50)
-                test_indices = indices[5:]
-            else:
-                train_indices = indices[:int(0.8 * n)]
-                val_indices = indices[int(0.8 * n):int(0.9 * n)]
-                test_indices = indices[int(0.9 * n):]
+            train_indices = indices[:int(0.8 * n)]
+            val_indices = indices[int(0.8 * n):int(0.9 * n)]
+            test_indices = indices[int(0.9 * n):]
 
             train_data = [data[_] for _ in train_indices]
             val_data = [data[_] for _ in val_indices]
@@ -73,29 +70,28 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
         else:
             test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')] + [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')] + [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
             
-    elif 'wo' in dataname:
-        held_out = dataname.split('wo')[-1].strip(' ')
-        train_data, val_data, test_data = [], [], []
+    # elif 'wo' in dataname:
+    #     held_out = dataname.split('wo')[-1].strip(' ')
+    #     train_data, val_data, test_data = [], [], []
 
-        for domain in domains:
-            if domain == held_out or domain == 'qm9topo':
-                continue
+    #     for domain in domains:
+    #         if domain == held_out or domain == 'qm9topo':
+    #             continue
             
-            train_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/train.pt')])
-            val_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/val.pt')])
-            test_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/test.pt')])
-    elif dataname == 'all':
-        train_data, val_data, test_data = [], [], []
+    #         train_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/train.pt')])
+    #         val_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/val.pt')])
+    #         test_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/test.pt')])
+    # elif dataname == 'all':
+    #     train_data, val_data, test_data = [], [], []
 
-        for domain in domains:
-            if domain == 'qm9topo':
-                continue
+    #     for domain in domains:
+    #         if domain == 'qm9topo':
+    #             continue
             
-        train_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/train.pt')])
-        val_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/val.pt')])
-        test_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/test.pt')])
+    #     train_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/train.pt')])
+    #     val_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/val.pt')])
+    #     test_data.extend([arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{domain}/test.pt')])
         
-
     print('Size of dataset', len(train_data), len(val_data), len(test_data))
 
     train_loader = DataLoader(train_data, batch_size = batch_size, shuffle=True)

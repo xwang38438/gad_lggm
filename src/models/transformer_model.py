@@ -1,5 +1,5 @@
 import math
-
+import sys
 import torch
 import torch.nn as nn
 from torch.nn.modules.dropout import Dropout
@@ -7,7 +7,8 @@ from torch.nn.modules.linear import Linear
 from torch.nn.modules.normalization import LayerNorm
 from torch.nn import functional as F
 from torch import Tensor
-
+# add the parent directory to the path
+sys.path.append('../')
 from src import utils
 from src.diffusion import diffusion_utils
 from src.models.layers import Xtoy, Etoy, masked_softmax

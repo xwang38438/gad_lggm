@@ -59,7 +59,6 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.test_X_logp = SumExceptBatchMetric()
         self.test_E_logp = SumExceptBatchMetric()
 
-
         self.extra_features = extra_features
         self.domain_features = domain_features
 
@@ -96,6 +95,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             # what is this limit_dist?
             self.limit_dist = utils.PlaceHolder(X=x_marginals, E=e_marginals,
                                                 y=torch.ones(self.ydim_output) / self.ydim_output)
+        
+        elif cfg.model.transition == 'mix':
+            pass # to do
+        
 
         self.save_hyperparameters(ignore=['train_metrics', 'sampling_metrics'])
         self.start_epoch_time = None
