@@ -28,6 +28,7 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         # output_dims = dataset_infos.output_dims
         # nodes_dist = dataset_infos.nodes_dist
 
+        # need to assign these two values in the config file
         self.norm_values = cfg.model.normalize_factors
         self.norm_biases = cfg.model.norm_biases
         self.gamma = PredefinedNoiseSchedule(cfg.model.diffusion_noise_schedule, timesteps=cfg.model.diffusion_steps)
@@ -96,6 +97,7 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
                                                batch=data.batch)
         dense_data = dense_data.mask(node_mask)
         X, E = dense_data.X, dense_data.E
+        # the continous case should have the features normalized
         normalized_data = utils.normalize(X, E, data.y, self.norm_values, self.norm_biases, node_mask)
         noisy_data = self.apply_noise(normalized_data.X, normalized_data.E, normalized_data.y, node_mask)
         extra_data = self.compute_extra_data(noisy_data)

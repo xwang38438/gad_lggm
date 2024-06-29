@@ -22,7 +22,7 @@ general:
     final_model_chains_to_save: 20
     num_train: -1
 model:
-    type: 'discrete'
+    type: 'discrete' # will be continuous in future
     transition: 'uniform'                  
     model: 'graph_tf'
     diffusion_steps: 500

@@ -6,7 +6,7 @@ from torch_geometric.data import Data
 from torch_geometric.utils import remove_self_loops, to_undirected
 import os
 
-def arrange_data(adj_matrix):
+def arrange_data(adj_matrix): # input a tuple of (adj_matrix, node_features) n_nodes x n_nodes ; n_nodes x n_features
     n_nodes = adj_matrix.shape[0]
 
     edge_index = adj_matrix.nonzero().t()
@@ -15,7 +15,8 @@ def arrange_data(adj_matrix):
     edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
     edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
 
-    x = torch.ones((n_nodes, 1))
+    x = torch.ones((n_nodes, 1))  
+    # to do: add continuous node features
     y = torch.empty(1, 0)
 
 
@@ -62,12 +63,15 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
             train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')]
         else:
             train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')][:num_train]
+
         val_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')]
 
-        if dataname != 'eco':
+        if dataname != 'eco':  # eco has no test set
             test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
         else:
-            test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')] + [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')] + [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
+            test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')] + \
+            [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')] + \
+            [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
             
     # elif 'wo' in dataname:
     #     held_out = dataname.split('wo')[-1].strip(' ')

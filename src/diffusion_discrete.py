@@ -133,7 +133,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         
         dense_data = dense_data.mask(node_mask)
         X, E = dense_data.X, dense_data.E
-        
+    
         
         noisy_data = self.apply_noise(X, E, data.y, node_mask)
         extra_data = self.compute_extra_data(noisy_data)

@@ -8,7 +8,7 @@ from torch.nn.modules.normalization import LayerNorm
 from torch.nn import functional as F
 from torch import Tensor
 # add the parent directory to the path
-sys.path.append('../')
+# sys.path.append('../')
 from src import utils
 from src.diffusion import diffusion_utils
 from src.models.layers import Xtoy, Etoy, masked_softmax

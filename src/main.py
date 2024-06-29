@@ -59,6 +59,7 @@ def main(cfg: DictConfig):
                       logger = [],
                       accumulate_grad_batches=cfg.train.accumulate_grad_batches)
 
+    print(cfg.general.ckpt_path)
     if cfg.general.setting == 'train_scratch':
         trainer.fit(model, train_dataloaders = data_loaders['train'], val_dataloaders = data_loaders['val'])
     elif cfg.general.setting == 'train_from_pretrained':

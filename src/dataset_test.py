@@ -11,7 +11,6 @@ from analysis.spectre_utils import CrossDomainSamplingMetrics
 import utils
 
 @hydra.main(version_base='1.3', config_path='../configs', config_name='config')
-
 def main(cfg: DictConfig):
     hydra_path = hydra.utils.get_original_cwd()
     print(hydra_path)
@@ -36,6 +35,7 @@ def main(cfg: DictConfig):
 
     sampling_metrics = CrossDomainSamplingMetrics(data_loaders)
 
+    # discrete diffusion model without considering the continuous node features
     model = DiscreteDenoisingDiffusion(cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics) 
 
 
@@ -73,6 +73,10 @@ def main(cfg: DictConfig):
 
     if cfg.general.setting == 'train_scratch':
         trainer.fit(model, train_dataloaders = data_loaders['train'], val_dataloaders = data_loaders['val'])
+    elif cfg.general.setting == 'train_from_pretrained':
+        trainer.fit(model, train_dataloaders = data_loaders['train'], val_dataloaders = data_loaders['val'], ckpt_path = cfg.general.ckpt_path)
+    elif cfg.general.setting == 'test':
+        trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
 
 if __name__ == '__main__':
     main()
