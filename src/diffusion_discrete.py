@@ -501,6 +501,8 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         return nll
 
     def forward(self, noisy_data, extra_data, node_mask):
+        print(noisy_data['X_t'].shape, extra_data.X.shape)
+        
         X = torch.cat((noisy_data['X_t'], extra_data.X), dim=2).float()
         E = torch.cat((noisy_data['E_t'], extra_data.E), dim=3).float()
         y = torch.hstack((noisy_data['y_t'], extra_data.y)).float()

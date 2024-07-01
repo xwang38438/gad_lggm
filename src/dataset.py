@@ -6,32 +6,47 @@ from torch_geometric.data import Data
 from torch_geometric.utils import remove_self_loops, to_undirected
 import os
 
-def arrange_data(adj_matrix): # input a tuple of (adj_matrix, node_features) n_nodes x n_nodes ; n_nodes x n_features
-    n_nodes = adj_matrix.shape[0]
+def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x n_nodes ; n_nodes x n_features
+    if isinstance(data, torch.Tensor): 
+        n_nodes = data.shape[0]
 
-    edge_index = adj_matrix.nonzero().t()
-    edge_attr = torch.tensor([[0, 1] for _ in range(edge_index.shape[1])])
+        edge_index = data.nonzero().t()
+        edge_attr = torch.tensor([[0, 1] for _ in range(edge_index.shape[1])])
 
-    edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
-    edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
+        edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
+        edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
 
-    x = torch.ones((n_nodes, 1))  
-    # to do: add continuous node features
-    y = torch.empty(1, 0)
+        x = torch.ones((n_nodes, 1))  
+        # to do: add continuous node features
+        y = torch.empty(1, 0)
 
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
 
-    return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+    if isinstance(data, tuple):
+        adj_matrix, node_features = data
+        n_nodes = adj_matrix.shape[0]
+
+        edge_index = adj_matrix.nonzero().t()
+        edge_attr = torch.tensor([[0, 1] for _ in range(edge_index.shape[1])])
+
+        edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
+        edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
+
+        x = node_features
+        y = torch.empty(1, 0)
+
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
 
 # replace the domain with the dataset name 
 
 
 # update for the GAD dataset
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['reddit'] # , 'tolokers', 'questions', 'reddit'    
+    domains = ['reddit', 'reddit_v2'] # , 'tolokers', 'questions', 'reddit'    
     for domain in domains:
-        if not os.path.exists(f'{hydra_path}/../graphs{sample}/{domain}/train.pt'):
+        if not os.path.exists(f'{hydra_path}/../gad_datasets/{domain}/train.pt'):
             print(111, domain)
-            data = torch.load(f'{hydra_path}/../graphs{sample}/{domain}/{domain}.pt')
+            data = torch.load(f'{hydra_path}/../gad_datasets/{domain}/{domain}.pt')
 
             #fix seed
             torch.manual_seed(0)
@@ -48,31 +63,34 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
             val_data = [data[_] for _ in val_indices]
             test_data = [data[_] for _ in test_indices]
 
-            torch.save(train_indices, f'{hydra_path}/../graphs{sample}/{domain}/train_indices.pt')
-            torch.save(val_indices, f'{hydra_path}/../graphs{sample}/{domain}/val_indices.pt')
-            torch.save(test_indices, f'{hydra_path}/../graphs{sample}/{domain}/test_indices.pt')
+            torch.save(train_indices, f'{hydra_path}/../gad_datasets/{domain}/train_indices.pt')
+            torch.save(val_indices, f'{hydra_path}/../gad_datasets/{domain}/val_indices.pt')
+            torch.save(test_indices, f'{hydra_path}/../gad_datasets/{domain}/test_indices.pt')
             
-            torch.save(train_data, f'{hydra_path}/../graphs{sample}/{domain}/train.pt')
-            torch.save(val_data, f'{hydra_path}/../graphs{sample}/{domain}/val.pt')
-            torch.save(test_data, f'{hydra_path}/../graphs{sample}/{domain}/test.pt')
+            torch.save(train_data, f'{hydra_path}/../gad_datasets/{domain}/train.pt')
+            torch.save(val_data, f'{hydra_path}/../gad_datasets/{domain}/val.pt')
+            torch.save(test_data, f'{hydra_path}/../gad_datasets/{domain}/test.pt')
 
     if dataname in domains:
         print(222, dataname)
 
         if num_train == -1:
-            train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')]
+            train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/train.pt')]
         else:
-            train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')][:num_train]
+            train_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/train.pt')][:num_train]
 
-        val_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')]
+        val_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/val.pt')]
 
-        if dataname != 'eco':  # eco has no test set
-            test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
-        else:
-            test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/train.pt')] + \
-            [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/val.pt')] + \
-            [arrange_data(_) for _ in torch.load(f'{hydra_path}/../graphs{sample}/{dataname}/test.pt')]
-            
+        # if dataname != 'eco':  # eco has no test set
+        #     test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/test.pt')]
+        # else:
+        test_data = [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/train.pt')] + \
+        [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/val.pt')] + \
+        [arrange_data(_) for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/test.pt')]
+    
+    else:
+        raise ValueError('Invalid dataset name')
+    
     # elif 'wo' in dataname:
     #     held_out = dataname.split('wo')[-1].strip(' ')
     #     train_data, val_data, test_data = [], [], []
@@ -105,19 +123,20 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
     return train_loader, val_loader, test_loader
 
 def init_dataset(dataname, batch_size, hydra_path, sample, num_train):
+    # data_name = 'reddit_v2'
     train_loader, val_loader, test_loader = load_dataset(dataname, batch_size, hydra_path, sample, num_train)
 
     n_nodes = node_counts(1000, train_loader, val_loader)
-    node_types = torch.tensor([1]) #No node types    # need to change; How to consider continuous node features?
+    node_types = torch.tensor([1]) # Node type: 0 for normal, 1 for anomalous ; only used for marginal transition
     edge_types = edge_counts(train_loader)
     
     num_classes = len(node_types)
     max_n_nodes = len(n_nodes) - 1
     nodes_dist = DistributionNodes(n_nodes)
 
-    # print('Distribution of Number of Nodes:', n_nodes)
-    # print('Distribution of Node Types:', node_types)
-    # print('Distribution of Edge Types:', edge_types)
+    print('Distribution of Number of Nodes:', n_nodes)
+    print('Distribution of Node Types:', node_types)
+    print('Distribution of Edge Types:', edge_types)
     
     data_loaders = {'train': train_loader, 'val': val_loader, 'test': test_loader}
 

@@ -24,13 +24,9 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         self.val_loader = data_loaders['val']
         self.test_loader = data_loaders['test']
 
-        # input_dims = dataset_infos.input_dims
-        # output_dims = dataset_infos.output_dims
-        # nodes_dist = dataset_infos.nodes_dist
-
         # need to assign these two values in the config file
-        self.norm_values = cfg.model.normalize_factors
-        self.norm_biases = cfg.model.norm_biases
+        self.norm_values = cfg.model.normalize_factors # [2,1,1] [X, E, y]
+        self.norm_biases = cfg.model.norm_biases # [0,0,0] [X, E, y]
         self.gamma = PredefinedNoiseSchedule(cfg.model.diffusion_noise_schedule, timesteps=cfg.model.diffusion_steps)
         diffusion_utils.check_issues_norm_values(self.gamma, self.norm_values[1], self.norm_values[2])
 
@@ -66,10 +62,11 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         self.test_y_logp = SumExceptBatchMSE()
 
         self.train_loss = TrainLoss()
-        # self.train_metrics = train_metrics
-
         self.sampling_metrics = sampling_metrics
-        # self.visualization_tools = visualization_tools
+
+        self.extra_features = extra_features
+        self.domain_features = domain_features
+
 
         self.save_hyperparameters(ignore=['train_metrics', 'sampling_metrics'])
         # self.visualization_tools = visualization_tools
@@ -93,11 +90,15 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         self.val_counter = 0
 
     def training_step(self, data, i):
+
+        if data.edge_index.numel() == 0:
+            self.print("Found a batch with no edges. Skipping.")
+            return
+
         dense_data, node_mask = utils.to_dense(x=data.x, edge_index=data.edge_index, edge_attr=data.edge_attr,
                                                batch=data.batch)
         dense_data = dense_data.mask(node_mask)
         X, E = dense_data.X, dense_data.E
-        # the continous case should have the features normalized
         normalized_data = utils.normalize(X, E, data.y, self.norm_values, self.norm_biases, node_mask)
         noisy_data = self.apply_noise(normalized_data.X, normalized_data.E, normalized_data.y, node_mask)
         extra_data = self.compute_extra_data(noisy_data)
@@ -126,14 +127,16 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
                                  weight_decay=self.cfg.train.weight_decay)
 
     def on_fit_start(self) -> None:
-        self.train_iterations = len(self.trainer.datamodule.train_dataloader())
+        self.train_iterations = len(self.train_loader)
+        self.print("Size of the input features", self.Xdim, self.Edim, self.ydim)
         if self.local_rank == 0:
             utils.setup_wandb(self.cfg)
 
     def on_train_epoch_start(self) -> None:
+        self.print("Starting train epoch...")
         self.start_epoch_time = time.time()
         self.train_loss.reset()
-        self.train_metrics.reset()
+        # self.train_metrics.reset()
 
     def on_train_epoch_end(self) -> None:
         to_log = self.train_loss.log_epoch_metrics()
@@ -141,8 +144,8 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
                       f" -- E mse: {to_log['train_epoch/epoch_E_mse'] :.3f} --"
                       f" y_mse: {to_log['train_epoch/epoch_y_mse'] :.3f}"
                       f" -- {time.time() - self.start_epoch_time:.1f}s ")
-        epoch_at_metrics, epoch_bond_metrics = self.train_metrics.log_epoch_metrics()
-        self.print(f"Epoch {self.current_epoch}: {epoch_at_metrics} -- {epoch_bond_metrics}")
+        # epoch_at_metrics, epoch_bond_metrics = self.train_metrics.log_epoch_metrics()
+        # self.print(f"Epoch {self.current_epoch}: {epoch_at_metrics} -- {epoch_bond_metrics}")
 
     def on_validation_epoch_start(self) -> None:
         self.val_nll.reset()
@@ -196,35 +199,35 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
             self.best_val_nll = val_nll
         print('Val loss: %.4f \t Best val loss:  %.4f\n' % (val_nll, self.best_val_nll))
 
-        self.val_counter += 1
-        if self.val_counter % self.cfg.general.sample_every_val == 0:
-            start = time.time()
-            samples_left_to_generate = self.cfg.general.samples_to_generate
-            samples_left_to_save = self.cfg.general.samples_to_save
-            chains_left_to_save = self.cfg.general.chains_to_save
+        # self.val_counter += 1
+        # if self.val_counter % self.cfg.general.sample_every_val == 0:
+        #     start = time.time()
+        #     samples_left_to_generate = self.cfg.general.samples_to_generate
+        #     samples_left_to_save = self.cfg.general.samples_to_save
+        #     chains_left_to_save = self.cfg.general.chains_to_save
 
-            samples = []
+        #     samples = []
 
-            ident = 0
-            while samples_left_to_generate > 0:
-                bs = 2 * self.cfg.train.batch_size
-                to_generate = min(samples_left_to_generate, bs)
-                to_save = min(samples_left_to_save, bs)
-                chains_save = min(chains_left_to_save, bs)
-                samples.extend(self.sample_batch(batch_id=ident,
-                                                 batch_size=to_generate,
-                                                 num_nodes=None, save_final=to_save,
-                                                 keep_chain=chains_save,
-                                                 number_chain_steps=self.number_chain_steps))
-                ident += to_generate
+        #     ident = 0
+        #     while samples_left_to_generate > 0:
+        #         bs = 2 * self.cfg.train.batch_size
+        #         to_generate = min(samples_left_to_generate, bs)
+        #         to_save = min(samples_left_to_save, bs)
+        #         chains_save = min(chains_left_to_save, bs)
+        #         samples.extend(self.sample_batch(batch_id=ident,
+        #                                          batch_size=to_generate,
+        #                                          num_nodes=None, save_final=to_save,
+        #                                          keep_chain=chains_save,
+        #                                          number_chain_steps=self.number_chain_steps))
+        #         ident += to_generate
 
-                samples_left_to_save -= to_save
-                samples_left_to_generate -= to_generate
-                chains_left_to_save -= chains_save
+        #         samples_left_to_save -= to_save
+        #         samples_left_to_generate -= to_generate
+        #         chains_left_to_save -= chains_save
 
-            self.sampling_metrics(samples, self.name, self.current_epoch, val_counter=-1, test=False)
-            print(f'Sampling took {time.time() - start:.2f} seconds\n')
-            self.sampling_metrics.reset()
+        #     self.sampling_metrics(samples, self.name, self.current_epoch, val_counter=-1, test=False)
+        #     print(f'Sampling took {time.time() - start:.2f} seconds\n')
+        #     self.sampling_metrics.reset()
 
     def on_test_epoch_start(self) -> None:
         self.test_nll.reset()
@@ -298,6 +301,8 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         self.sampling_metrics.reset()
         self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
         self.sampling_metrics.reset()
+        
+        # this part is different from the diffusion discrete model
 
     def kl_prior(self, X, E, y, node_mask):
         """Computes the KL between q(z1 | x) and the prior p(z1) = Normal(0, 1).
@@ -545,6 +550,9 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         return nll
 
     def forward(self, noisy_data, extra_data, node_mask):
+        # print(333)
+        # print(noisy_data['X_t'].size())
+        # print(extra_data.X.size())
         """ Concatenates extra data to the noisy data, then calls the network. """
         X = torch.cat((noisy_data['X_t'], extra_data.X), dim=2)
         E = torch.cat((noisy_data['E_t'], extra_data.E), dim=3)
@@ -644,20 +652,20 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
             print("E", E[i])
             print("X: ", X[i])
 
-        # Prepare the chain for saving
-        if keep_chain > 0:
-            final_X_chain = X[:keep_chain]
-            final_E_chain = E[:keep_chain]
-            chain_X[0] = final_X_chain
-            chain_E[0] = final_E_chain
+        # # Prepare the chain for saving
+        # if keep_chain > 0:
+        #     final_X_chain = X[:keep_chain]
+        #     final_E_chain = E[:keep_chain]
+        #     chain_X[0] = final_X_chain
+        #     chain_E[0] = final_E_chain
 
-            chain_X = diffusion_utils.reverse_tensor(chain_X)
-            chain_E = diffusion_utils.reverse_tensor(chain_E)
+        #     chain_X = diffusion_utils.reverse_tensor(chain_X)
+        #     chain_E = diffusion_utils.reverse_tensor(chain_E)
 
-            # Repeat last frame to see final sample better
-            chain_X = torch.cat([chain_X, chain_X[-1:].repeat(10, 1, 1)], dim=0)
-            chain_E = torch.cat([chain_E, chain_E[-1:].repeat(10, 1, 1, 1)], dim=0)
-            assert chain_X.size(0) == (number_chain_steps + 10)
+        #     # Repeat last frame to see final sample better
+        #     chain_X = torch.cat([chain_X, chain_X[-1:].repeat(10, 1, 1)], dim=0)
+        #     chain_E = torch.cat([chain_E, chain_E[-1:].repeat(10, 1, 1, 1)], dim=0)
+        #     assert chain_X.size(0) == (number_chain_steps + 10)
 
         # Split the generated molecules
         molecule_list = []
@@ -759,3 +767,15 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         extra_edge_attr = torch.zeros((*E.shape[:-1], 0)).type_as(E)
         t = noisy_data['t']
         return utils.PlaceHolder(X=extra_x, E=extra_edge_attr, y=t)
+        
+        # extra_features = self.extra_features(noisy_data)
+        # extra_molecular_features = self.domain_features(noisy_data)
+
+        # extra_X = torch.cat((extra_features.X, extra_molecular_features.X), dim=-1)
+        # extra_E = torch.cat((extra_features.E, extra_molecular_features.E), dim=-1)
+        # extra_y = torch.cat((extra_features.y, extra_molecular_features.y), dim=-1)
+
+        # t = noisy_data['t']
+        # extra_y = torch.cat((extra_y, t), dim=1)
+        
+        # return utils.PlaceHolder(X=extra_X, E=extra_E, y=extra_y)

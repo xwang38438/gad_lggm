@@ -32,6 +32,8 @@ model:
     hidden_mlp_dims: {'X': 256, 'E': 128, 'y': 128}
     hidden_dims: {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}
     lambda_train: [5, 0]
+    normalize_factors: [2,1,1]
+    norm_biases: [0,0,0]
 train:
     n_epochs: 300
     batch_size: 8
@@ -49,4 +51,4 @@ dataset:
     datadir: 'graph/'
     name: bio
     remove_h: null
-    sample: 'ego'
+    sample: 'eco'

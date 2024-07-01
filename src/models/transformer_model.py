@@ -12,7 +12,7 @@ from torch import Tensor
 from src import utils
 from src.diffusion import diffusion_utils
 from src.models.layers import Xtoy, Etoy, masked_softmax
-
+import logging 
 
 class XEyTransformerLayer(nn.Module):
     """ Transformer that updates node, edge and global features
@@ -266,7 +266,9 @@ class GraphTransformer(nn.Module):
 
         new_E = self.mlp_in_E(E)
         new_E = (new_E + new_E.transpose(1, 2)) / 2
+        logging.debug(f"X shape: {X.shape}")
         after_in = utils.PlaceHolder(X=self.mlp_in_X(X), E=new_E, y=self.mlp_in_y(y)).mask(node_mask)
+        logging.debug(f"after_in.X shape: {after_in.X.shape}")
         X, E, y = after_in.X, after_in.E, after_in.y
 
         for layer in self.tf_layers:

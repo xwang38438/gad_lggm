@@ -1,0 +1,253 @@
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch\=209.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=209.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=209.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric SumExceptBatchMetric was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
+  warnings.warn(*args, **kwargs)
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit max150 uniform', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=209.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit', 'remove_h': None, 'sample': 'eco'}}
+222 reddit
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9735, 0.0265])
+DataBatch(x=[1710, 1], edge_index=[2, 6222], edge_attr=[6222, 2], y=[12, 0], batch=[1710], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 7, 'E': 2, 'y': 12} {'X': 1, 'E': 2, 'y': 0}
+Starting test...
+Epoch 0: Test NLL 3617.35 -- Test Atom type KL 0.00 --  Test Edge type KL: 7.18
+Test loss: 3617.3550
+Samples left to generate: 100/100Samples left to generate: 52/100Samples left to generate: 4/100<class 'networkx.utils.decorators.argmap'> compilation 8:4: FutureWarning: normalized_laplacian_matrix will return a scipy.sparse array instead of a matrix in Networkx 3.0.
+Saving the generated graphs
+Generated graphs Saved. Computing sampling metrics...
+Computing sampling metrics between 100 generated graphs and 146 test graphs -- emd computation: False
+Building networkx graphs...
+Computing degree stats..
+Computing spectre stats...
+Computing clustering stats...
+Computing orbit stats...
+Computing all fractions...
+Sampling statistics {'degree': 0.07024061311272911, 'spectre': 0.05308552628913388, 'clustering': 1.134737574319782, 'orbit': 0.047106469108221645, 'sampling/frac_unique': 1.0, 'sampling/frac_unique_non_iso': 1.0, 'sampling/frac_unic_non_iso_valid': 0.0, 'sampling/frac_non_iso': 1.0}
+Done testing.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch\=279.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=279.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=279.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric SumExceptBatchMetric was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
+  warnings.warn(*args, **kwargs)
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit max150 uniform', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=279.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit', 'remove_h': None, 'sample': 'eco'}}
+222 reddit
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9735, 0.0265])
+DataBatch(x=[1800, 1], edge_index=[2, 6624], edge_attr=[6624, 2], y=[12, 0], batch=[1800], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 7, 'E': 2, 'y': 12} {'X': 1, 'E': 2, 'y': 0}
+Starting test...
+Epoch 0: Test NLL 2152.48 -- Test Atom type KL 0.00 --  Test Edge type KL: 4.28
+Test loss: 2152.4817
+Samples left to generate: 100/100Samples left to generate: 52/100Samples left to generate: 4/100<class 'networkx.utils.decorators.argmap'> compilation 8:4: FutureWarning: normalized_laplacian_matrix will return a scipy.sparse array instead of a matrix in Networkx 3.0.
+Saving the generated graphs
+Generated graphs Saved. Computing sampling metrics...
+Computing sampling metrics between 100 generated graphs and 146 test graphs -- emd computation: False
+Building networkx graphs...
+Computing degree stats..
+Computing spectre stats...
+Computing clustering stats...
+Computing orbit stats...
+Computing all fractions...
+Sampling statistics {'degree': 0.03556590836673923, 'spectre': 0.0054955933370954835, 'clustering': 0.07917086477208946, 'orbit': 0.036538075726986606, 'sampling/frac_unique': 1.0, 'sampling/frac_unique_non_iso': 1.0, 'sampling/frac_unic_non_iso_valid': 0.05, 'sampling/frac_non_iso': 1.0}
+Done testing.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch\=299.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=299.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=299.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric SumExceptBatchMetric was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
+  warnings.warn(*args, **kwargs)
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit max150 uniform', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/epoch=299.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit', 'remove_h': None, 'sample': 'eco'}}
+222 reddit
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9735, 0.0265])
+DataBatch(x=[1710, 1], edge_index=[2, 6604], edge_attr=[6604, 2], y=[12, 0], batch=[1710], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 7, 'E': 2, 'y': 12} {'X': 1, 'E': 2, 'y': 0}
+Starting test...
+Epoch 0: Test NLL 1697.18 -- Test Atom type KL 0.00 --  Test Edge type KL: 3.37
+Test loss: 1697.1838
+Samples left to generate: 100/100Samples left to generate: 52/100Samples left to generate: 4/100<class 'networkx.utils.decorators.argmap'> compilation 8:4: FutureWarning: normalized_laplacian_matrix will return a scipy.sparse array instead of a matrix in Networkx 3.0.
+Saving the generated graphs
+Generated graphs Saved. Computing sampling metrics...
+Computing sampling metrics between 100 generated graphs and 146 test graphs -- emd computation: False
+Building networkx graphs...
+Computing degree stats..
+Computing spectre stats...
+Computing clustering stats...
+Computing orbit stats...
+Computing all fractions...
+Sampling statistics {'degree': 0.03364517577658965, 'spectre': 0.005531262647998858, 'clustering': 0.07268020013001464, 'orbit': 0.034871346487459834, 'sampling/frac_unique': 1.0, 'sampling/frac_unique_non_iso': 1.0, 'sampling/frac_unic_non_iso_valid': 0.02, 'sampling/frac_non_iso': 1.0}
+Done testing.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/last-v1.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/last-v1.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/last-v1.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric SumExceptBatchMetric was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
+  warnings.warn(*args, **kwargs)
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit max150 uniform', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_maxN150/checkpoints/reddit_maxN150/last-v1.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit', 'remove_h': None, 'sample': 'eco'}}
+222 reddit
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9735, 0.0265])
+DataBatch(x=[1800, 1], edge_index=[2, 7092], edge_attr=[7092, 2], y=[12, 0], batch=[1800], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 7, 'E': 2, 'y': 12} {'X': 1, 'E': 2, 'y': 0}
+Starting test...
+Epoch 0: Test NLL 2168.78 -- Test Atom type KL 0.00 --  Test Edge type KL: 4.32
+Test loss: 2168.7786
+Samples left to generate: 100/100Samples left to generate: 52/100Samples left to generate: 4/100<class 'networkx.utils.decorators.argmap'> compilation 8:4: FutureWarning: normalized_laplacian_matrix will return a scipy.sparse array instead of a matrix in Networkx 3.0.
+Saving the generated graphs
+Generated graphs Saved. Computing sampling metrics...
+Computing sampling metrics between 100 generated graphs and 146 test graphs -- emd computation: False
+Building networkx graphs...
+Computing degree stats..
+Computing spectre stats...
+Computing clustering stats...
+Computing orbit stats...
+Computing all fractions...
+Sampling statistics {'degree': 0.026278041004672792, 'spectre': 0.006562993762808, 'clustering': 0.08092189828022, 'orbit': 0.03545201917177336, 'sampling/frac_unique': 1.0, 'sampling/frac_unique_non_iso': 1.0, 'sampling/frac_unic_non_iso_valid': 0.02, 'sampling/frac_non_iso': 1.0}
+Done testing.
+============================================================================================================

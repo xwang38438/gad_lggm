@@ -1,0 +1,2553 @@
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\=169.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=169.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=169.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=169.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1800, 64], edge_index=[2, 6696], edge_attr=[6696, 2], y=[12, 0], batch=[1800], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 81467.24 -- Test Atom type MSE 9.98 --  Test Edge type MSE: 48.33 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2834.35 -- Test E Reconstruction loss 57620.74 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 81467.2422
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([38, 55,  9, 34, 47, 58, 17, 56, 55, 36, 14, 25, 46, 41, 49, 49, 47,  7,
+        12,  4, 37, 47, 43, 19, 22, 12, 17,  8, 32, 39, 35, 60, 51, 56,  2,  3,
+        30, 38, 23, 12, 12, 56,  6,  4, 45, 48, 36,  7, 50, 17, 62, 39, 59, 41,
+        60,  8, 41, 30, 21, 10, 21, 34, 44, 14, 38, 61, 23, 17, 54, 54, 22, 48,
+        36,  9, 35, 19,  0, 20, 11, 14, 56, 21, 24, 18, 30, 50, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 46, 54, 38, 49, 13, 54, 23, 40, 40,  9, 34, 11, 31, 17,  2, 50, 38,
+        48,  0, 44, 52, 16, 48, 11,  8, 34, 34, 13, 48, 60, 30, 45, 20, 32,  3,
+        63,  1, 54, 20, 12, 26, 59, 11, 24, 34, 25, 27, 57, 32, 23,  1, 17, 19,
+        49, 38, 49, 14, 25, 17, 25, 46, 41,  7, 17, 52, 63,  4, 23,  2, 11, 63,
+        12, 31, 19, 13, 44, 50, 23, 46, 38, 44, 25,  5, 19, 30, 19, 25, 34,  2,
+         1, 38, 39, 55, 20, 10, 38, 52, 25, 60, 53, 19, 13,  4, 32,  4, 31, 30,
+        41, 10, 48, 12, 38,  1, 12, 38, 62, 47, 36, 48, 49,  2, 45, 47, 38, 12,
+        19,  4, 60,  6,  7,  1, 45, 33, 46, 37, 18, 63,  2, 14, 12, 40, 13, 46,
+        18, 14, 38, 40,  3, 46], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([31, 36, 40, 31, 34, 40, 49, 38,  2, 45, 52, 41, 11, 56, 51, 38, 61, 55,
+        50, 10,  2, 58, 51, 49, 62, 41, 49,  4, 50, 19, 61, 45, 19, 39, 49,  6,
+        14, 28,  4, 21,  7,  5, 12, 60, 34,  3, 50, 22, 51,  2, 11, 11, 38,  1,
+        48, 49,  6, 61, 11, 13, 48, 61, 38, 46, 52, 41, 63, 40,  9, 45, 61, 50,
+        10, 45, 19, 32, 13, 48, 27, 38,  1, 45, 28, 26, 38, 34, 63, 38, 63, 54,
+        45, 14, 47,  0, 63, 36, 52,  3, 45, 38, 21, 41, 40, 48, 11, 38, 52, 41,
+        14, 47,  6, 49, 19, 58,  5, 49, 59, 41,  6, 15, 49, 23, 38, 14, 52, 33,
+        10, 46, 40, 63, 40, 45, 48, 19,  4, 26, 11, 41, 27, 13, 22,  1, 41, 32,
+        20, 60, 21, 12, 52, 12], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([61, 29, 21,  8, 13, 36, 26, 47, 45, 47,  1, 59, 11, 21, 24, 57, 32, 12,
+        24, 45, 49, 45, 32, 56, 35, 32, 19, 54, 32, 49, 47, 41, 35, 49, 59, 11,
+         4, 25, 46, 54, 38, 20, 12, 62, 32,  6, 19, 47, 45, 54, 26, 17, 26, 14,
+        41,  3, 44, 23, 45, 12, 60, 46,  8, 14, 13, 46, 45, 23, 17, 52, 23, 38,
+        46, 23, 11, 45,  3, 50, 28, 12, 24, 25,  1, 59, 18,  3, 28, 47, 49, 63,
+        41, 31, 34, 38, 11,  6, 17, 34, 31, 45, 47,  8,  0, 45,  1, 45, 19, 27,
+         7, 19, 41, 60, 13, 45, 59, 33,  4, 27, 45, 17, 11, 47,  8, 34, 56, 18,
+        54, 19,  6, 62, 46, 49, 44, 50, 58, 63,  5, 34, 48,  0, 36, 14, 43,  5,
+        14, 40, 57, 25, 38, 58], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([31, 58, 59, 61, 36,  9, 48, 47,  7, 12,  8, 25, 12, 41, 49, 47, 48, 58,
+        49, 21, 46, 53, 49, 62, 51, 28, 46, 11, 19, 52, 46,  9, 25, 36, 38, 56,
+        49, 46, 60, 41, 60, 63, 38, 24, 35, 19,  4, 58, 40,  4, 17, 28, 27, 47,
+         9, 48, 47,  2, 14, 47, 48, 63, 57, 17, 48, 51, 50, 19, 47, 21, 30, 62,
+        19, 10, 25, 11,  8, 48, 63,  2, 47, 51, 62, 24, 62,  9,  4, 22, 18, 38,
+         9, 20, 22, 56,  8, 55, 46, 20, 19, 34, 24, 32, 59,  6, 59, 38, 25, 22,
+        48, 52, 40, 42, 60, 38, 47,  2,  4, 25, 56, 19, 44, 47, 41, 13, 41,  5,
+        19, 49, 63, 30, 24,  4,  3, 25, 17, 61, 62, 12, 22,  7, 52,  5, 49, 22,
+        21, 36, 47, 25, 47, 56], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 2, 34, 56, 14, 21, 47, 35, 24, 61, 52, 28, 58, 25, 49, 18, 19, 40,  3,
+        48, 36, 27, 38, 54, 32, 23, 34, 31, 49, 22, 41, 23, 44, 22, 40, 34, 12,
+        46, 24,  0, 46, 48,  0, 45, 31, 54, 51, 61, 29, 26, 25, 11, 62,  4,  1,
+        59, 24, 41,  4, 48, 11, 34, 60, 63, 26,  7,  7, 18, 33, 46,  4, 25, 25,
+        29, 45, 27,  4, 34, 13, 61, 63, 23, 31, 46, 32,  4, 62, 41, 21, 52,  7,
+        50, 49, 54, 20,  3,  9, 12,  9,  6, 20, 38, 46, 14, 12, 30, 58, 47, 19,
+        59, 52, 19, 45, 22, 22,  3, 51, 48,  1, 16,  2, 11,  3, 58, 13, 41, 46,
+        25, 63, 36, 24, 58, 24, 34,  6, 38,  3,  8, 22, 33, 22,  3, 27, 32,  4,
+        49,  8, 47, 56, 14, 48], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([45,  2, 61, 31, 41, 16, 52, 45, 48, 14, 62, 31,  3, 29, 15, 41, 45, 35,
+        18, 40, 54, 27, 36, 59, 45, 19, 52, 23, 26, 23, 45, 29,  4, 15, 12,  2,
+         2, 38,  8, 58, 31, 23, 26,  0, 49,  6, 48, 41, 25, 23, 19, 12, 38, 32,
+        13, 21, 22, 23, 25, 36, 48, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([34, 46, 36, 39, 40,  8, 48, 61, 46, 31, 45,  3, 47, 38, 59, 61, 21, 24,
+        40, 27, 41, 47, 56, 48, 41,  8, 12, 24, 31, 27, 36, 38, 20, 12, 25, 24,
+        35, 11, 51, 14, 63, 24, 30, 53, 41, 33, 50, 63, 46, 49, 17, 22, 36, 32,
+        24, 27, 62,  1, 19, 27, 35,  5, 34, 12, 63, 31,  6, 41, 56, 49, 60, 45,
+        46, 34, 38, 41, 32, 46, 16, 46, 24, 15, 56,  7, 61, 19, 49, 26, 49, 33,
+        19, 27, 24, 61, 46, 46, 24, 38, 17, 27, 27, 32, 40, 21, 35, 50, 46, 21,
+         4, 50, 35,  2, 27,  4, 25, 27, 19, 19, 54,  5,  8, 14, 24, 12, 45, 47,
+        25, 12,  4, 21, 63, 63, 48, 24,  2, 49, 50, 47, 35,  7, 30, 38, 23, 26,
+         4,  6,  6, 52, 33,  2], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41,  0, 28, 38, 41, 38, 48, 30, 34, 59, 38, 12, 53, 34, 17, 56,  5, 26,
+        20,  4,  0, 54, 20, 34, 45,  4, 60, 12, 63, 48, 24, 11, 39, 31, 49, 23,
+        38, 59, 62, 46, 24,  6, 58,  9, 40,  7, 32, 63, 47, 34, 49,  0, 34, 36,
+        44, 23,  4, 18, 38, 41, 20, 24, 56, 62, 38, 12, 21,  5, 60, 37, 26, 11,
+        31, 36, 63, 14,  5, 23, 21, 62, 25, 23, 22, 36, 23, 41, 22, 59, 24, 60,
+        58, 13, 58, 23, 18,  4, 46, 23,  7, 18, 49, 23,  6, 11, 48, 63, 21, 17,
+         1, 49, 38, 17, 32, 37, 23, 63, 49,  5, 13, 11, 49,  4, 45, 13, 19, 27,
+         3, 25, 27,  3, 63, 31, 24, 41, 46, 28, 45,  0, 32, 48,  4, 31,  5,  8,
+        52, 26, 37, 13, 62, 56], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([38, 21,  7, 58, 19,  7, 47, 33, 47, 46, 32, 41, 31,  4, 41, 57,  5, 34,
+        47, 12, 23, 61, 11, 19, 47, 34, 21, 24,  7, 34, 34, 63, 48, 34, 32, 46,
+        49, 46, 27, 20, 48, 40, 36, 47, 54,  6, 11, 38, 35, 47,  8,  4, 44, 62,
+        24, 12,  6,  4, 24, 19, 63,  6,  2, 26,  4, 49,  2, 45, 55, 63, 48, 40,
+         0, 34, 34,  2, 34, 46, 11, 35, 49, 14, 40, 37, 24, 52,  4, 35, 49, 23,
+        53,  2, 14, 24, 14, 34, 24, 48, 11, 37, 45, 20, 59,  8, 14, 63, 12, 12,
+        38, 48, 19, 41, 12, 31, 29, 56, 12, 45, 46, 48, 28, 12, 62, 49, 38, 29,
+        41, 24, 34,  6,  6, 12, 22, 50, 26, 46,  7, 33, 47, 14, 51, 17, 34,  5,
+        14, 63, 29,  8, 30, 55], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([43, 38, 40, 15, 11, 63,  4, 40, 14, 32, 37, 41, 18, 45, 46, 60,  8,  8,
+         3,  1, 45, 31, 24,  4, 62, 43, 31, 32, 21, 23, 36, 34, 32, 23, 33, 35,
+        21, 50, 31, 27, 38, 38, 44,  3,  1, 20,  7,  3, 45, 29, 15,  7, 23,  3,
+        56,  0, 63, 55, 31, 23, 46, 31, 49, 40, 52, 59, 31, 56,  0,  0, 12, 32,
+         4, 29, 41, 36,  1, 36, 50, 12,  4, 54, 34, 47, 37, 45, 13, 34,  6, 31,
+        38, 58, 32, 34, 18, 31, 25, 47, 49, 30,  5, 59, 49,  8, 48, 11, 12,  1,
+        32, 40, 44, 14, 21, 33, 40, 27, 45,  2, 38, 40, 35, 31,  1, 10, 49, 38,
+         4, 51,  3, 60, 45, 31, 50, 14, 23, 31, 43, 48, 63,  6, 17, 30,  9, 32,
+        41, 15, 54,  3, 13, 12], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([60, 52, 17, 59, 46, 30, 35, 10, 63, 12, 23,  1, 41, 30, 55, 47, 62, 48,
+        45,  8, 52, 61, 49, 25, 36, 49,  5, 12, 38, 21, 33, 39,  1, 19, 27, 41,
+        61, 23,  2, 24,  2, 62, 43, 61, 56, 22, 11, 34, 62, 40, 50, 19,  2, 61,
+        62, 50, 32,  7,  3, 46, 58, 31, 11, 13, 43, 48, 62, 45, 48, 61, 61, 59,
+        12, 24, 62, 45, 17, 20, 25, 52, 40, 47, 37, 23, 52, 49, 26, 41, 63, 17,
+        24,  6, 45,  9, 41, 32, 33,  3, 32, 52, 58, 62, 63,  3, 38,  4,  0,  1,
+        63,  8, 52, 17, 63, 45, 60, 38, 61, 46, 47, 32,  0, 49, 40, 32,  5,  0,
+         5, 41, 26, 14, 24, 58, 34, 45, 47, 61, 33,  8, 45, 47, 23,  9, 41, 40,
+         5, 45, 47, 59, 45, 62], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([12, 31, 59, 14, 30, 32, 49,  0, 58, 28,  2, 14, 59, 35, 13,  5, 46, 22,
+        37, 21, 48,  2, 34,  8, 40, 46, 50, 38, 45, 19, 25, 14, 55, 46, 63, 54,
+        50, 11, 32, 52, 12, 52, 23,  4, 11,  4, 37, 48,  3, 30, 23, 38,  5, 23,
+        25,  2, 19, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([25,  3, 16, 12, 36,  2, 59, 49, 22, 49, 43, 33,  3,  6, 33,  0, 49, 28,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([30, 32,  6, 56, 51, 52, 11, 29, 16,  1, 38, 13, 44, 60, 34, 13, 30, 30,
+        59, 36,  9,  1, 18, 62, 27, 19, 24, 29,  6, 24, 10, 46, 15, 28,  8, 41,
+        47,  4, 49, 33, 62, 59, 31, 38, 11, 36, 21, 62, 34,  5, 24, 60, 62, 25,
+        41,  0, 40, 41,  4, 10, 41, 13, 26, 17, 22,  2, 62, 38, 49, 59, 40,  0,
+        19, 23, 31, 23, 37, 21, 49, 47,  1, 19, 62,  9, 62, 41, 38, 46,  8, 27,
+        11, 20, 61, 46, 59, 56, 36, 62, 49,  2, 48,  8, 56, 49, 15, 41, 18, 12,
+        60, 24,  1, 61, 63, 40,  4, 49, 14, 26,  0, 62, 12, 36, 62, 31, 56, 34,
+        30, 62,  3, 14, 47,  6,  0, 11, 11, 13,  6, 39, 41, 62, 19, 35, 38, 48,
+        10, 27, 19, 39, 49,  0], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 41, 47, 32, 24, 48, 62, 41, 12, 38, 49, 46,  7, 24, 21, 40, 13, 32,
+        30, 23, 45, 41, 17, 19, 12, 30, 54, 41,  4,  9, 13, 41, 48, 48, 59, 24,
+        14, 62, 54, 13, 34, 12, 35, 37,  6, 31, 47, 52, 21,  2, 23, 49, 26, 40,
+         0, 63,  4, 63, 48, 62, 46, 29, 12, 33, 54, 38, 35, 32, 15, 21, 63, 49,
+        41, 23, 27, 62,  5, 61, 47, 48, 17, 30, 62, 23,  6, 17, 34, 38, 52, 62,
+        10, 25, 47, 27, 38, 34, 12,  2, 11,  6, 60, 45, 24, 36, 41,  4,  6,  1,
+         7, 41, 47, 36, 19, 49, 63, 63, 47, 17, 57, 63, 49, 21, 61, 59, 38, 62,
+        28, 31, 27,  3, 31, 41, 45,  6, 38, 24, 24, 15, 44, 61, 27, 46, 29, 24,
+        49, 62, 22, 26, 60, 32], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 47, 44, 29, 19, 23, 24, 54, 14, 44,  1, 33, 49, 45, 41, 12, 32, 52,
+        19, 41,  5, 21, 17, 14,  5,  5, 59, 55, 31, 36, 11, 45,  5, 40, 13, 48,
+         0, 10, 12, 58, 60, 34, 63, 27,  7,  3, 49, 41, 26, 23, 14, 45, 61, 33,
+        21, 37, 54,  3, 49, 20,  6, 19, 33, 61,  9,  1, 22, 28, 49, 35,  1, 49,
+        15, 52, 47, 13, 32, 38, 14, 49, 33,  0, 27,  4, 32, 43,  1, 34, 49, 44,
+        61, 19,  3, 49, 59, 60, 36, 45, 19, 40, 11,  3, 41, 49, 17,  6, 38, 62,
+        52, 11, 54, 43, 24,  6, 62, 53, 19, 59, 38, 45, 19, 17, 45, 61, 39, 21,
+        49, 38, 27, 19, 35, 25, 24, 60, 22, 62, 60,  1, 27, 63, 19, 21,  4, 49,
+         4, 19,  5, 11, 27,  6], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([15, 11, 33, 13, 48, 11, 49,  2, 55,  7, 58, 60, 19, 54, 12,  7,  4, 15,
+        50, 38,  4, 39, 12, 11,  5, 13, 26,  4, 37,  2,  1, 14, 30,  3, 61, 23,
+        58, 23,  9,  3,  1, 52, 30, 37, 58, 55, 46, 47, 26,  2, 25, 49, 50, 50,
+        33, 62, 60, 49, 41, 15,  7, 36, 63, 19, 52, 45, 46,  3,  7, 25, 55, 46,
+         0, 36,  6, 23, 12, 12, 36, 45,  0, 49, 50,  0, 23, 46, 54, 46, 14, 37,
+         9, 40, 63,  4, 50, 46,  8, 23, 16, 27, 49, 49, 49, 48, 19, 34, 13, 48,
+        23,  6,  0, 44,  2, 49,  9, 46, 46, 11, 62, 27, 45, 59,  3, 52, 28,  3,
+        23, 49, 46, 12, 45, 46, 61, 45, 20, 34, 49, 48, 38, 12, 12, 59, 45,  1,
+         1, 35, 62, 48, 34,  0], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 3, 60, 45, 34, 36, 32, 45, 22, 23, 32, 27,  6, 34, 44, 48, 34,  4, 47,
+         3, 56, 52, 35, 32,  4, 22, 25, 63, 32, 52, 13,  7, 60, 19, 51, 38, 54,
+        13, 49, 50,  2, 29, 52,  4, 26,  6, 38, 48, 44, 31, 28, 35, 47, 34,  8,
+        47, 63, 23, 38, 18, 41, 60, 38, 38, 12,  4, 31, 38, 24, 19, 15, 19, 53,
+        62, 58, 34,  1, 58, 42, 41, 25, 24, 40,  1, 55, 17, 39, 51, 58, 46,  2,
+         1, 58, 12, 23, 31, 27, 23, 41, 41, 23,  1, 25,  4,  5, 23, 46, 36, 59,
+        13,  7, 49, 13, 19, 14, 35, 54, 60, 63, 19, 25, 46, 54,  1,  8, 38, 60,
+        48,  4, 29, 23, 17, 24, 17, 63, 14,  6, 52, 25, 63,  0, 50, 48, 61, 54,
+        23, 40, 31, 22, 11, 33], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([50, 35, 59, 26, 24, 60, 16, 19,  5, 25, 45, 48, 23, 46, 40, 15, 38,  5,
+        47, 60, 21,  2, 16, 11, 19,  6, 40, 62, 43, 54, 32, 47, 26, 40, 35, 17,
+        28, 11, 10,  6, 13, 41, 15, 60, 61, 23, 14, 60, 20, 36, 32, 31, 23, 21,
+        40, 63, 34, 14, 49, 36, 31, 46,  5, 45, 45, 31,  6, 59, 33, 39, 27, 45,
+        11,  4, 18, 32, 23, 41, 60, 50, 47, 24, 31, 28,  1, 41,  2, 21, 45, 33,
+        31, 47,  8, 45, 24, 45, 43, 48, 32, 45, 34, 16,  5,  1, 25,  4, 62, 26,
+        12, 11, 21,  6, 25, 52, 21, 45,  5, 45, 59,  3, 60,  6, 19,  6, 63, 63,
+        46, 21, 36, 47, 23, 25, 17, 34, 26,  5,  3, 11, 19, 48, 23, 56, 22, 35,
+        19,  7,  6, 11, 14, 23], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([30, 46, 47,  1, 23, 26, 12, 49, 27, 63, 23, 34, 20, 63, 30, 56, 58, 49,
+        37, 42, 38, 30, 13, 52, 31, 29, 11, 57,  5, 47, 59, 45, 19, 48, 36,  1,
+        10,  5, 46, 52, 29, 45, 60,  5, 60,  1,  8, 25,  3, 15, 62,  4, 49, 19,
+         2, 30,  4,  8, 56, 27, 48,  9, 46,  7, 11,  0, 56, 41, 12, 55, 23, 48,
+        47, 40, 31, 52, 52, 30, 24, 28, 34, 46, 45, 59,  3, 22,  4, 59, 18, 28,
+        54, 47, 37, 44, 25, 23, 25, 13, 46, 10, 62, 12, 32, 24, 48, 14,  4, 62,
+        56, 63, 24, 25,  9, 25, 12, 60, 47, 40, 58, 49,  1, 31,  7, 49, 40, 19,
+         8, 12, 17,  1,  0, 47, 45, 38,  2, 17, 23, 49, 62, 34, 30, 32,  1, 49,
+        24,  6, 31, 41, 59, 21], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 59, 62, 49, 11, 47, 51, 49, 24, 43,  2,  5, 52, 62, 19, 24, 13, 12,
+        60,  1, 57, 52, 24, 62,  2,  2, 24,  4, 27, 52, 17,  3, 38, 48, 29, 17,
+        49, 41,  6, 24, 38, 59,  9, 23, 23, 61, 61, 23, 58, 46, 36, 44, 49, 36,
+        47, 56, 34, 41,  3, 40,  3, 29,  5,  1, 63, 48,  6, 48, 47,  2, 40,  6,
+        54, 47,  7, 32, 52, 46, 56,  3, 62, 47,  3, 47, 36, 61, 46, 12, 34,  0,
+        12, 45, 25,  6, 62, 41, 32, 60, 56,  3, 61, 56, 49, 47, 41, 60, 24, 19,
+        11,  4,  0, 46, 46, 41, 19,  6, 46, 49, 27, 32, 12,  1, 52, 20, 10,  2,
+        49, 49,  8, 23, 19, 40, 32,  2, 44, 41, 14, 49, 41, 23, 34, 61, 32, 61,
+        54, 34, 13, 13, 22, 63], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([49, 47, 48, 49, 45, 40, 39, 45, 38, 34, 33, 62, 54, 38, 16, 24, 10, 24,
+        62, 60, 50, 40,  5, 40, 40, 32, 45, 11, 51,  0,  5, 52, 46,  8, 40, 56,
+        17, 33,  0, 48, 13, 36, 62, 48, 61, 57,  1, 48, 26, 10, 56, 14, 45, 49,
+        63, 59,  5,  1,  6, 36, 16, 56, 12, 48, 34, 31, 55, 44, 45, 25, 28, 23,
+        45, 22, 36, 62, 21, 37, 62, 32, 62, 40, 46, 38,  2, 35, 58, 31,  1, 47,
+        13, 14,  4,  2, 24, 47, 63, 59, 21, 50, 42, 18, 62, 21, 46, 63, 32, 37,
+        29, 62,  5, 46, 34, 35, 48, 49, 60, 45, 46, 12, 32, 21, 26, 12, 47, 12,
+        12, 28, 38, 59, 47, 59, 62, 22, 54, 47, 14,  0, 35, 17, 23, 47, 20, 41,
+        46,  7, 40, 41, 62, 38], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([58, 29, 39, 36,  5, 45, 19, 19, 41, 46, 57,  4,  2, 59, 46, 45,  2, 30,
+        23, 41, 46, 23, 11, 28, 12,  0, 58, 38, 12,  2, 19, 46,  4, 20, 19, 19,
+        48, 32, 17,  2, 58, 32,  3, 59,  8, 48, 24, 47, 25, 19, 32, 36, 59, 26,
+        48, 40,  1, 55, 14,  0, 32,  4,  0, 48, 24, 12, 34, 23, 38, 14, 38, 21,
+         3, 50, 19,  7, 50, 27, 35, 32, 45,  4, 36,  4,  4, 36, 17, 25, 40,  1,
+        49, 38, 61,  9, 41, 32, 19, 12,  3, 20,  4, 61, 34, 20, 12, 25, 45, 49,
+        62, 48, 49, 34, 52, 36, 62,  4, 47, 19, 23,  5, 14, 23,  1, 11, 19, 45,
+        35,  0, 63, 38, 27, 17, 28, 46, 26, 19, 56, 10, 48, 41, 41, 18, 22, 58,
+        12, 34, 56,  5, 49,  1], device='cuda:0')
+Error executing job with overrides: ['dataset.name=reddit_v2', 'general.name=test_reddit_v2_X', 'model.transition=uniform', 'general.wandb=disabled', 'general.ckpt_path=/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\\=169.ckpt', 'train.batch_size=12', 'general.setting=test']
+Traceback (most recent call last):
+  File "/home/allenwang/gad_diff/gad_lggm/src/main_test.py", line 78, in main
+    trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 737, in test
+    return call._call_and_handle_interrupt(
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 780, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 975, in _run
+    results = self._run_stage()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run_stage
+    return self._evaluation_loop.run()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 122, in run
+    return self.on_run_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 244, in on_run_end
+    self._on_evaluation_epoch_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 326, in _on_evaluation_epoch_end
+    call._call_lightning_module_hook(trainer, hook_name)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 140, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/allenwang/gad_diff/gad_lggm/src/diffusion_model.py", line 302, in on_test_epoch_end
+    self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LiftedDenoisingDiffusion' object has no attribute 'name'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\=229.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=229.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=229.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=229.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1800, 64], edge_index=[2, 7964], edge_attr=[7964, 2], y=[12, 0], batch=[1800], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 88470.24 -- Test Atom type MSE 9.61 --  Test Edge type MSE: 98.30 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2834.88 -- Test E Reconstruction loss 52225.19 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 88470.2422
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([36,  1, 63, 41, 61, 38, 13, 41, 19, 39, 60, 34, 58, 49, 41, 45, 20, 32,
+        57, 20, 63, 50, 22, 33, 57,  1, 62, 56, 61, 11, 17, 58, 41, 50, 38, 17,
+        43, 61, 30, 55,  3, 17, 15, 14, 52, 10,  1, 54, 15, 43, 17, 19, 16, 38,
+        13,  5, 26, 16, 38, 62, 43, 14, 50, 45, 46, 17, 45, 46,  8, 57, 60, 26,
+        45, 38, 45, 17, 54, 14, 10, 38, 17, 55, 17, 52, 17, 17, 31,  5, 14, 43,
+         3, 36, 38, 41, 41, 43, 55, 17,  4, 45, 41, 30, 27, 58, 43, 45, 38, 41,
+        19, 43, 13, 26, 30, 14, 43, 38, 24, 43, 38, 24,  0, 53, 14, 62, 52, 16,
+        45, 26, 30, 60, 17,  8, 14, 16, 27, 50, 40, 38, 38,  9, 38, 43, 55, 61,
+        43, 43,  2, 36, 26, 38], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([20, 41, 45, 45, 17,  1, 48, 15, 62, 26, 21, 11, 45, 38, 61, 17, 63, 31,
+        41,  1, 27, 14, 26, 62, 16, 56, 20, 45, 45, 20, 18, 45, 17, 31, 45, 41,
+        13, 12, 45, 16, 22, 29, 17,  0, 58,  9, 58, 20, 63, 15, 13, 53, 29, 16,
+         4, 16, 14, 24, 14, 16, 58,  9, 38, 20, 44, 38, 14, 39, 62,  6, 41, 17,
+        63, 47, 45, 24, 61, 55, 16,  3, 46, 41, 62, 41, 41, 62, 12, 16, 58, 17,
+        56, 43, 58, 41, 14, 61, 17,  1, 26, 41, 27, 37, 39, 14, 25, 15, 32, 45,
+        62, 16, 23, 17, 41, 55, 26, 26, 16, 57,  5, 43, 43, 17, 45,  0, 15, 21,
+        14, 43, 54, 62, 16, 22, 23, 39, 46, 50, 46, 46, 58, 14, 16, 62, 30,  4,
+        41, 45, 17, 60, 61, 30], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0]], device='cuda:0')
+X:  tensor([43, 45, 14, 43, 58,  5, 41, 13,  5, 45, 38, 50, 41, 26, 24, 46, 14, 62,
+        41, 45, 10, 14, 38, 43,  1, 17, 41, 41, 58, 26, 26, 15, 45, 34, 61, 43,
+        45,  6, 41, 16, 49, 52, 41, 50, 43,  4, 41, 14, 14, 56, 18, 45, 52, 38,
+        17, 43, 45, 33, 38, 51, 27, 43, 27, 18, 18, 61, 62, 22, 45, 45, 52, 41,
+        10,  8, 26, 32, 43, 45, 43, 63, 17, 43, 41, 57, 10, 22, 49,  8, 60, 62,
+         2, 19, 20, 41, 18, 20, 45, 60,  8, 63, 58, 38, 43,  8, 45, 43, 41,  8,
+        22, 45, 19, 24, 56, 62, 13, 61,  3, 17, 57, 41, 45, 57, 33, 24, 15, 45,
+        22, 45, 38, 18, 38, 62, 22, 50, 27,  1, 41, 61, 17, 38,  1, 41, 52, 19,
+        43, 38, 61, 58, 38, 16], device='cuda:0')
+E tensor([[0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([63, 50, 45, 22, 45, 26, 41, 17, 59, 41, 14, 15, 61, 46, 45, 58, 21, 20,
+        50, 34, 43,  1, 62, 45, 31, 10, 26, 20, 37, 51, 19, 17, 43, 43, 24, 41,
+        43, 31,  3, 13, 38, 43, 43, 62, 41, 45, 52, 62, 11, 62, 14, 45, 43, 45,
+        41, 30, 52,  1, 10, 43, 18, 45, 16, 16, 18, 27, 41, 16, 45, 21, 27,  9,
+        41, 45, 17, 45, 45, 46, 27, 19, 26, 45, 20,  1, 27, 30, 62, 43, 26, 43,
+         5, 11, 45, 31, 45, 60, 43, 45, 56,  8,  1, 63,  4, 16, 17, 20, 38, 17,
+        17, 29, 32, 17, 63, 45,  9, 32, 34, 45, 29, 26, 27, 45,  8, 58, 52,  1,
+        49, 50, 41, 54, 27, 11, 62, 22, 45, 43, 62, 31,  5, 32, 45, 45, 54, 16,
+        13, 38, 16, 32, 16, 45], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([17, 61, 16, 13, 47, 39, 30, 31, 42, 58, 16, 14, 15, 41, 23, 45, 20, 41,
+        22, 22, 58, 38, 61, 58, 41, 27, 39,  8, 12, 50, 43, 45, 27, 22, 31, 27,
+        56,  8, 14, 31, 22, 17, 17, 22, 43, 58, 43, 32, 45, 13, 32, 19, 35, 39,
+        45,  5, 26, 38, 34, 46,  8, 49, 61, 44, 61, 14, 38, 43,  8, 14, 22, 62,
+        10,  9, 17, 31, 43, 62, 32, 32, 54, 45, 18, 45, 19, 28, 18, 17, 58, 54,
+        43, 16,  2, 41, 52, 18, 27, 45, 22, 53, 55, 39, 32, 38, 24, 51, 14, 20,
+        41, 57, 17, 51, 14, 63, 58, 58, 43, 41, 14, 41, 14, 51, 24, 17, 45, 24,
+        38, 38, 27, 57, 34, 38, 39, 45, 62, 63, 16, 41, 41, 41, 14, 26, 61, 43,
+        41, 17, 58, 40, 37, 31], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 1, 0,  ..., 1, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([45, 63, 45,  5, 62, 43, 16, 49, 38, 32, 49, 18, 34, 10, 17, 10, 22, 32,
+        33, 16, 58, 29, 45, 52, 49, 24, 41, 16, 38,  0, 14, 39, 22, 32, 47, 17,
+        32, 14, 61, 46, 56, 12, 14, 34, 20, 16, 14, 32, 52, 24, 41, 62, 59, 38,
+        14, 45, 45, 61,  5, 27, 32, 33, 20, 31, 19,  1, 41,  3, 62, 39, 32, 38,
+        14, 61, 45, 42, 51, 45, 33, 14, 38, 58, 24, 57, 38, 38, 22, 33, 41, 52,
+        22, 57, 13, 22, 41, 17, 46, 45, 17, 41,  3, 39, 52, 62, 58, 16, 55, 14,
+         8, 24, 45, 43, 43, 14, 16, 32, 17, 45, 45, 52, 17, 43, 32, 17, 30, 41,
+        33, 41, 41, 18, 50, 58, 48, 10, 41, 39, 61, 43, 63, 14, 24,  5, 46, 49,
+        46, 43, 14, 41, 24, 39], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 1, 0],
+        ...,
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([43, 45, 25, 46, 22, 38, 33,  5, 32, 16, 52, 31, 33, 45, 62, 32, 35, 53,
+        43,  1, 39,  7, 62, 45,  2, 45, 24, 41, 15, 14, 50, 14,  9, 58, 62, 41,
+        17, 57, 16, 45, 20, 23, 10, 62, 29,  9, 15, 24, 32, 20, 51,  7, 18, 39,
+        53, 31, 24, 22, 62, 43, 18, 43, 47, 41, 63, 16, 33, 18, 20, 16, 16, 45,
+        43, 49, 21, 52, 53, 52,  9, 62, 22, 31, 16,  8, 41, 30, 18, 57, 43, 17,
+        53, 45, 14, 55, 58, 51, 61, 17, 16, 48, 41, 41, 59, 14, 33, 18, 41, 52,
+         9, 45, 50, 26, 55, 43, 32, 57, 61, 58, 57, 38, 17, 19,  3, 43, 58, 32,
+        45, 16, 43, 46, 14,  2,  3, 24, 31, 14, 16, 18, 30, 26, 41, 45, 14, 17,
+        45, 62, 45, 30, 22, 34], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([33, 43, 45, 33, 52, 43, 20, 39, 27, 38, 53,  2, 32, 45, 30,  5, 27, 41,
+        17, 17, 46, 17, 58,  1,  3, 43, 43, 54, 54, 33, 43, 59, 43,  8, 16, 56,
+         4, 61,  9, 41, 27,  5, 43, 16, 41, 22, 49, 38, 17, 57, 41, 10, 21, 58,
+        13, 51, 52, 23, 17, 55, 41, 16, 13, 37, 10, 16, 18, 45, 41, 28, 41, 52,
+        24, 33, 45, 19, 42,  1, 13,  1, 46, 17, 43, 17, 41,  8, 17, 15, 41, 32,
+        45, 29, 19, 45, 16, 57, 17, 38, 41, 63, 43, 18, 32, 14, 53, 10,  8, 38,
+        52, 14, 10, 13, 38, 32,  4, 46, 29, 57,  9, 32,  5, 45, 16, 16, 30, 23,
+        43, 50, 44,  5, 43, 45, 45, 45, 38, 13,  9, 53, 52, 45,  1, 13, 41, 53,
+         4, 18, 32, 17, 61, 31], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([14, 27, 43, 41, 19, 26, 53, 41, 27, 31, 18, 58, 19, 33, 37, 20,  8, 58,
+        30, 59, 52, 45, 27, 41, 54, 45, 58, 24, 10, 45,  1, 43, 58, 22, 47, 61,
+        57, 45, 27, 16, 60, 62, 30, 52, 43, 43, 41, 17, 16, 44, 26, 45, 59, 45,
+        57, 10, 53, 17, 49, 42, 27, 58, 57,  8, 38, 33, 62, 58, 38, 63, 41, 29,
+         1, 41, 16, 51,  5,  1, 16, 41, 45, 14, 45, 14, 45, 56, 58, 45, 28, 17,
+        27, 45, 26, 60, 41, 19, 62, 39,  8, 19, 31, 62, 16, 29, 14,  9, 45, 33,
+         8, 54, 43, 33, 41, 17, 43, 29, 16, 57, 39, 62, 14, 41, 27, 43, 14, 39,
+        49, 43, 55, 62,  3, 38, 43, 58, 26, 48, 57, 45, 53, 60, 22, 50, 14, 17,
+        31,  3, 21, 62, 14, 16], device='cuda:0')
+E tensor([[0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 4, 45, 61, 30, 17, 26,  9, 45,  8, 45, 33, 41, 34, 49, 33, 32, 52,  6,
+        39, 33, 56, 41, 32, 58, 14, 40,  4, 34, 17, 57, 18, 18, 43, 24, 39, 50,
+        47, 32, 46, 45, 45, 24, 22, 41, 43, 17, 32, 58, 39, 33, 17, 17, 58, 32,
+        36, 29, 48,  2,  8,  4, 30, 17, 45, 27, 17, 62, 50, 58, 14,  1,  8, 41,
+        31, 45, 33,  8,  5, 34, 14, 32, 32, 49,  3,  9, 59, 17, 31, 17, 52, 41,
+        59,  1, 41, 43, 24, 43, 41, 57, 33, 58, 17, 14, 26, 17, 17, 39, 21, 45,
+        24, 26, 41, 24, 41, 57, 50, 46, 35, 38, 14, 18, 25, 41, 14,  2, 14, 45,
+        57, 32, 15,  1, 18, 43,  2, 18, 49, 41, 45, 24, 56,  1, 58,  8, 44, 51,
+        58, 45, 38,  2, 24, 45], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([45, 41, 62, 50, 18, 39, 50, 53, 29, 43,  9, 12,  9, 16, 23, 24, 41, 20,
+        31, 41, 17, 10, 52,  6, 45,  5, 39, 38, 39, 18, 45, 41, 47, 55, 39, 32,
+        27, 41, 43, 45, 50, 49, 38,  1, 24, 62, 25, 19, 30, 32, 33, 10, 30, 62,
+        62, 53, 53,  9, 17, 61, 22, 44, 30, 50, 45, 45, 38, 39, 43, 62, 38, 33,
+        45, 43, 43, 38, 41, 49, 22, 33, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([15, 18, 41, 14, 41, 52, 16, 43, 46, 53, 11, 18,  1, 45, 29, 18, 58, 53,
+         1, 18, 14,  1, 58, 24, 13, 41, 58, 27, 38, 50, 14, 53, 62, 57, 33, 45,
+        19, 48,  8,  1, 61, 47, 31, 19, 18, 18,  5, 62,  1, 38,  1, 20, 27, 48,
+        18, 32, 19, 57, 34, 18, 33,  1, 14, 38, 43, 13, 12, 22, 14, 38, 33, 31,
+        32, 43, 58, 38, 38, 16, 32, 21, 31, 14, 20, 41, 56, 18, 17, 17, 63, 17,
+        43, 58, 14, 61, 18, 20, 61, 18, 45,  5, 41, 58, 32,  3, 54, 26, 43,  8,
+        57, 62,  1, 43, 17, 45, 61, 54, 41, 55, 45, 45, 13, 17, 45, 26, 58, 14,
+        33, 54, 10, 62, 38, 61,  3,  1, 37, 58, 14, 13, 62, 43,  3, 62, 50,  5,
+        61, 38, 45, 41, 45,  9], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41, 45,  0, 53, 27, 16, 26, 17, 45, 13, 45, 43, 38, 20, 16,  5, 43, 46,
+        14, 45, 34, 40, 10, 31, 43, 20, 57, 45, 32,  5, 41, 43, 58, 52, 16, 12,
+        33, 16, 62, 44,  1, 45, 63, 16, 20, 16, 24, 41, 45, 14, 34, 20, 45, 20,
+        33, 46, 45, 27, 31, 32,  1, 41, 14, 16, 17, 38, 34, 55, 16,  9, 47, 14,
+        43, 17, 17, 41, 58, 37,  1, 22, 14, 16, 43, 38, 16, 62,  4, 32, 58, 46,
+        43, 41, 38, 43, 16, 48, 14, 16, 20, 39,  1, 33, 27, 35, 45, 57,  8, 17,
+        45, 47,  4,  4, 42, 62,  9, 41, 57, 38, 35, 45, 43, 17, 55, 18, 45,  6,
+        48, 20, 41, 16, 27, 16, 15, 10, 33, 31, 14, 45, 17, 11, 43, 63, 14,  3,
+        20, 45, 43, 32, 45, 22], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([62, 14, 56, 17, 33, 58, 43, 57, 17, 38, 58, 38, 43, 14, 31, 14, 41, 53,
+        38, 45, 16, 45, 17, 50, 56, 52, 58, 24, 43, 38, 21, 45, 25, 27, 46, 20,
+        53, 45,  6, 41, 62, 16, 26, 24, 14, 45,  9, 21, 39, 45, 22, 41, 43, 33,
+        45, 31, 16,  8,  1,  8, 49, 10, 55, 45, 17, 43, 43, 43, 43,  9, 41, 45,
+        26, 45, 43, 41, 31,  8,  7, 39, 32, 19,  8, 52, 62, 52,  8, 61,  9, 53,
+        43,  3, 18, 14, 17, 43, 16, 40, 63, 41, 14,  1, 54, 43, 38, 19, 10, 41,
+        61, 16, 34,  8, 45, 38, 27, 14, 62, 19, 39, 50, 53, 13, 41, 32, 42, 45,
+        39, 45, 38, 22, 16, 52, 57, 50, 10,  9, 34, 43, 41, 45, 52, 26, 16, 33,
+        45, 30, 44, 16, 23, 38], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([62, 52,  7, 34, 13, 24, 14, 50, 52, 62,  6, 43, 14, 41, 32, 36, 14, 24,
+        57, 33, 23, 46, 54, 55, 61, 50, 22, 41, 43, 20, 15, 45, 52, 63, 24,  6,
+        52, 13,  0, 29, 18, 45, 55, 39, 17, 52, 62, 16, 45, 32, 27, 38, 57, 45,
+         5, 43, 63, 32, 16, 57, 17,  0, 43, 43, 17,  8, 26, 41, 16,  8, 45, 63,
+        61, 17, 55, 41, 20,  1, 14, 46, 54, 52, 14,  8, 58, 58, 17, 33,  5, 52,
+        58, 45, 43, 22, 50, 45, 24, 63, 23, 45, 27, 24, 32, 51,  8, 38, 57,  5,
+        32, 26,  2,  0, 30, 52, 61,  0, 54, 17, 52,  1, 41,  9, 32, 33, 52,  9,
+        16,  1, 43, 57, 18, 41, 14, 43, 42, 53, 53, 50, 43, 38,  8, 16, 38, 41,
+        14, 43, 14, 41, 38, 14], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([50, 32, 41, 17, 47,  3, 45, 57, 45, 56, 41, 45, 27, 60, 29, 45, 44,  5,
+        58, 41, 16, 32, 26, 14, 17, 52, 31, 58, 53, 32, 32, 43, 60,  6, 48, 43,
+         5, 41, 10, 17, 58, 19, 58, 27, 41, 45, 33, 20, 43, 46,  1, 45, 19, 57,
+        43,  1, 43, 29, 32, 61, 39,  1, 10, 16, 41, 21, 63, 14,  9, 45, 18, 43,
+        19, 20, 52, 35, 38, 14, 54, 41,  6, 50, 20, 58, 63, 62, 20, 62, 41, 41,
+        61, 14, 42, 45, 45, 45, 43, 45, 14, 32, 45, 50, 16, 43, 10, 41, 41, 25,
+         5, 20, 14, 17, 17, 58, 27, 27, 55, 57, 20, 38, 26, 43, 24, 45, 20, 34,
+        57, 45, 16, 41, 43,  3, 15, 16,  4, 58, 43, 41, 19, 39, 43,  9, 27, 35,
+        57, 45, 57, 45, 27, 45], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41, 63, 45, 41, 46, 52, 24, 17, 16, 24, 46, 24, 42, 58,  9, 49, 26, 62,
+        17,  8,  2, 57, 60, 41, 16, 43, 27, 57, 61, 43, 43, 58, 14, 14, 53, 46,
+        14, 46, 62, 41, 16, 62, 24, 20, 13, 14, 45, 32, 57,  5, 30, 45, 26, 32,
+        33, 38, 39, 52,  6, 50, 14, 57, 43, 17,  5, 17, 53, 50,  5, 61, 58, 32,
+        37, 58, 14, 53, 10, 17, 45, 57, 17, 45, 30, 26, 14, 22, 26, 39, 38, 31,
+         4, 45, 52, 59, 41, 37, 45, 13, 31, 17, 14, 41, 41, 30, 45, 14, 48, 45,
+        43, 31, 38, 37, 41, 17, 32, 52, 32,  5, 43, 17, 53, 45, 53, 47, 10, 43,
+        60, 38, 45, 30, 16, 17, 24, 38, 45, 17, 17, 57,  1, 31, 14, 60, 18, 38,
+        52, 17, 27, 14, 17, 26], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([45,  7,  4, 45, 50, 58, 45,  3, 43, 24, 38, 57,  5, 36, 24, 39, 30, 17,
+        17, 13, 43, 63, 30, 16, 31, 24, 45, 17, 30, 20, 45, 17, 52, 27, 41, 15,
+        45, 45, 27, 54, 45, 43, 60, 41, 45, 23, 41, 17, 56, 41, 60, 56, 54, 62,
+        25, 57,  8, 18, 32, 45, 17, 41, 16,  3, 38, 36, 31, 20, 62, 20, 50, 10,
+        50, 58, 39, 16, 38, 41, 52, 32, 24, 52, 54, 63, 62, 45, 58, 17, 24, 59,
+        14,  8, 27, 22, 54, 52, 41,  8, 41, 41, 17, 41, 17, 30, 43, 23, 32, 17,
+        20, 10, 45, 41, 10, 60, 32, 30, 43, 45, 38, 43, 54, 43, 45, 28, 43, 18,
+        14, 58, 62, 18, 20, 14, 43, 45, 52, 41, 27, 36, 41, 26, 45, 41,  2, 30,
+        24, 38, 33, 45, 20, 52], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([50, 62, 58, 20, 49, 32, 41, 45, 43, 18, 45, 53, 17, 41, 45, 55, 14, 13,
+        31, 50,  9, 61, 45, 63,  0, 16, 54, 22, 41, 44, 14, 60, 45,  8, 17, 57,
+        41, 43, 43, 41, 50, 10, 38, 54, 41, 18, 32, 62, 22, 14, 50, 19, 45, 43,
+         0, 20, 18, 52, 43, 27, 19, 39, 27, 23, 14, 53, 41,  3, 10, 25, 38, 31,
+        33, 11, 43, 50, 60, 32, 52, 24, 20, 17, 62, 45, 13, 39, 45, 15, 23, 60,
+        33, 32, 22, 18, 26, 48, 17, 17, 18, 43, 43,  5, 41, 23, 41, 50, 45, 28,
+        58, 14, 57, 62, 24, 15, 30, 33, 17, 20, 14, 57, 32, 43, 27, 19, 62, 33,
+        45, 17, 17, 33, 17, 57, 16, 41, 62, 43, 34, 14, 58, 62, 17, 17, 24, 24,
+        16, 32, 27, 58,  1, 24], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([16, 57, 45, 62, 13, 43, 17, 63, 62, 45,  5, 42, 46, 45, 61, 34, 43, 43,
+        38, 51, 27, 62, 58, 29, 54,  8, 33, 24,  1, 24, 45, 35, 57, 17, 41, 39,
+        16, 14, 50, 62, 49, 17, 18, 15, 45,  1, 17, 58, 33, 41, 14, 45, 45, 20,
+        10, 19, 14, 34, 17, 17, 41, 33, 22, 39, 51, 19, 16, 16, 23, 16, 45, 43,
+        18, 47, 49,  8, 24, 35, 41, 49, 24, 27,  0, 31, 45, 33, 22, 40, 16, 51,
+        18, 54,  3, 16, 46, 17, 22, 16, 18, 41, 48, 14, 41, 24, 57, 41, 32, 42,
+        62, 45, 50, 41, 20, 45, 16, 14, 13, 14, 17, 45, 16, 14, 38, 47, 41, 41,
+        60, 48, 58, 49, 24, 52, 26, 41, 56, 43, 43, 18,  0, 33, 63, 17, 31, 22,
+        24, 58, 14, 14, 53, 58], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([62, 41, 52, 17, 62, 45, 24, 13, 33, 57, 16, 62, 41,  3, 14, 32, 14, 17,
+        17, 63, 43, 16, 61, 26, 63, 38, 27, 62,  0, 14,  1, 62, 52, 45, 62, 57,
+         6, 56, 41, 10, 43,  9,  0, 45, 31, 53, 62, 47,  8, 45, 18,  1, 17, 62,
+        26, 41, 32, 38, 49, 14, 38, 14, 26, 41, 45, 32, 27, 41, 39,  5, 57, 45,
+        15, 26, 13, 45, 43, 51,  9, 16, 16, 24, 50, 14, 18, 20, 17, 62, 58, 44,
+        14, 58, 14, 53, 62, 23, 52, 17, 57, 41, 60, 14, 47,  8, 17, 17, 45, 32,
+        17, 41, 38, 17, 41, 45, 39, 27, 43, 15,  8, 22, 14, 17, 33, 24, 14, 60,
+        52, 61, 49, 27, 22, 18, 33, 24,  0,  2, 53, 17, 14, 54, 38, 45, 41, 31,
+        16, 41, 52, 45, 49, 12], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([34, 16, 45, 45, 24, 32,  8, 16, 41, 41, 30, 62, 17, 20, 20, 43,  4, 41,
+        14, 26, 45, 22, 54, 32, 45, 36,  4, 41, 50, 35, 17, 43, 46, 54,  5, 30,
+        41, 43, 57, 62, 41, 41, 52, 26,  6, 16, 54, 14, 41, 33, 39, 43, 24, 53,
+        62, 50, 57, 26, 43, 33, 13, 57, 45, 45, 45, 19, 14, 24, 16,  8, 33, 52,
+        39, 55, 20, 30, 32, 16, 28, 57, 38,  0, 45, 19,  1,  8, 48, 16, 43, 31,
+        16, 14, 35, 13, 61, 18, 26, 60, 16, 22, 43, 46, 31, 45, 33, 62, 45,  1,
+        50, 52,  8, 20, 41, 52, 54, 51, 57, 32, 38, 41, 38,  4, 27, 41,  8, 38,
+        45, 53, 57, 31, 62, 24, 41, 43,  3, 57, 61, 20, 44, 38,  7, 45, 41, 39,
+        55, 39, 45, 45, 56, 45], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0],
+        [0, 1, 0,  ..., 0, 0, 0],
+        ...,
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([17,  6, 19, 17, 38, 16, 16, 17, 17, 17, 27, 41, 16, 32, 24,  8, 58, 52,
+        58, 15, 38, 20, 45, 21, 17, 17, 32, 27, 58, 52, 27, 52, 46, 17, 28, 18,
+        32, 45,  5, 45, 58, 33, 58, 45, 55, 41, 27,  2, 53, 43, 62, 46, 45, 32,
+        41, 33, 14, 32, 53, 18, 17, 19, 17, 10, 24, 45, 52, 30, 24, 45, 61, 45,
+        55, 14, 43, 35,  5, 46,  0, 45, 35,  1, 43, 41, 13, 62, 32, 41, 17, 38,
+        56, 45, 14, 30, 16, 32, 17, 41, 50, 62, 45, 43, 33, 10, 41, 43,  1, 37,
+        57, 38, 34, 13, 57, 57, 62, 43, 58, 22, 33, 41, 16, 17, 17, 53, 52, 17,
+        20, 24, 16, 49,  9, 43, 57, 42, 43, 14, 53, 41, 14, 17, 41, 43, 45, 58,
+        41, 14, 41, 52, 26, 17], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 1, 38, 17, 57, 43, 56, 17, 33, 18, 30, 41, 26, 43, 43, 45, 63, 27, 43,
+        58, 53, 43, 41, 38, 48, 57, 10, 55,  8, 43, 17, 45, 43, 16, 45, 50, 38,
+        26, 38, 31, 11, 29, 17, 41, 45, 45, 17, 45, 26, 18, 45, 58, 52, 38, 21,
+        15, 62, 58,  2, 20, 38, 45, 54, 24, 45, 17, 54, 59, 39, 48, 31, 15, 45,
+        43, 45, 24, 54, 54, 34, 43,  3,  2,  5, 22, 60, 44, 16, 45, 32, 18, 46,
+        38, 22, 38, 54, 38,  7, 54, 26, 38, 16, 41, 54, 43, 51, 53, 14, 38, 56,
+        17, 41, 14,  8, 43, 54, 16, 53, 15,  7, 31,  4, 50, 41, 26, 24, 61, 18,
+        16, 31, 43, 41,  9, 10, 33, 45, 18, 49, 33, 45, 45, 14, 33, 15,  8, 52,
+        31, 54, 63, 50, 56, 17], device='cuda:0')
+Error executing job with overrides: ['dataset.name=reddit_v2', 'general.name=test_reddit_v2_X', 'model.transition=uniform', 'general.wandb=disabled', 'general.ckpt_path=/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\\=229.ckpt', 'train.batch_size=12', 'general.setting=test']
+Traceback (most recent call last):
+  File "/home/allenwang/gad_diff/gad_lggm/src/main_test.py", line 78, in main
+    trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 737, in test
+    return call._call_and_handle_interrupt(
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 780, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 975, in _run
+    results = self._run_stage()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run_stage
+    return self._evaluation_loop.run()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 122, in run
+    return self.on_run_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 244, in on_run_end
+    self._on_evaluation_epoch_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 326, in _on_evaluation_epoch_end
+    call._call_lightning_module_hook(trainer, hook_name)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 140, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/allenwang/gad_diff/gad_lggm/src/diffusion_model.py", line 302, in on_test_epoch_end
+    self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LiftedDenoisingDiffusion' object has no attribute 'name'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\=269.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=269.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=269.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=269.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1777, 64], edge_index=[2, 6622], edge_attr=[6622, 2], y=[12, 0], batch=[1777], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 100913.66 -- Test Atom type MSE 10.61 --  Test Edge type MSE: 118.30 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2729.98 -- Test E Reconstruction loss 59523.76 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 100913.6641
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        ...,
+        [0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41, 50, 28, 55, 46, 33, 28, 53,  9, 37, 17, 24,  6, 49, 53, 41, 53, 60,
+        44, 49, 37, 55, 53, 50, 28, 55, 37, 53, 18, 18, 41, 40, 55, 17, 53, 22,
+        53, 53, 49, 44, 47, 44, 53, 42, 13, 51, 51, 44, 54, 51, 41, 55, 22, 41,
+        17, 37, 53, 48, 17, 13, 53, 55, 42, 55, 26, 17, 55, 44, 42, 39, 30, 22,
+        37, 55,  4, 41, 22, 20, 58, 62, 41, 47, 22, 24, 18, 29, 50, 57,  9, 58,
+        55, 33, 49, 48, 37, 20, 18, 41, 41, 42, 32, 22, 47, 18,  6,  6,  1, 17,
+        44, 30, 55,  9, 30, 29, 14, 53, 51, 29, 53, 24, 30, 44, 28, 48, 53, 43,
+        37, 17, 28, 27, 29, 51,  2, 13, 18, 33, 53, 28, 58, 47, 41, 40,  5, 22,
+        18, 18, 33, 18, 24, 41], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([29,  7, 49, 53, 37, 47, 44, 17, 29, 49, 27, 17, 49, 50, 23, 17, 36, 29,
+        55, 55, 51, 33, 18, 55, 34, 37, 49,  9,  7, 30, 40, 25,  5, 44, 61, 51,
+        51, 41, 53, 62, 51,  7, 53,  6, 17, 49, 28, 28, 45, 37,  2, 45, 53, 37,
+        44, 55, 26, 40, 24, 17, 44, 18, 42, 29,  8, 18, 18, 63, 53, 13, 33, 29,
+        47, 53, 62, 55, 33, 44, 18, 46, 55,  2, 33, 33, 57, 37, 25, 61,  3,  7,
+        18, 35, 53, 18, 53, 37,  2, 48,  7, 48, 55, 17,  6, 62, 55, 40, 29,  8,
+        18, 30, 28, 44, 47, 33, 53, 29, 33,  7,  9, 41, 45, 49, 17, 49, 51, 55,
+        17, 49,  9, 39, 46, 17, 22, 59, 37,  5, 39, 61, 51, 58, 34, 15, 53, 25,
+        49, 22, 17, 49, 56, 37], device='cuda:0')
+E tensor([[ 0,  1,  0,  ..., -1, -1, -1],
+        [ 1,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([28, 44, 63, 22, 44, 37, 46, 61, 29, 20, 26, 63, 62, 23, 62, 53, 11, 38,
+         9, 53, 51, 60, 49, 63, 55, 42, 28,  4, 49, 49, 51, 31, 44, 29, 49, 54,
+        53, 16, 42, 35, 11, 24,  7, 51,  9, 42, 10, 55, 22, 47,  7, 17, 55, 42,
+        55, 38,  2, 55, 53,  0, 44, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([44, 55, 37, 33, 17, 17, 29, 44, 29, 53, 44, 55, 49,  9, 63, 42, 60, 51,
+        10, 55,  5, 55, 18, 47, 11, 55, 17,  3, 53, 60, 60, 55, 28, 49, 41, 51,
+        16, 49, 53, 22, 46, 49, 22, 35,  7, 32, 37, 18, 30, 18, 46, 17, 10, 55,
+        24, 53, 51, 12, 49, 50, 61, 18, 55, 18, 49, 33, 30, 49, 17, 18, 19, 17,
+        15, 33, 55, 17, 42, 63, 43, 51, 13, 55, 17, 13, 55, 51, 13, 20, 36, 29,
+        53, 47, 42, 53, 14, 29, 15, 44, 36, 20, 28, 17, 15, 22, 30,  6, 30,  1,
+        55, 17, 58, 41, 55, 17, 29, 17, 53, 22,  8, 44, 42, 29, 51, 17, 33, 22,
+        29, 62,  1, 18, 60, 37, 53, 49, 61, 29, 22, 55, 53, 42,  6, 17, 15, 39,
+        42, 33, 56, 53, 13, 17], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([53, 55, 18, 55, 58,  9, 50,  4, 17, 37, 17, 44, 13, 53, 51, 19, 42, 30,
+        44, 53, 23, 30, 11, 51, 44, 40, 46, 17, 13, 37,  6, 33, 62, 42,  1, 33,
+         9,  1, 44, 22, 22,  7, 17, 37, 61, 34, 63, 44, 42,  1, 47, 27, 41, 29,
+        36, 25, 36,  7, 48, 53, 33, 44, 61, 46, 51, 34,  3, 13,  1, 49, 17, 42,
+         1, 55, 41, 42, 55, 48, 55, 33, 10, 41, 25,  9, 24, 22, 55, 55, 53,  9,
+        44, 10, 33, 47, 51, 44, 13, 36, 29, 55, 30, 28, 40, 44, 34, 24, 55, 61,
+        27, 42, 55, 55, 18, 38, 55, 44, 17,  3, 53, 13, 51, 22, 20, 22, 49, 10,
+         7, 25, 55, 44, 22, 51, 51, 14, 26, 18, 46, 41,  7, 29, 17, 17, 42, 49,
+        37, 17, 44, 17, 18, 30], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 7,  6, 42, 55, 18, 53, 53, 37, 42, 62, 10,  6, 33, 41, 55, 38, 18, 42,
+        53, 49, 17, 56, 45, 13, 51, 22, 18, 27, 24, 45,  7, 29, 51, 53, 51, 54,
+        49, 61, 45, 22, 15, 10,  5, 17, 63, 33, 17, 30, 10, 30,  7, 18, 46, 44,
+        27, 22, 22, 55, 33, 55, 53, 33, 29, 28, 44, 17, 55, 55, 33, 29, 41, 29,
+        20,  2, 53, 44, 53, 44, 30, 34, 29, 13, 22, 18, 22, 55, 42, 55, 44,  6,
+        38, 55, 20, 20, 11, 36, 53, 43, 44, 33, 18,  9, 11, 55, 43, 35, 39,  1,
+        37, 18, 44, 40, 61,  5, 47, 37, 55, 29, 18, 13, 47, 42, 58, 29, 55, 37,
+        61, 37, 58, 53, 49, 44, 62, 18, 17, 53, 22, 18, 44, 51, 51, 16, 37, 60,
+        41,  2, 49, 55, 22, 21], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([55,  1, 24, 44, 41, 13,  2, 62,  9,  7, 44, 53, 41, 41, 17, 53, 20, 42,
+        41, 18, 12, 55, 52, 53,  0, 41, 63, 44, 29, 44, 15, 16, 41,  1,  3, 51,
+        49, 51, 59, 49, 44, 55, 17, 30, 19, 53, 17, 53, 17, 38, 14, 41,  2, 44,
+        55, 44, 40, 55,  7, 18, 50,  9, 44,  9, 55, 56,  2, 53, 16, 61, 17, 55,
+        55, 22, 60, 29, 44, 32, 11, 16, 61, 50, 42,  9, 40, 63, 44, 13, 55, 55,
+        53, 16, 55, 49, 53, 44, 24, 44, 18, 49, 44, 18, 20, 18, 41, 55, 33, 53,
+        17,  7, 27, 30,  1, 52, 41, 41, 17, 22, 41, 55, 55, 50, 22, 55, 25, 10,
+        13, 17, 49, 53, 49, 45, 53, 15, 10, 41, 22, 41,  6, 22, 33, 36, 49, 10,
+         8,  0, 44,  5, 13, 49], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0]], device='cuda:0')
+X:  tensor([41, 46, 17, 53, 44, 44, 22, 36, 52, 44, 22, 44, 55, 55, 17,  9, 28, 49,
+        61, 44, 29, 42,  5, 33, 42, 17, 49, 17, 44, 30, 46, 38, 29,  1, 53,  0,
+        32,  1, 61, 17, 10,  7, 28, 51, 44, 18, 55, 55, 63,  3, 60, 37, 33, 17,
+        17, 20, 46, 45, 42, 43, 36, 55, 44, 10, 47, 61, 55,  0, 17, 49,  6, 62,
+        14, 34, 41, 17, 59, 55, 47, 55, 55, 54, 18, 44, 51, 29, 22, 41,  7, 60,
+        58,  1, 44, 17, 14, 58, 17, 42, 20, 53, 17, 30,  1, 17, 17, 55, 36, 55,
+        53, 10, 49, 53,  6, 29, 29, 24,  9, 41, 44, 46, 55, 51, 17, 40, 30, 49,
+        17, 47,  2, 55, 47, 29, 44, 29, 17,  9, 61, 53,  1, 57, 17, 17, 33, 30,
+        44, 17, 33, 55, 44, 29], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([33, 46, 17, 41, 49, 47, 17, 42, 53, 12, 52, 55, 20,  6, 55, 44, 36, 28,
+        49, 60,  9,  4, 55, 17, 11, 36, 49, 12,  9, 53, 23, 17, 60, 55, 55, 44,
+        33, 51, 49,  2, 10, 42,  3, 13, 13, 37, 12, 37, 30, 49, 28, 53, 49, 10,
+        33, 55, 10, 55, 44, 18,  3, 12, 17, 29, 17, 20,  7,  7, 10, 62, 39, 10,
+         7,  9, 18, 42, 55, 40, 33, 33, 61, 53, 61, 33, 38, 30, 46, 30, 18, 62,
+        33, 42, 13, 22, 18, 33, 35, 27, 49, 33, 18, 42, 17, 49,  4, 51, 15, 30,
+        42, 42, 18, 35, 51, 17, 18, 17, 11, 53, 62,  6, 56, 31, 10, 29,  9, 53,
+         4, 52, 22,  4, 49, 28, 51, 33, 32, 34, 22, 13, 62,  7, 10, 29,  1,  7,
+        46, 36, 13, 45, 34, 35], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([18, 44, 52, 10, 63, 44, 42, 16, 42, 35, 62, 33, 44, 46, 42, 55, 17, 22,
+        49, 28,  5, 44, 55, 55, 18, 58, 40, 46, 35, 61, 18, 30, 34,  4, 53, 51,
+        18, 17,  5, 18, 42, 55, 57, 52, 18, 39, 38, 17, 41, 62, 61, 53, 17, 49,
+        33, 24, 36, 35, 37, 10, 50, 55,  6, 17, 44, 61, 44, 17, 22, 29, 55, 44,
+        44,  1, 17, 41, 37, 18, 56, 47, 25, 18, 18, 42, 29, 54, 15, 50, 55, 36,
+        53, 37, 32, 40, 41, 46, 47, 29, 28, 53, 42, 55, 53, 63, 56, 44, 51,  1,
+        18, 46, 30, 49, 28, 18, 57, 41, 55, 40, 37, 53,  5, 38, 18, 53, 22, 62,
+         9, 15, 24, 51, 63, 55, 18, 52, 41, 28, 17, 18, 18, 40, 18, 51, 54,  3,
+        34, 22, 56, 37, 37, 30], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41, 45, 29, 18, 30, 17, 20, 49, 53, 37, 18, 29, 43, 63, 55, 44, 30, 53,
+        17, 53, 55, 49,  3, 17, 17, 18, 55, 29, 47, 49, 29, 28, 53, 61, 42, 22,
+        44, 17, 33, 42, 40, 62, 42, 37, 10, 55, 45, 44, 24,  1, 10, 44, 41, 62,
+        41, 17, 33, 55, 63, 58, 15, 41,  6, 49, 33, 53, 17, 53, 49, 18, 49, 41,
+        53, 17, 55, 47, 44, 22, 53, 55, 58, 49, 41, 20, 40, 42, 42, 33, 42, 55,
+        17, 42, 13, 53,  9, 20, 53, 47, 17, 18, 40, 62, 16, 17, 42, 49, 35, 55,
+        17, 35, 61, 53, 16,  6, 44, 44, 19, 41, 29, 17, 44, 49, 49,  4, 30,  0,
+        44, 12, 22,  9, 55, 54, 17, 63, 18, 22, 29,  9, 44,  7, 51, 55, 42,  4,
+        55, 11, 17, 41, 55, 43], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([53,  3, 53, 50, 44, 49, 19, 46, 14, 41, 46, 44, 33, 29, 44, 17, 12, 43,
+        29, 49, 44, 25, 17, 14, 28, 37, 53, 13, 42, 13, 41,  1, 53, 33, 12, 55,
+        44, 18, 44, 20, 49,  9, 18, 37, 44, 36, 44, 17, 17,  2, 44, 55, 61, 53,
+        18, 53, 55, 44, 22, 52, 58, 30, 42, 56, 18, 57, 55, 33, 44, 33, 18, 20,
+        53, 41, 33, 24, 18, 18, 18, 47, 30, 17, 49, 28, 54, 53, 55, 18, 17, 41,
+        51, 55, 55, 44, 55, 44,  3, 44,  9, 44,  4,  5, 44, 55, 46, 51, 22, 17,
+        22, 50, 28, 37, 49, 18, 44, 44, 41, 29, 13, 55,  3, 44,  7, 17, 63, 63,
+        18, 54,  7, 44, 55, 52,  1, 29, 47, 23, 42, 25, 44, 14, 39, 44, 13, 28,
+        54, 44, 55, 57, 31, 44], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 1, 53, 37, 19, 28, 30, 53, 17,  9, 55, 51, 22, 57,  1, 44, 17,  1, 62,
+        41, 49, 51, 35, 33, 61, 55, 58,  1, 31, 53, 53, 28,  2, 55, 49, 22, 47,
+        40, 24, 36, 30, 49, 33, 53, 55, 53, 49, 30, 12, 44, 38,  1, 22, 42, 41,
+        47, 55, 41, 29, 55, 13, 46, 51,  4, 46, 35, 55, 41, 13, 12,  1, 48, 55,
+        29, 32,  7, 55, 16, 60, 17, 42, 55, 44, 47, 53, 22, 34, 36, 44, 29, 15,
+        44, 53, 49, 55, 50, 22, 41, 44, 44, 18, 49, 18, 49, 30, 18, 41, 19, 22,
+        49, 29,  1, 29, 15, 62,  7, 53, 44, 18, 28, 53, 17, 49, 53, 53, 55, 33,
+        53, 30, 20, 22, 37, 17, 17, 17, 47, 55, 40, 58, 42, 44, 53,  1, 12, 17,
+        17, 10, 53, 53, 10, 55], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 9, 53, 42, 17, 49, 46, 35, 44,  1, 55, 62,  7, 45,  7, 29, 61, 17, 17,
+        44, 42, 63, 29,  9, 46, 30, 37, 22, 41, 44, 13, 33, 55, 61, 42, 33, 37,
+        17, 55, 44, 39, 33, 17, 30, 29, 30,  3, 13, 28, 51, 53, 29, 33, 54, 46,
+        33, 22, 25, 38, 49, 14, 32, 13, 29, 55, 53, 63, 41, 44, 53, 53, 55, 29,
+        22, 55, 29, 53, 37, 44, 53, 41, 41, 55, 17, 53,  3, 41, 17, 55, 50, 30,
+        29, 50, 45, 30, 22, 25, 11,  6, 55, 25, 31, 49, 49, 29, 11, 37, 13, 41,
+        27, 37, 41, 30, 41, 55, 61, 18, 53,  9, 12, 56, 55, 17, 37, 17, 53, 22,
+        55, 21, 41, 50, 26, 18,  9, 53, 30, 49, 39,  1, 27, 44, 33, 44, 49, 24,
+        44, 44, 14, 18, 57, 53], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([53, 44,  5, 13, 44, 55, 15, 55, 32,  9, 29, 20, 53, 44, 53, 47, 20, 44,
+        57, 37, 58, 33, 53, 51, 33, 45, 33, 63, 53, 22, 18, 18, 55, 34,  1, 33,
+        49, 17, 58, 38, 30, 44,  5, 51, 17,  9, 44, 18, 46, 38,  7, 53,  3, 44,
+         9, 53, 32,  2, 33, 29, 29, 55, 30, 17, 18, 46, 10, 53, 13, 44, 15, 44,
+        49, 41, 15, 22, 37, 53, 36, 47, 17, 22, 44, 11, 24, 57, 44,  2,  1, 40,
+        44, 14, 53, 30, 22, 22, 44, 29, 37, 17, 35, 32, 54, 10, 29, 37, 37, 17,
+        17, 58, 37, 55, 29, 15, 48, 55, 37,  6, 46, 42, 10, 37, 17, 33,  9, 42,
+         2, 23, 53,  9, 42, 60, 30, 61, 35, 29, 17,  9, 20, 10, 17, 20, 17, 36,
+        41, 42,  7, 39, 13,  1], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([50, 17, 42, 49, 48, 31, 55, 47, 54,  3, 49, 44, 55, 51, 62, 44,  3, 41,
+        55, 42, 17, 17,  1, 55, 31, 37, 29, 41,  9, 53, 56, 33, 38, 28, 53, 40,
+        13, 49, 17, 53, 51, 42,  9, 17,  6, 55, 53, 55, 36, 41, 22,  6, 51, 62,
+         7, 38, 61, 49, 14, 30, 44,  4, 28, 36, 18, 44, 42, 17, 41, 28, 10, 41,
+        22, 49, 53, 15, 44, 63, 10, 40,  1, 55, 56,  1, 17, 41, 29, 17,  9,  7,
+        55, 55, 44, 55, 24, 13, 46, 41, 47, 30,  7, 10, 62, 33, 41, 33, 51, 56,
+         6, 41, 22, 63, 41, 28, 51, 55, 17, 55, 49, 42, 17, 49, 18, 19, 49, 29,
+        18, 30,  9, 40, 29, 35, 51, 41, 41, 11,  8, 62, 38, 53, 55, 26, 55, 17,
+        44,  1, 39, 53, 46, 22], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([13, 10, 42, 49, 44, 44, 22, 25, 44, 44, 44, 50, 59, 11, 49, 16, 15, 41,
+        10, 38, 29, 29, 49, 46, 49, 18, 41, 49,  9, 17, 17,  1, 44, 22, 55, 30,
+        55, 53, 14, 13, 27, 13, 29,  1, 14, 41, 22, 44,  5, 44, 22, 46, 40, 30,
+        61, 60, 22, 17,  9,  1, 22,  7, 55, 55, 18, 48, 13, 25, 55, 37, 38,  1,
+        30,  9, 41, 18,  1,  9, 46, 44,  7,  1, 30, 17, 17, 19, 17, 55, 49, 39,
+        15, 49, 33, 22, 33, 44, 13, 17, 53, 22, 59, 50, 38, 37, 53, 20, 44, 50,
+        49, 22, 46, 13, 55, 25, 45, 42, 53, 35, 47, 41, 30, 55, 50, 49, 55, 51,
+        35, 22, 22, 36, 32, 13, 36, 13, 47, 53,  2, 29, 36, 10, 26,  6, 26, 50,
+        55, 13, 33, 49, 29,  9], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([61, 49, 44, 49, 24, 46, 50, 47,  6, 61, 44, 55, 49, 53, 53, 42, 17, 12,
+        55, 10, 29, 55, 58,  9, 44, 33, 49, 42, 11, 55, 55, 55, 55, 55, 42, 33,
+        22, 16, 22, 30, 53, 44, 39, 49, 18, 53, 30, 29, 47,  9, 29, 49,  1, 30,
+        44, 44,  6, 49, 18, 63, 55, 53, 33, 49, 53, 44, 10,  7, 46, 41, 46, 49,
+        55, 41, 27, 29, 24,  7, 33, 44, 22,  2, 29, 42,  9, 15, 51, 18,  9, 55,
+        55, 40, 29, 38, 55, 53, 59,  1, 33, 20, 50, 39, 53, 60, 29, 46, 42, 29,
+         7, 49, 45, 55, 18, 61, 61, 55, 29, 24, 22,  5, 17, 22, 45, 22, 28, 44,
+        18, 37, 53, 44,  6, 49, 44, 55, 40, 49, 37, 17, 50, 53, 31, 49, 22, 35,
+        45, 55, 62, 37, 38, 17], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([41, 18, 60, 42,  7, 18, 18, 56, 53, 49, 53, 29, 17, 44, 51, 17, 49, 63,
+        55, 57, 46, 53, 41, 53, 63, 55, 63, 17,  6, 44, 53, 35, 17, 17, 55, 22,
+        46, 39, 18, 17, 46,  9, 58,  1, 34, 34, 24, 30, 42, 24, 55, 51, 29, 13,
+        57, 44,  7, 53, 34, 53, 49, 53, 28, 22, 55, 17,  9, 45, 29, 42, 17,  6,
+        53,  7, 18, 53, 42, 17, 53, 29, 29, 53,  6, 62, 41, 53, 44, 17, 63, 53,
+        50, 16, 62, 18, 22, 22, 29, 44, 17,  2, 17, 53, 36, 61, 30, 17, 51,  7,
+        53, 37,  6, 41, 55, 61, 13, 42, 51,  3, 44, 63,  1, 53, 34,  3, 42, 57,
+        55, 51, 17, 47, 24, 49, 44, 53, 37, 42, 13, 30, 61, 44, 18, 28, 55, 35,
+         7, 30, 38, 55, 18, 60], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0]], device='cuda:0')
+X:  tensor([13, 51, 44,  1, 49, 55, 55, 47, 55,  5, 55, 15, 44, 49, 58, 55, 44, 30,
+        53, 44, 33, 49,  5, 18, 44, 17, 42, 20, 14, 61,  2, 44, 53, 55, 29, 18,
+         1, 53, 49,  1, 17, 13, 17, 42, 17, 29, 46, 30, 42, 61, 44, 56, 29, 53,
+        44, 50, 13, 44, 22, 53, 18, 18, 15, 42, 37, 52,  9, 55,  8, 37, 22, 55,
+        33, 50, 20, 22, 17, 49, 33,  6, 33, 47, 44, 32, 32, 18, 44, 15, 22, 26,
+        44, 49, 13, 53, 52, 22, 30, 34,  2, 35, 53, 35, 18, 49, 16, 50, 55, 22,
+        40, 41, 49, 42,  9, 29,  7, 61,  6, 28, 55, 44, 55, 49, 51, 26, 29, 40,
+        10, 13, 52, 22, 44, 44, 53, 61, 29, 11, 17, 46, 18, 36, 49, 61, 62, 49,
+        49, 53, 17, 59, 55, 30], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 1, 0, 0],
+        [0, 1, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([48, 18, 43, 18, 51, 60, 39, 17,  3, 55, 53, 30, 46, 37, 30, 51, 17, 29,
+        49, 53, 58, 17, 55, 17, 13, 31, 51, 27, 17, 63, 37, 44, 53,  9, 53, 47,
+        12, 58, 28, 44, 33,  4, 42, 62, 44, 55, 61, 17, 45, 44, 36, 41, 47, 22,
+        58, 49, 61, 29, 47, 61, 55, 44, 36, 49, 49,  0, 11, 20,  4, 17, 12, 10,
+        41, 30, 57, 53, 17, 44, 61, 44, 53, 44, 42, 29, 44, 22,  1, 24, 11,  9,
+        58, 17, 51, 50, 37, 37, 30, 41, 44, 44, 32, 51, 53, 62, 51, 13, 44, 18,
+        25, 42, 33, 29, 42,  7, 41, 44, 53, 62, 41, 17, 22, 24, 42, 17, 42, 44,
+        53, 22, 29,  9, 38, 58, 17, 13, 12, 33, 44, 55, 28, 44, 42, 34, 30, 10,
+        30, 49, 44, 53, 49, 29], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 7, 55, 42, 17, 39, 47,  1, 52, 55, 37, 22, 18, 42, 29, 62,  3, 29, 43,
+        63, 53, 53, 62, 55, 22, 44, 63, 37,  2, 13, 37,  7,  6, 23, 17,  5, 17,
+        44, 55,  6, 22, 46, 57, 37, 30, 18, 55, 30, 53,  1, 13,  9, 49, 57, 22,
+         7, 53, 44, 51, 59, 13, 18, 13, 17, 41, 46, 46, 16, 24, 10, 13, 51, 29,
+        13, 22, 13, 37, 56,  9, 18, 30, 44, 32, 55, 55, 24, 46,  1, 44, 55, 46,
+        40,  9, 22, 53, 13, 30, 17,  9, 11, 44, 18, 46, 37, 33, 27, 44, 18, 29,
+        17, 55, 47, 27, 49, 42, 37,  6, 18, 53, 49,  9, 55,  3, 53, 62, 42, 10,
+        17, 49,  9, 51, 14, 33, 15, 29, 17,  1, 22, 61, 60, 28, 40, 33, 13, 17,
+        55, 13, 17, 33, 30, 44], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([57, 49, 47, 33, 46, 38, 25, 40, 37, 29, 55, 63, 29,  9,  9, 33, 23, 53,
+         2,  9, 54, 17, 17, 53, 49, 62, 44, 44, 51, 51, 44, 18, 53, 57, 49, 53,
+        18, 55,  6, 47,  1, 55, 45, 13, 53, 17, 49, 55, 49, 38, 34, 44, 22, 62,
+        61, 42, 32, 35, 53, 13, 49, 44, 32,  7, 62, 17, 32, 17, 29, 39, 22, 17,
+        15, 33, 36, 13, 13,  1, 33, 22, 44, 29, 55, 53,  7,  6, 15, 29, 46, 33,
+         1, 30, 13, 35,  1, 13, 46, 16,  9, 48, 51, 29, 53, 44, 17, 62, 40, 44,
+        33, 17, 51, 34, 63, 27, 33, 55, 13,  9, 56, 53, 10, 28,  4, 17, 53, 46,
+        17, 18, 44, 51, 44, 37, 53, 17, 62, 53, 45, 18, 62, 46, 36, 41, 42, 41,
+        31,  8, 13, 29, 41, 58], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([22, 63, 18, 53, 29, 30, 29, 44, 51, 53, 28, 53, 49, 49, 18, 55, 22, 37,
+        34, 57, 41, 51,  3, 34, 44, 33, 42, 53, 10, 44, 30, 13, 49, 44, 17, 44,
+        10, 53, 28, 41, 18, 49, 16, 28, 22,  9, 37, 22, 38, 22, 22, 18, 51, 44,
+        10, 51, 55, 44, 29,  1, 55, 44, 42,  3, 51, 55, 44, 53, 17, 41, 51, 22,
+        44, 17, 19, 44, 37, 44, 29, 17, 36, 36, 38, 53, 22, 17, 22, 55, 20, 22,
+        55, 20, 33,  3, 44, 38, 29,  2,  3, 41, 51, 44, 17, 50,  9, 17, 57, 18,
+        51,  9, 56, 13, 44,  1, 29, 51, 44, 63, 55, 17,  8, 53, 29, 55,  2, 55,
+        47, 29, 44, 42, 15, 44, 46, 18, 40,  7, 22, 22, 22, 18, 55, 41, 40, 17,
+        29, 55, 51, 49, 53, 46], device='cuda:0')
+Error executing job with overrides: ['dataset.name=reddit_v2', 'general.name=test_reddit_v2_X', 'model.transition=uniform', 'general.wandb=disabled', 'general.ckpt_path=/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\\=269.ckpt', 'train.batch_size=12', 'general.setting=test']
+Traceback (most recent call last):
+  File "/home/allenwang/gad_diff/gad_lggm/src/main_test.py", line 78, in main
+    trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 737, in test
+    return call._call_and_handle_interrupt(
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 780, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 975, in _run
+    results = self._run_stage()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run_stage
+    return self._evaluation_loop.run()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 122, in run
+    return self.on_run_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 244, in on_run_end
+    self._on_evaluation_epoch_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 326, in _on_evaluation_epoch_end
+    call._call_lightning_module_hook(trainer, hook_name)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 140, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/allenwang/gad_diff/gad_lggm/src/diffusion_model.py", line 302, in on_test_epoch_end
+    self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LiftedDenoisingDiffusion' object has no attribute 'name'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\=9.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=9.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=9.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch=9.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1736, 64], edge_index=[2, 7054], edge_attr=[7054, 2], y=[12, 0], batch=[1736], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 325883.47 -- Test Atom type MSE 185.27 --  Test Edge type MSE: 859.72 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2818.32 -- Test E Reconstruction loss 55383.93 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 325883.4688
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 1, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([51, 42,  0, 31,  0, 43, 30,  8, 14, 41, 28, 43, 39, 56, 60, 63, 14, 55,
+         4, 42, 57,  6, 29, 44, 34, 21, 57,  8,  5, 43,  6, 58, 25, 19, 21, 10,
+        52, 49, 30,  2, 51, 63,  1, 60, 41, 11,  5, 35, 46,  7,  1, 13, 63, 29,
+        46, 59, 55, 45, 51,  5,  2,  8, 13, 47, 19, 41, 30,  0, 15,  7, 31, 36,
+        34, 20, 32, 23, 43, 31, 35, 39, 44, 24, 14, 52, 23, 11,  4, 55, 39,  5,
+        59,  6, 29, 47, 23, 56, 37, 42, 32,  3, 20, 59, 45, 63, 25,  0, 24, 37,
+        46, 31, 60, 38, 47, 20, 13,  0, 18, 29, 21, 11, 30, 23, 54, 21, 18, 32,
+        37,  5, 54, 19, 10, 13, 26, 37, 49, 60, 30, 11, 56, 16,  0, 37,  7, 18,
+        11, 31, 33, 45,  9,  5], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([14, 32,  3,  6, 41,  8, 35, 43, 14, 17, 12, 55, 48, 59,  4,  1, 32,  6,
+         6, 59, 42,  3, 16, 18,  6, 60, 22,  0, 24, 37, 49, 37, 11, 43, 39, 61,
+         8, 21, 57, 11, 33, 25, 62, 34, 32,  3, 59,  2, 22,  5, 61, 43,  0, 62,
+         4, 34,  5, 11, 49,  1, 21, 51,  8, 26, 15,  5, 57, 49, 42, 57, 15, 25,
+        25, 60, 15, 26, 51, 43, 33, 50, 40, 61, 20, 14, 24, 53,  8, 61, 58, 25,
+         6, 31, 40,  2, 60, 37, 35,  6,  4, 22, 25,  4, 35, 20, 23,  1, 57, 45,
+        50, 18, 10, 54,  6, 61, 28, 26, 17, 56, 43, 47, 26, 31, 41, 19, 39, 30,
+        57, 47, 17, 52, 54, 24, 31, 37, 13, 11,  1, 56, 10, 55, 22, 63, 45, 62,
+         9, 34, 58, 49, 21, 58], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([54, 59, 18,  8, 41, 14, 55, 60, 58,  4, 48,  7, 63, 49,  7, 35,  2, 61,
+        43, 36,  1,  7, 26, 10, 22, 39, 14, 25,  1, 27, 43, 63, 35,  2, 41, 54,
+        63, 49, 61, 48, 10, 49, 13, 12,  2, 15, 31, 60, 58, 62, 22,  1, 38, 35,
+        27, 18, 44,  9, 44, 14, 35, 37, 53, 54, 26, 57, 18, 36, 38, 29, 56,  2,
+        50, 13, 35, 59, 49, 32, 37, 45, 57, 41,  7, 50, 34, 57, 33, 40, 13, 34,
+        63, 54, 59, 12, 48, 59, 60, 49, 52, 38, 37, 29, 23, 28, 22, 38, 45, 30,
+         2,  7, 39, 58, 26, 37, 11, 28, 38, 58, 30, 50, 38, 32,  1, 63, 18, 42,
+        48, 28, 24, 21, 62, 58, 59, 29, 17, 37,  9,  7, 14, 22, 12, 50, 32, 30,
+         9, 34, 60, 13, 34, 52], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([14, 46, 45, 12, 36, 60, 47, 10,  4,  1, 19, 52, 45, 37, 22,  7, 21, 21,
+        54, 51, 41, 40, 32, 22, 26, 37, 29, 45, 46,  1, 48,  9,  8, 51,  9,  7,
+        43, 33,  1, 18, 59, 15, 34, 55, 59, 52, 24, 16, 21, 52, 42,  1, 17, 25,
+         6, 41, 20, 13, 52, 59, 53, 33, 41, 34, 16, 21, 62, 13, 48, 44,  2, 39,
+        56, 11, 61, 22, 14, 31,  1, 54, 51, 50, 25, 37, 14, 61, 53, 52, 49, 40,
+        61,  0,  8, 58, 36, 16,  4, 56, 57, 23, 38, 13, 52, 43, 55, 51, 41, 45,
+        50, 62, 24, 34,  0, 29, 30,  3, 63, 63, 32, 11, 61, 33,  3,  5, 55, 50,
+        63, 25, 17,  1, 49, 16, 16, 38, 37, 61, 11, 45, 28, 12,  7, 62, 16, 26,
+        55, 49, 57, 34, 27, 53], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([27, 18, 53,  5,  5, 12, 41, 50, 25, 54,  5, 47,  0,  1, 32, 15, 36, 23,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([28,  1, 47, 37, 37, 24, 45,  7, 23, 33, 35, 16, 48, 45, 25, 54, 26, 56,
+        28, 30, 21, 42, 14,  9, 34, 10, 54, 36, 17,  3,  4, 55, 38,  2, 17, 62,
+        16, 59, 48, 10, 28,  1,  3, 41, 40, 62, 19, 12,  8, 25, 47, 62, 26,  5,
+         0,  6, 21, 60, 16, 38,  3, 44, 47, 26, 59, 57, 16, 43, 53, 46, 27, 29,
+        19, 60, 14,  7, 19, 31, 44, 10, 15, 10, 61,  8, 15, 30, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 1, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 7, 53, 21, 25, 31, 14, 25, 20, 32, 14, 52, 24, 35, 29, 28, 11,  7,  2,
+        21, 13, 49, 24, 53,  3, 34, 43, 36, 32,  3, 14,  5, 60,  1, 50, 62, 57,
+         8, 57, 49, 31, 17, 50, 60,  9, 39, 29, 24, 58, 17, 15, 55, 30, 34, 39,
+        29, 43,  0, 29, 39, 21, 13, 58, 50, 61, 21, 48, 37, 62, 31, 34, 33, 18,
+        63,  7, 61, 14, 24, 16, 58, 17, 53, 55, 27, 16, 18, 62, 45, 24, 57, 57,
+        14, 56, 43, 50, 37, 39,  1, 54, 19, 62, 56, 47, 14, 15,  9, 50, 14, 40,
+        24, 60, 39, 57, 48, 41,  3, 37, 53, 24,  1,  0, 18, 22, 52,  8,  9, 22,
+         4, 58, 54, 33, 14, 39, 36, 16, 42, 14,  1, 12, 60, 20,  7, 56, 55, 40,
+        45,  0, 37,  7, 14, 32], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([23, 47, 54,  8, 53, 53, 35,  7, 35, 54, 26, 12, 54, 55, 61, 18, 15,  6,
+         6, 43, 56, 32, 15,  1, 54, 49, 54, 11, 43, 56, 10,  9, 54, 21, 17,  9,
+        38, 51, 56, 33, 45, 35, 58, 28, 30, 18, 13, 10, 55, 24,  8, 13,  3, 29,
+        20,  0,  2,  0, 53, 15, 10, 26, 37, 25, 51,  0, 26, 13,  9, 43, 10, 42,
+        54, 31, 11, 11, 32, 30, 11, 15, 60, 58, 27, 55, 33, 59, 16, 15, 24,  5,
+        38, 32, 19, 37,  4, 28, 54, 25, 58, 27, 13, 19,  3, 35, 44, 63,  0, 27,
+        57, 54, 10, 56, 26, 56, 20, 53,  2,  4, 28, 10, 44, 50, 41, 51, 24, 44,
+        45, 32, 56, 48, 38, 51, 42, 30,  7, 55, 31,  8, 32, 11, 44, 50, 58,  8,
+        21,  4, 11, 48, 17, 49], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([61, 25,  3, 12, 10, 14, 24, 44, 22, 13,  2, 13, 35, 42, 48,  8,  5, 40,
+        42, 25,  7, 48, 16, 52, 43, 50, 39, 53, 50, 16, 30,  9, 36, 19, 55, 47,
+        14,  9, 21, 53, 61,  2, 54, 54, 22, 12, 62, 31, 40, 54, 39, 35, 29, 21,
+         7, 19, 29, 12,  7, 58, 41, 24,  8, 14, 13, 38, 55, 49, 17, 51, 32, 44,
+        22, 45, 25, 55, 16, 31,  7,  2,  6, 60, 49, 14, 27, 43, 10, 43, 48, 26,
+        16,  2, 46,  2, 25,  9, 60, 40, 11, 54, 52, 51, 43, 39, 18, 23, 15, 48,
+        43, 62, 25,  7,  7, 63, 60, 34, 37, 35,  4, 56, 44, 48, 63, 23, 36,  7,
+        55,  5,  3, 47, 45, 62, 54, 51,  0, 50, 25, 31, 28, 30, 62,  3, 27, 12,
+        56, 63, 63,  7, 53,  6], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([20,  1, 58, 30, 60, 33, 50,  4, 41, 61, 27, 43, 39, 55, 24, 11, 20, 33,
+        45, 61,  7, 28, 40, 44, 40, 47,  6, 48, 43, 53, 36, 59, 45, 57, 17, 39,
+        43, 61, 43, 35, 45, 62, 21, 34, 45, 15, 52, 58,  1, 24, 43, 48, 10, 59,
+        43, 62,  7, 54, 53, 43, 52,  1, 37, 28, 31, 48, 41, 46,  7, 30, 14, 56,
+         1, 48, 42,  9, 43, 42,  3, 52,  6, 45,  1,  1, 41, 34, 60, 60,  8, 42,
+        54, 31, 11, 43, 49, 25, 39, 53, 27, 39, 58, 42, 21, 12,  0, 57, 42, 40,
+        62, 44, 31, 29, 53, 14,  1, 22, 39,  1,  0, 34, 14, 51,  6, 13, 46,  3,
+         9, 18,  3, 50, 20, 15, 49, 56, 22, 31, 18, 19, 38, 50,  9, 48, 56, 50,
+        16, 29, 15, 20,  6, 37], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([57, 32, 42, 53, 37, 35, 20,  6, 16, 59, 48,  8, 60, 17, 26, 37, 44, 17,
+        44, 13, 50, 51,  2, 53, 49, 55, 44, 35, 37, 13, 11, 60,  4, 53, 63, 25,
+        18, 49, 27, 25, 29, 43, 33, 36, 13, 27, 16, 51, 59, 18, 28, 13, 28, 34,
+        54, 53,  0, 14, 19, 13, 23,  5, 33, 41, 53,  9,  7, 42, 48, 63, 61,  6,
+        41, 47, 15, 25, 15, 31, 34, 35,  9,  7, 41, 44, 20, 34, 54, 29, 62,  0,
+        45, 54, 63, 41, 60, 38,  7, 56, 53, 48, 29, 38,  2, 21, 58, 42,  1, 60,
+        42, 53, 36, 45,  6, 14, 52, 51,  1,  3, 44, 32, 52, 54,  0, 60, 31, 19,
+        34,  6, 13,  1, 55, 46, 54, 57, 38, 28,  5, 25,  2, 23, 21, 50, 30, 24,
+        19,  2, 27, 54, 36,  4], device='cuda:0')
+E tensor([[0, 1, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([28, 21, 17, 49, 25, 39, 35, 44, 10, 49, 40,  4, 50, 36, 54, 58, 21, 54,
+        52,  1, 19,  9, 34, 59,  0, 37,  7, 31, 27, 55, 24, 16, 59, 45, 25, 22,
+        37, 31, 45, 19, 12, 29, 33, 25, 49, 28, 14, 31,  1, 18,  4,  1, 19, 60,
+        17, 60, 46, 39, 37, 49, 32, 21, 40, 48, 15, 41, 13, 56, 14, 25, 51, 38,
+        24, 44,  4, 20, 27, 60, 12, 33, 44, 43, 30, 35, 45, 51, 36, 32, 54, 21,
+        20, 56, 44, 46, 48, 41, 61, 33,  3, 53, 23, 53, 23, 63, 27, 58, 50, 39,
+        50, 43, 59, 30,  8, 61, 62, 62, 24, 49, 24, 35,  4,  7, 17, 18, 37, 21,
+        55, 57, 14, 62,  0, 19, 30,  0, 17, 11, 27,  8,  2, 40, 21, 48, 44, 56,
+        58, 35, 62, 17, 26, 15], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([16, 21, 62, 33, 55, 24, 43, 22,  3, 35, 28, 37, 58, 58, 21,  0, 42, 37,
+        17,  3, 41, 46, 32, 35, 34, 24, 25, 26, 45, 48, 13, 55, 63, 27, 44, 22,
+        40,  4, 21, 28, 62, 13, 39, 22,  0, 17, 26, 48, 62, 24, 62, 16, 24, 19,
+        45, 35, 13, 43, 47, 31, 31, 54, 52, 42, 60, 49, 34, 35,  0, 21, 55, 10,
+         1,  0, 17, 52, 61, 25,  7, 46, 16, 29, 26, 55,  8, 59, 37, 21, 22, 10,
+        43, 13, 16,  9, 32, 55, 11, 48, 14, 35, 15, 54, 16, 11, 44, 49,  0, 56,
+        13,  1, 59,  0, 49, 11, 46, 50, 48, 30,  6, 28, 21, 62,  7, 34, 10, 45,
+        49, 15, 27, 45,  2, 50, 43,  7,  9,  6,  4, 35, 62, 10, 61, 10, 63, 27,
+        31, 42, 43, 26,  7, 56], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([28, 28, 60, 19, 30, 47, 40, 47, 47, 21, 15, 37, 50, 46, 28,  7, 49, 59,
+         6,  1, 46, 32, 13, 48, 31, 49, 54, 49, 22, 24, 59, 12, 28, 56, 24, 30,
+        59, 53, 30, 26, 38, 26,  8, 25, 16, 22, 37,  5, 31, 20, 60,  5, 46, 48,
+        31, 25, 38, 44, 37,  0, 59, 38, 32, 34, 49,  7, 55, 34, 46, 56, 21, 19,
+        27, 54,  2, 25, 20, 47, 44, 32, 53, 14, 44, 53,  7, 38, 54, 58,  0, 32,
+        55, 56, 38, 26, 44, 40,  7, 54, 34, 25, 32, 13, 31, 63, 51, 32, 27, 55,
+        43, 47, 43, 37, 59, 60, 46, 37, 30,  1,  1, 62, 34, 29, 47, 22, 10, 56,
+        56, 18, 56, 35, 62, 29, 22,  5, 27, 38, 25, 44, 34, 50, 16, 25, 39, 62,
+        25, 38, 57, 62, 19, 16], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([55, 31,  6, 15, 41, 16,  2, 24, 62, 52, 54, 63, 42, 38, 35, 15, 28,  8,
+        55, 14, 33, 40, 43, 56, 30,  1, 28, 52,  8, 18, 45, 10, 26,  1, 34, 46,
+        41, 47, 55, 36, 13, 58, 40, 43, 33,  6,  9,  6, 56,  5, 22, 51, 44, 57,
+        59, 59,  1, 39, 59,  0, 21, 26, 55,  3, 34, 40, 52, 10, 32, 13, 40,  6,
+        24, 49, 63, 49, 34, 27, 37, 17, 32, 54, 28, 40, 26, 19,  5, 29, 57, 44,
+         1, 11, 29, 16, 49, 39, 43, 26, 32, 48,  2, 60,  3, 27,  8, 30, 17, 36,
+         7, 41, 61,  6, 37, 61, 59, 30, 32,  4, 34, 23,  8, 15, 31, 19,  6, 31,
+        43, 58, 35,  2, 51, 47, 52, 51, 58, 28, 60, 42, 37,  1, 10, 42,  7, 61,
+        58,  3, 40,  2, 62, 22], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 1, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 6, 28,  2, 60, 42,  7,  1, 19, 39, 35, 60, 60, 58, 22, 49,  7, 60, 31,
+        13,  8, 61, 15, 31,  5, 50, 10, 20, 26, 15,  0, 50,  1, 12, 22,  2, 14,
+        45, 35, 36, 46, 37, 58, 13, 50, 35, 38, 20, 17, 39, 54, 15, 31, 43, 56,
+        58, 16, 52, 50, 48,  5, 39, 43, 16, 30,  7, 39,  1, 52, 48, 59, 35,  3,
+        44, 41, 27, 34, 18,  3, 59, 12, 17, 61, 31, 53, 35, 58, 54,  2, 58, 55,
+         7, 33, 35, 10, 10,  2, 15, 54, 54, 31, 10, 18,  3, 53, 40, 13,  8, 55,
+         0, 49,  8, 28, 16, 27, 53, 60, 54,  2, 24, 28, 56, 16, 45, 29, 35, 50,
+         9, 30, 62,  0, 21, 24, 43,  2, 23, 31, 30, 35, 34, 52, 43, 20, 62, 53,
+        17, 47, 59, 63, 51, 24], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([27,  0,  0, 55, 57, 51, 39, 32, 16, 24, 31,  3, 55, 19, 24, 54, 14, 23,
+        20, 36, 14, 13, 31, 39, 16,  1, 33, 62,  7,  5, 25, 41, 49, 43,  5, 24,
+        47, 52, 10, 33, 11, 41, 31, 61, 53,  7,  3, 23, 39, 48, 41, 45,  9,  4,
+        25, 42, 21, 28,  0, 39, 45, 31,  6, 50, 13,  3, 60, 40, 15, 23, 51, 44,
+        54, 18, 49,  0, 57, 56, 59,  0, 31, 20,  9,  9, 39,  8,  9, 43, 58,  7,
+        11, 12, 55, 29, 19,  7, 27, 59, 56, 37, 11, 38, 56, 39,  4, 33, 40,  1,
+        11, 31, 21, 41, 12, 49, 27, 54,  4, 48, 47, 21, 60, 54,  6, 29, 17, 54,
+        46,  7, 28,  2, 16, 63, 20, 45,  6, 48, 30,  8, 46, 26, 16,  7,  6, 54,
+        27, 12, 47, 63, 55, 43], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([38, 33,  8, 20, 60, 59, 23, 24, 63, 43, 36, 39, 45, 37, 56, 55, 57,  5,
+        63,  5, 16, 34, 21, 13, 62, 19, 51, 28, 11, 22, 53,  6, 32, 49, 26, 11,
+        36, 19, 50, 63, 27,  3, 14, 47, 36, 10,  7, 15, 20, 58, 35, 57,  4, 10,
+        58, 42,  7, 14, 45,  9, 55, 47,  7, 16, 45, 37, 13, 50, 40, 46, 30, 28,
+        60,  0, 44, 15, 63, 50, 37, 60, 23, 48, 60, 63,  9, 38, 47, 39, 22, 42,
+        46, 37, 16,  0, 41, 29, 41, 49, 51, 49, 16, 42, 61, 20, 41, 57, 24, 46,
+        44,  9, 57,  0, 59, 21, 46, 45,  3,  6, 22, 12, 46,  6, 23, 60, 40, 50,
+        62, 14,  2, 56, 15, 20,  8, 52, 49, 63, 30, 35,  9, 52, 48,  5,  1,  9,
+         0,  3, 47, 29, 29, 40], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([54, 40, 51,  0, 38, 23, 62, 22, 23, 34, 45, 54, 41, 34, 51, 53,  7, 30,
+        37, 15, 35, 29, 20, 22, 13, 13,  1, 32, 59,  9, 50, 46, 50, 36,  1,  7,
+        58, 48,  6, 23, 36, 45, 35,  8, 50, 13, 55, 19,  3,  3, 10, 63, 47, 42,
+         2, 50, 62, 60, 36,  0,  4, 15,  5, 48, 60, 59,  8, 35, 59, 50, 46, 28,
+        24,  1, 18, 13, 55, 27, 19, 25, 26, 19, 21, 34, 43, 13, 16, 47, 32, 45,
+        13, 15, 38, 31, 30, 19, 19, 40, 22, 61, 59, 34, 35, 41, 12, 29, 15,  0,
+        55, 13,  9, 27, 60, 41, 47, 22, 36, 50, 35, 20, 13, 13, 20, 62, 12, 63,
+         9, 37, 39,  9, 57,  7,  4, 46, 53, 52, 49, 53,  5,  7, 32, 12, 36, 47,
+        10,  7, 55, 56,  6, 36], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 7, 21, 56, 26, 23, 35,  1, 38, 18, 14, 40,  8, 27, 14, 15, 27,  1, 19,
+        57, 35,  9, 33, 12, 13, 20, 62, 31, 20, 36, 58,  5, 38, 28, 18, 15, 39,
+        30, 26, 54, 55, 23, 42, 16, 53, 10,  0, 25, 47, 48, 30, 16, 46, 19, 61,
+        50,  2, 58, 56, 42, 53, 41, 14, 15,  2, 32, 48, 13,  3, 63, 51, 41, 56,
+        55, 39,  7, 11,  4,  8, 18, 60, 47, 41, 48, 12, 30, 44,  4, 38, 20,  8,
+        34, 41, 61, 56,  8, 13, 17,  1,  5, 32, 22, 57, 35, 18, 30, 15, 40,  9,
+        48, 21, 41,  7, 28, 39, 53, 54, 35, 15,  6,  5, 24, 27, 62, 39, 50, 33,
+        31,  1, 21,  7, 16, 44, 42, 45, 63, 34, 54, 28,  3, 11,  6,  2, 62, 43,
+        39, 25, 54, 59, 12, 23], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([55, 22, 32, 19, 52,  5, 58, 48, 52, 37, 10, 48,  8, 16, 31, 59, 17, 41,
+        35, 34, 58, 12, 32, 28, 15,  4, 35, 17, 53, 39, 44, 28, 30, 54, 19, 14,
+        31, 36, 42,  8, 28, 26, 23, 14, 55, 44, 38,  3, 41,  0, 17, 32, 47, 37,
+        49, 20,  1, 52, 14, 21, 39, 25,  7, 29,  4, 26, 13,  6, 59,  7, 16,  4,
+        50, 20,  6, 52, 31, 56,  1, 16,  3,  4, 49,  8, 32, 19, 16, 30, 37, 27,
+         4, 35, 36, 40, 42, 12, 34, 33, 44, 35, 37, 43,  3, 36, 15,  5, 14, 19,
+         3, 16, 31,  2, 20, 26, 31, 42, 30, 17, 11, 23, 20, 19, 48, 40, 56, 48,
+         2, 44, 49, 30, 13, 15, 39, 35, 43, 50,  6, 10, 38, 61, 31, 16, 11, 60,
+        37, 61, 18, 37, 63, 15], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([31, 37, 52, 54,  8,  2, 17,  2, 46, 22, 53, 12, 25, 40, 25, 32, 17,  0,
+        59, 44, 52, 39, 37, 50,  5, 27, 61, 38, 42, 14, 39, 56,  3, 32, 24,  7,
+         1, 43, 40, 29, 61, 50, 32, 36,  4, 14, 34, 47, 44, 40, 48, 51, 17,  2,
+         7, 30, 34, 34, 15, 19,  7, 14, 35, 37, 20, 12, 55, 10, 23, 41,  0,  8,
+        16,  3,  5, 17, 31, 34, 53, 37, 58, 21, 29, 34, 17, 15, 21, 47, 47, 34,
+        45, 37, 54, 23, 38, 12, 49, 32,  1, 14,  7, 25, 57,  6, 58, 15, 35, 10,
+        51,  2, 21, 21, 38, 43, 37,  4, 56, 27, 37, 54, 10, 50, 41, 24, 63, 51,
+        40, 41, 47, 32,  1,  7, 37, 28, 62, 29, 55, 17, 31, 29, 61,  4, 34, 51,
+         0, 53, 10,  0, 28, 19], device='cuda:0')
+E tensor([[0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 1, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([59, 54,  2, 55, 48, 48, 29, 16, 38, 53,  9, 42, 62, 22, 16,  0, 35, 47,
+        30, 42, 53, 31, 14, 29, 20,  8, 37, 13, 19,  0, 46, 31,  3,  2,  8, 38,
+        22, 48,  5, 35, 36, 49, 50, 14, 33, 26, 44, 57, 17, 56, 56, 37,  0, 55,
+         2, 62, 48, 45, 14, 62, 16, 43,  9, 22, 42, 13, 41, 53, 39, 33, 58, 53,
+        63, 38, 36, 47, 37, 39, 37, 44, 16, 24, 31, 21, 12, 14, 35, 14, 42, 32,
+        42, 19, 56, 35, 24,  1, 51, 13,  7, 59,  2, 11, 29, 19,  7,  5, 46, 43,
+        14,  4, 34, 62, 38, 53, 38, 36, 18,  4,  0, 32, 51, 33, 21, 41, 59, 15,
+        13, 11, 16, 52, 24, 38, 39, 62,  1,  2, 46, 36, 52, 33, 62,  7,  9,  0,
+        38, 62, 18, 10, 62, 41], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([14,  3,  7, 10, 43, 61, 45, 58, 42,  5, 21, 44, 16, 32, 51, 49, 44, 62,
+        51, 32, 13, 38, 60, 38, 55, 37, 59, 32, 42, 47, 43,  3, 52, 17, 57,  3,
+        31, 34,  8, 28, 39, 21, 53, 29, 33, 63, 24, 18, 20, 32, 35,  8, 39, 54,
+        27, 48, 61, 46,  3, 50,  3, 33, 15, 57, 12, 18, 32, 19, 19, 42, 53, 60,
+        55, 13, 47, 53, 48, 37, 39,  0, 59, 11, 50, 19, 18, 19, 42,  5, 25, 47,
+        28, 21, 25,  3, 61, 18,  1, 47, 31, 54, 28, 15, 59, 29, 31, 31, 59, 30,
+        34,  7, 35, 34, 21, 31, 11, 47,  6, 42, 11, 40, 16, 29, 48, 43,  0, 61,
+         7, 28, 54, 61, 44, 48, 26, 23, 36, 34, 41, 53, 14, 43,  9, 35, 13, 36,
+         1, 47, 59, 13,  5, 40], device='cuda:0')
+Error executing job with overrides: ['dataset.name=reddit_v2', 'general.name=test_reddit_v2_X', 'model.transition=uniform', 'general.wandb=disabled', 'general.ckpt_path=/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/epoch\\=9.ckpt', 'train.batch_size=12', 'general.setting=test']
+Traceback (most recent call last):
+  File "/home/allenwang/gad_diff/gad_lggm/src/main_test.py", line 78, in main
+    trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 737, in test
+    return call._call_and_handle_interrupt(
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 780, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 975, in _run
+    results = self._run_stage()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run_stage
+    return self._evaluation_loop.run()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 122, in run
+    return self.on_run_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 244, in on_run_end
+    self._on_evaluation_epoch_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 326, in _on_evaluation_epoch_end
+    call._call_lightning_module_hook(trainer, hook_name)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 140, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/allenwang/gad_diff/gad_lggm/src/diffusion_model.py", line 302, in on_test_epoch_end
+    self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LiftedDenoisingDiffusion' object has no attribute 'name'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1800, 64], edge_index=[2, 6924], edge_attr=[6924, 2], y=[12, 0], batch=[1800], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 197903.61 -- Test Atom type MSE 113.25 --  Test Edge type MSE: 439.48 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2849.63 -- Test E Reconstruction loss 50439.53 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 197903.6094
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([63, 34, 54, 50, 27, 60, 60, 62, 18, 22, 33, 15, 31, 44, 31, 59, 18, 22,
+        57,  9, 18, 59, 49, 12, 48, 22, 49, 42, 13, 56,  5, 37, 29, 47, 42, 53,
+        40, 22,  6, 20, 13, 31, 12, 26,  8, 12, 26, 19, 59, 21, 58,  7, 22, 37,
+        57, 55,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 56, 45, 43, 31,  0,  3, 14, 33,  0, 12, 31,  9, 35, 60, 53, 37,  1,
+        12, 46, 43, 39, 62, 13, 29,  3, 35, 46, 11, 62, 54, 16, 10, 54, 36,  7,
+        42, 13, 13, 15, 24, 24,  3, 41, 14, 60, 14, 10, 12, 42,  7, 63, 47, 41,
+         7, 38, 43, 52, 37, 25, 24, 12, 50, 49, 50, 43, 56, 61, 48, 59,  9, 32,
+        53, 52, 14, 48, 43,  0, 42, 35,  3, 11,  1, 50, 55, 21, 56, 25, 34, 30,
+        18, 48, 12, 41, 41, 42, 19, 45, 56,  7, 11, 57, 37,  8, 16, 53, 54, 17,
+        12, 60, 18, 59, 20, 19, 11, 18, 13, 57, 50, 50,  9, 63, 37, 63, 52, 43,
+        34, 39, 26, 61,  6,  8, 33, 30, 36, 32, 49, 20, 34, 60, 38, 24, 47, 48,
+        23, 52, 37, 21, 47, 58], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([46, 30,  4, 38,  0, 38, 62, 13, 11, 62,  5, 19, 29, 39, 55, 46, 48, 26,
+        59, 34, 21, 33, 39, 27, 28, 54, 49,  0, 42, 25,  9, 53, 62, 31, 41, 55,
+        20, 29,  3, 54, 38, 27, 60, 14, 18, 62, 28, 48, 14, 43, 26, 43, 60, 35,
+        43, 35, 57, 17, 52, 53, 29, 63, 53, 32, 38, 20,  6,  6, 63, 20, 33, 42,
+        23,  5, 35, 58, 44, 14, 26, 58, 11, 50, 31, 14,  1, 51, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([51, 43,  8, 20, 21,  5, 44, 47, 17, 41, 42,  5, 31,  7, 63,  5, 36,  7,
+        62, 37, 60, 25, 16, 10, 21, 24, 63, 39, 35, 38,  7, 31, 48, 33,  5, 32,
+        37, 30,  6, 52,  0, 46, 30,  6, 59, 32, 51, 40, 32, 20, 10, 37, 40, 25,
+        41, 59, 28,  9, 40, 58, 32, 40, 51, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 1, 0]], device='cuda:0')
+X:  tensor([45, 16,  7, 31, 17, 62, 23, 60,  9, 53, 49, 53, 42, 36, 27, 38,  9, 55,
+        57, 60, 33,  8,  4, 44, 49, 23, 54, 42, 57, 63, 11, 18,  9, 21, 32, 11,
+        42, 10, 26, 47, 62, 31, 50,  7,  3, 53, 44, 12, 21, 11, 27, 37, 53, 35,
+        49,  0, 63, 58, 12, 54, 57, 15, 29, 19,  4, 59, 20, 24, 53, 46, 45,  9,
+        12, 39, 35, 42, 37, 39, 52, 17, 23, 42, 62, 16, 49, 43, 57, 18, 59, 60,
+        53, 36,  4, 12, 14, 26, 20, 38,  7, 27, 29, 26, 26, 58, 53, 40,  4, 16,
+        43, 26, 40, 40, 59, 39, 27, 28,  0, 43, 45, 58,  0, 26, 41, 21, 35, 18,
+        33, 38,  6, 24, 27, 42, 28, 54, 52,  4, 42, 20, 30, 45, 55, 59,  9, 46,
+        10, 60,  8,  4, 63, 61], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([47, 21,  8,  6, 42,  4, 28, 10, 59, 13,  5,  5, 24, 29, 11, 53, 51,  1,
+         1, 31, 25, 32, 24,  3, 26, 48,  2,  4, 20, 28, 16,  1, 35, 60, 51, 48,
+        63, 36, 55, 41, 62, 27, 17, 29, 14, 56, 22, 48, 23, 13, 19, 18, 13,  5,
+        46,  6, 38, 43, 36, 63, 45, 63, 36, 36, 49, 54, 46,  5, 21, 25, 32, 44,
+        31, 60, 33, 24, 56,  1, 62, 13, 43, 37, 18, 47,  2, 50, 59,  3, 23,  1,
+        39, 53, 42, 10, 28, 42, 23, 16, 26, 26, 14, 18, 18, 50, 39,  8, 63, 42,
+        10, 10, 27,  2, 17,  2, 11, 55, 11, 29, 35, 63, 39, 28, 52, 35, 26, 45,
+         6, 44, 34, 23, 37, 42, 51,  5, 10,  2, 30, 21, 42, 58, 38, 44, 41, 25,
+        25,  2, 58, 25, 25, 16], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([40, 43,  0, 51, 10, 43, 55, 62, 38, 20, 32, 49, 17, 50, 55, 29, 52, 52,
+        34,  4, 38,  5, 49, 37, 11, 36, 63, 41, 17,  3, 54, 41, 61, 19, 13, 13,
+         4, 31, 27, 60, 49, 11, 43,  2, 48, 52, 20, 59, 12, 41, 51, 33, 39, 20,
+        48, 50, 62, 20, 50, 44,  5,  4, 48,  1, 27,  9, 13,  7, 44, 42, 15, 48,
+         1,  9, 47, 52, 36, 47,  7, 39, 31, 57, 35, 37, 45, 46, 43,  9, 46, 40,
+        37, 35,  0, 50, 36, 27, 55, 32, 15, 42, 57, 45, 41, 34, 29, 36, 29, 30,
+        42, 19, 16, 59, 19, 15, 40, 24, 61,  7,  3,  1, 47, 39,  7, 28, 46,  8,
+         0, 60, 23, 45, 50,  3, 27, 60, 27,  1, 33, 40, 39, 18,  6, 14, 30, 52,
+        45, 19, 50, 58, 13, 20], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([36,  1,  2, 45, 19, 15, 36, 60, 33,  8, 62, 49, 46, 54,  2,  9, 48,  8,
+        29, 31, 23, 24, 13, 52, 43, 16, 41, 13,  4,  2,  5,  8, 55, 57, 16, 31,
+        43,  1, 51, 26, 60, 11, 31, 61, 56, 58, 33, 43, 29, 58, 20, 29, 41, 57,
+        21, 39, 46, 54,  9,  5, 51, 14,  6, 26,  7,  3,  5,  4, 12, 38, 44, 27,
+        33, 28,  1, 58,  7, 36, 42, 26, 17, 60, 30,  5, 16, 17, 46, 45, 18,  5,
+        59, 40, 54, 34, 37, 36, 42,  9,  8, 53, 45, 19, 35, 18, 25, 40, 41, 29,
+        29,  1,  7, 45, 60, 39, 60, 14,  1, 50, 16,  9, 39, 19, 33, 11, 42, 33,
+        15, 38, 20,  5, 19,  3, 26,  9, 12, 39, 36, 49,  2, 51,  5, 29, 57, 43,
+         1, 43, 34,  8, 30, 50], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 3, 51, 16, 37,  5, 27, 19, 32, 15, 56,  8,  9,  2, 56, 49, 20, 63, 16,
+        18, 61, 14, 24, 42, 40, 48, 53, 47, 21,  6,  7, 25, 18,  7, 57, 54, 55,
+        42, 41, 54, 26, 59, 49, 60, 34,  0, 15, 16,  6, 16, 31,  9,  7, 53, 47,
+        43,  1, 25, 56, 19, 60,  8,  5, 51, 10, 56, 49, 32, 45, 25, 13, 18, 18,
+         1,  1, 43, 60,  8, 59, 58, 39, 18, 33, 40,  8, 41, 49, 49, 35, 52, 28,
+        39, 17, 60, 43, 52, 63, 24,  1, 45,  4, 57, 44, 55, 43,  7, 50, 51, 33,
+        42, 29, 53, 34,  6, 28, 17, 51, 14,  9, 23, 34, 30, 23,  4,  9, 22, 30,
+         0, 14, 50, 18, 53, 38, 51, 26, 21, 43, 25, 61, 36, 60, 30,  4, 29, 44,
+        57, 58,  8,  5,  5, 17], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([18, 53,  7, 58,  0, 28, 38, 23, 44, 16, 42, 48, 13, 60,  5,  3, 17, 55,
+         9, 18, 37,  5, 20, 29,  7, 63, 51, 13, 53, 56, 37, 20, 33, 39, 10, 21,
+         3,  6, 48, 41, 19, 53,  8, 54, 35,  8, 21, 43, 55, 26, 22, 25, 43, 31,
+        27, 17,  3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 1],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([59, 60, 45, 40, 63,  1, 30, 53, 56, 14, 50, 63, 12,  0, 17, 51, 49, 35,
+        45, 35,  2, 45, 43, 46, 30, 54, 57, 53,  4, 26, 56, 17, 58,  6, 47, 12,
+        10, 34,  1, 63, 30, 18, 37, 51, 42, 20, 59, 28, 55,  7,  2,  7, 22, 60,
+        59, 53, 20,  3, 62, 56,  8, 19, 59, 15, 36, 61, 22, 46, 51, 31, 23, 23,
+        10, 49, 60, 58, 39,  5, 44, 27, 57, 49, 16, 60, 26,  8, 42, 20,  0, 39,
+        58, 40, 29, 23, 32, 53, 36, 47, 56, 28, 57, 37, 13, 48, 54, 32, 39, 50,
+        32, 63,  0,  2,  7, 37, 15, 32, 59,  3, 60, 14, 55, 52, 15, 41, 11, 34,
+        48, 52,  5, 53,  3, 42, 37, 54, 34,  2, 42, 22, 48, 55, 49, 33, 60,  8,
+        46, 49, 45, 33,  9, 12], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([55,  6, 28, 42, 42, 46, 14, 51, 35, 33, 52, 50, 32, 21, 53, 40, 21, 32,
+        42, 54, 56, 39, 52, 29, 49, 46, 59, 21,  2, 55,  5, 54,  6, 21, 11, 49,
+         8,  7,  2, 42, 10, 43, 50, 54, 54, 60, 25,  5, 57, 15,  4, 54,  2, 49,
+        46, 21, 53, 38, 52, 45, 11, 56, 15, 40, 16, 62, 40, 55, 15, 28, 61, 36,
+         2, 12,  6,  3, 10,  7, 46,  1,  0, 18, 51, 25,  4, 28, 29, 10, 49,  7,
+         2, 63, 29,  9,  8, 56,  0, 31, 26, 61, 61, 46, 35, 42, 44, 49, 16, 43,
+        53,  3, 54, 13,  7, 50, 45, 35, 29, 24, 17, 24, 27, 53,  9,  0, 48, 45,
+         1, 32, 44, 60, 42, 38, 39,  4, 48, 41, 21, 46, 56, 54, 13, 50, 33, 32,
+         7, 48, 42, 58, 18, 58], device='cuda:0')
+E tensor([[0, 0, 1,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [1, 0, 0,  ..., 0, 0, 1],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 1,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([40, 44, 56, 55,  1, 61, 49, 17, 35, 54, 58, 12, 10,  0, 34,  8, 24, 35,
+        29, 40, 58, 50, 46, 33, 15, 11, 45, 20, 37, 63,  6, 16, 49, 52,  9, 39,
+        35, 24, 55, 16, 58,  6, 32, 55, 14, 13, 34, 40, 59, 43, 31, 39,  5, 19,
+        46, 32, 53, 54, 30, 25, 19, 52, 20, 11, 13,  7, 24, 36,  1, 15, 48, 33,
+         1, 11,  5, 15, 55, 26, 31, 42, 63, 13, 14,  2, 18, 44, 21,  9,  2,  7,
+        41, 15, 17,  4, 43, 47, 14, 29, 12, 25, 60, 48, 45, 57,  8, 16, 43, 20,
+        29,  6, 57, 49, 57,  3, 19, 62,  9, 45, 35,  2, 53,  7, 52, 42, 18,  9,
+        39,  8, 56,  1, 32, 53, 24, 41, 27, 60, 37,  7, 45, 57, 32, 29, 42, 37,
+        58, 32, 12, 44, 47,  9], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([17, 16, 44, 29,  8, 35, 33, 42, 19,  9, 22, 50, 31, 61, 28,  6, 29, 48,
+        26, 42,  5, 20,  9, 26, 16, 48, 47, 45, 52, 50, 53, 10, 56, 62, 57, 48,
+        14, 53,  9, 21, 53, 24, 62,  8,  1, 31, 20, 31, 29,  2,  0,  5, 12, 55,
+        13, 20, 21, 38, 21, 42, 38, 59, 36, 33, 40,  4, 19,  7, 19, 24, 19, 12,
+        48, 31, 43, 31, 49, 55, 28,  0, 55,  8, 27, 17, 11,  1, 55, 32, 57, 10,
+        52, 22, 39, 24, 32, 45,  0, 31, 20, 35, 10, 52, 59, 36, 28, 58, 45, 11,
+        59, 47, 31, 57, 21, 26, 31, 13, 46,  0,  8, 28, 50,  2, 37, 13, 13, 19,
+         8, 19,  0, 16, 30, 63,  0, 35, 58, 11, 22, 35, 22, 23,  4, 14, 50, 51,
+        55,  8, 17, 54, 33, 60], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 2, 31, 57, 27, 59, 36,  1,  9, 42, 49, 26, 31, 11, 33,  0, 56,  7, 15,
+         4, 28, 12,  1,  7,  7, 58, 39,  6, 38, 12, 37, 42, 47, 40, 51, 42, 23,
+        34, 54, 45, 13, 51, 49,  0, 21, 61, 26,  0, 25, 32, 26, 43, 29, 60, 54,
+        61, 31, 59,  3,  1, 37,  8, 17, 58, 10, 17, 63,  6, 32, 19, 31, 54, 11,
+        35, 33, 55,  0, 58, 45,  2, 12, 34, 50, 17, 60, 57, 59,  3, 44, 16,  4,
+        52,  2,  7, 33, 29, 38, 51, 22, 19, 47, 26, 20, 16, 45, 57, 44, 23, 29,
+        19,  7, 45, 62,  7, 35, 54, 12, 40, 55, 11, 44, 54, 53, 14, 17, 14,  8,
+        61,  2,  1, 48,  6, 14, 41, 62, 52,  3, 30, 53, 50,  4, 12, 13, 44, 55,
+         5, 58,  2, 10, 16, 21], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([14, 30, 57, 57, 27,  3, 18, 11,  2, 52,  4,  5, 27, 49, 43, 12, 24, 21,
+        41, 26, 54, 17, 39, 39, 14, 43, 48, 61, 37, 45, 49, 21, 20, 32, 37, 25,
+        30, 59,  6, 15, 53, 13, 17, 14, 48, 10, 51, 50, 43, 17, 12, 59, 22,  1,
+        22, 15, 28, 42, 25, 16, 20,  6, 59, 60, 58, 32, 39, 30, 27, 47, 27, 41,
+        11, 24, 51, 53, 41,  7, 34, 25, 26, 44, 52, 18, 37, 50, 55,  7, 10, 18,
+        62,  5, 12, 28, 20, 50, 50, 32, 55, 12, 23, 48, 41, 21, 16, 49,  3, 41,
+        35,  7,  0, 63, 49,  9, 32, 60,  4, 29, 19,  2, 37, 30, 60, 42, 40, 18,
+        10, 51, 53,  7, 56, 61, 13, 36,  8,  2, 34, 44, 55, 13, 37, 34, 17, 50,
+        42, 28, 42, 45, 42, 56], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 1, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 1, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([59, 19, 38, 23, 58,  0,  2, 50, 61, 45, 19, 27, 54, 61, 26, 62, 35, 26,
+         7, 42, 12, 45, 12,  2, 10, 44,  7, 34, 60, 37, 25, 40, 15, 29, 16, 52,
+         4, 42, 30, 53, 34, 33, 34, 13,  6, 20, 47, 10, 28, 18, 26, 43, 38, 34,
+        52, 14,  4,  1, 50, 59, 20, 29,  9, 53, 20, 52, 28, 44, 30, 35, 48, 17,
+         6, 21, 21, 54, 21,  0, 41, 41,  8,  0,  5, 48, 26, 25, 16, 33, 58, 37,
+         7, 46, 27, 12,  7, 34,  8, 51, 17,  3, 22, 19, 23, 39, 33, 30, 10, 29,
+        14, 55, 54, 36, 46, 17, 12,  0,  7, 10, 17,  5, 46, 32, 38, 34, 63, 24,
+        39, 16, 10, 42,  0, 51, 26,  2, 30, 41,  3, 51, 53, 36, 19, 16, 45, 15,
+        53,  6, 44, 53, 49, 34], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([25, 16,  2,  1, 63, 15, 43, 45, 44, 46, 50, 18, 41,  0, 39, 57, 50, 59,
+        17, 22, 30,  5, 60, 53, 39,  2, 53, 29, 36, 55,  0, 25, 25,  4, 30, 61,
+         3,  0,  7, 63,  9, 22, 16, 40, 14, 57, 43, 30, 19, 49, 59, 44, 16, 44,
+        25,  9, 48,  7, 50, 21, 38, 60, 13, 31, 37, 44, 30, 32, 18, 28, 25, 54,
+        35, 57, 31, 38, 50, 26, 59, 16, 22, 59, 52,  7, 37,  3, 37, 42, 42, 30,
+        51, 62, 16,  7, 23, 23,  2, 10, 48, 32, 59,  1, 42, 59, 27, 54, 26, 10,
+        31, 31,  2,  5, 30, 38, 23, 47, 28, 50,  7, 15, 62, 59, 30,  2, 14, 12,
+         2, 56, 38, 28,  5, 55, 55, 53, 18, 17, 43, 20, 54, 52, 50, 42, 39,  1,
+        36,  5, 42, 34, 56,  0], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([19, 39, 24,  4, 48, 13,  1, 32, 46, 11, 19, 26, 12, 21, 32,  0, 26, 44,
+        26, 41, 10,  2, 17, 63, 54, 16, 35, 47,  1, 17, 34,  5, 39, 41,  1, 32,
+        60, 48, 59, 62, 38, 36, 40,  7, 23, 59, 39, 57,  1,  8, 36,  1, 42,  6,
+        13, 29, 24, 42, 27, 31,  9, 42, 11, 42, 55, 32, 54, 63, 34,  9, 25, 42,
+        48,  4,  0, 54, 40, 25, 34, 36,  1,  5, 21, 20, 51, 15, 61, 26,  8, 19,
+         9, 58, 39, 57, 39, 19, 31, 35, 53,  7, 29,  5, 52, 42,  9, 15, 28, 63,
+        25, 46, 42,  1, 31, 29, 39, 43, 27,  3,  8, 52, 54, 56, 60, 60, 58, 48,
+        43, 35, 39, 60, 41, 60, 42, 18,  7,  9,  3, 27,  6, 51, 14, 20, 54, 61,
+         7, 42, 16,  2, 10, 21], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([52,  4,  6, 44,  3, 47, 61, 25, 53, 36, 42, 58,  6, 37, 30,  8, 30, 14,
+         5, 49, 54, 60, 25,  7, 53, 38,  8, 12, 45, 17, 47, 25, 46, 13, 61, 42,
+        36, 26, 18,  2, 60, 53, 15, 39, 56, 27, 57, 57, 48, 26, 42, 57, 26, 57,
+        48, 44, 60, 49, 42, 59, 44,  7, 44, 32, 22, 44, 29, 56, 29, 58, 30, 42,
+         6, 21, 20, 42,  1, 33, 10, 38, 45, 39, 62, 46, 11, 10, 30, 37, 42,  1,
+        53, 18, 14,  3,  7, 44, 56,  0, 57, 28, 22, 38, 39,  1, 13, 25, 40, 34,
+        41,  1, 19, 49, 33, 20, 31, 44, 45, 37, 19, 62, 25, 49, 62, 35, 16, 50,
+        26, 32, 44, 59, 25, 31, 62, 50,  8, 27, 62, 13, 20,  4, 19, 54, 58, 11,
+        10, 55, 49, 21, 36, 24], device='cuda:0')
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([32, 55, 58, 31, 43, 63, 62, 26, 29, 39, 58,  2, 10, 36, 30, 19, 53, 12,
+        44, 44, 24, 24, 34, 36, 22, 47, 52, 14,  7, 25, 49, 21, 50, 34, 45, 49,
+        15, 40, 53, 54, 62,  9,  4, 46,  6, 21, 43, 63, 42, 14,  6, 21, 18, 37,
+        18, 46, 43, 10, 21,  1, 31, 12, 41, 14,  2, 56, 26, 20, 26, 15, 30, 62,
+        13, 60,  9, 30, 16, 46,  8, 10, 33,  0, 16, 50,  1, 22, 32,  7,  9,  3,
+        34, 11, 40, 12, 11, 61, 59, 55, 42, 42, 44, 60, 24, 22, 32, 55,  9, 42,
+        12, 32, 13, 12, 36, 46, 59, 55,  6, 24, 56, 33, 55, 56, 29, 61, 50, 34,
+         6, 16,  1, 49,  6, 58,  0, 28, 23, 30, 39, 60, 45, 29, 49, 16, 35, 16,
+        31,  0, 61,  2, 35, 18], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([52, 36, 13, 24, 31, 14, 58, 27, 40, 28, 31, 45, 50, 35, 25,  9, 13, 26,
+        62, 63, 57, 23, 32, 16, 51, 19, 18, 39, 56, 35, 39, 14,  1, 26, 42, 27,
+        59, 34,  7, 14, 39, 62,  2, 28, 28,  1, 26, 13,  1, 16, 54, 13, 32, 55,
+        48, 31,  0, 16, 56, 59, 18, 13, 28, 40,  9,  0, 62,  8, 56, 19,  8, 14,
+        45, 58, 23,  6, 10, 19, 41, 14, 14, 27, 22, 32, 63, 56, 22, 46, 57, 49,
+        27, 39, 13, 36, 18, 43, 42, 48, 48, 16, 59, 43, 33, 56, 41, 31, 49, 14,
+         9, 46, 19, 22, 39, 16, 22, 17, 24, 36, 14, 56,  2, 53, 57, 51,  0, 13,
+        32, 49, 16,  1, 51, 30, 11,  3, 61, 36,  4, 56, 36, 20, 42, 41, 16,  8,
+         3, 28, 32, 38, 14,  5], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([48, 47, 62, 44, 20, 24, 34, 46, 41, 41, 20, 13, 37, 36,  7, 19, 32, 51,
+        48, 63, 16, 46, 55, 40, 10, 21, 56, 39, 62,  4, 12, 40, 62, 52,  3, 43,
+         0, 15, 49, 46,  6, 35, 19, 63,  2, 47,  5,  4, 49, 39, 25, 39, 42, 59,
+        35,  7, 34,  9, 18, 60,  1, 54, 34, 16, 52, 16, 57,  1, 18, 14, 27, 28,
+        43, 38, 34, 36, 10, 40, 24, 13, 39, 55, 62, 48, 16, 11, 36, 39, 25, 15,
+        30, 62, 12,  0, 14,  2, 49, 35, 16, 34, 34, 12, 12, 49, 13, 59, 36, 26,
+        38,  1, 53, 36,  7, 44, 36, 45, 21, 56, 42, 38, 48, 54,  4, 61, 42, 51,
+        48, 32, 12, 57,  1, 61, 62, 27,  5,  8, 11, 12, 63, 19, 32,  3,  1, 56,
+        37, 24,  9, 41, 48, 36], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 4, 38,  5, 35, 36, 59, 58, 58, 38, 36, 11, 59, 32, 12, 61, 17, 12,  3,
+        63, 61, 17, 11, 43, 32,  9, 10,  4, 12, 16, 33, 30, 49,  0, 63, 57, 34,
+        44,  8, 61, 60, 51, 21,  9,  2, 29, 30, 54, 58, 60, 56,  1, 51, 23, 46,
+        59, 29, 39, 20, 57, 53, 22, 20, 24, 36, 22, 14, 28, 55,  0, 40, 50, 19,
+        18, 21, 48, 50, 40, 17, 33, 49, 18, 58, 28, 41, 44, 27, 13, 55, 15, 45,
+        43,  3, 19, 32, 40,  5, 25,  2, 10,  5, 42, 31, 63,  9, 12, 13, 46, 25,
+        46, 56, 35, 44, 25, 60, 23,  5, 31, 51, 42, 19, 42, 10, 24, 61,  9, 53,
+        13, 19, 63,  0, 62, 39, 59, 29, 16, 10, 11, 60, 63, 26, 19,  1, 61,  2,
+         2, 19, 35, 54, 61, 30], device='cuda:0')
+Error executing job with overrides: ['dataset.name=reddit_v2', 'general.name=test_reddit_v2_X', 'model.transition=uniform', 'general.wandb=disabled', 'general.ckpt_path=/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last.ckpt', 'train.batch_size=12', 'general.setting=test']
+Traceback (most recent call last):
+  File "/home/allenwang/gad_diff/gad_lggm/src/main_test.py", line 78, in main
+    trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 737, in test
+    return call._call_and_handle_interrupt(
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 780, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 975, in _run
+    results = self._run_stage()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run_stage
+    return self._evaluation_loop.run()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 122, in run
+    return self.on_run_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 244, in on_run_end
+    self._on_evaluation_epoch_end()
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 326, in _on_evaluation_epoch_end
+    call._call_lightning_module_hook(trainer, hook_name)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 140, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/allenwang/gad_diff/gad_lggm/src/diffusion_model.py", line 302, in on_test_epoch_end
+    self.sampling_metrics(samples, self.name, self.current_epoch, self.val_counter, test=True)
+  File "/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LiftedDenoisingDiffusion' object has no attribute 'name'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+file: /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last-v2.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/torch/nn/init.py:412: UserWarning: Initializing zero-element tensors is a no-op
+  warnings.warn("Initializing zero-element tensors is a no-op")
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/utilities/parsing.py:196: UserWarning: Attribute 'sampling_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['sampling_metrics'])`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Restoring states from the checkpoint path at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last-v2.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from the checkpoint at /home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last-v2.ckpt
+/home/allenwang/miniconda3/envs/gad/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:432: PossibleUserWarning: The dataloader, test_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/home/allenwang/gad_diff/gad_lggm/src
+{'general': {'name': 'test_reddit_v2_X', 'wandb': 'disabled', 'gpus': 1, 'setting': 'test', 'resume': None, 'ckpt_path': '/home/allenwang/gad_diff/gad_lggm/outputs/reddit_X/checkpoints/reddit_X/last-v2.ckpt', 'sample_every_val': 4, 'check_val_every_n_epochs': 10, 'samples_to_generate': 100, 'samples_to_save': 3, 'chains_to_save': 1, 'log_every_steps': 50, 'number_chain_steps': 8, 'final_model_samples_to_generate': 100, 'final_model_samples_to_save': 30, 'final_model_chains_to_save': 20, 'num_train': -1}, 'model': {'type': 'discrete', 'transition': 'uniform', 'model': 'graph_tf', 'diffusion_steps': 500, 'diffusion_noise_schedule': 'cosine', 'n_layers': 5, 'extra_features': 'all', 'hidden_mlp_dims': {'X': 256, 'E': 128, 'y': 128}, 'hidden_dims': {'dx': 256, 'de': 64, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 128, 'dim_ffy': 128}, 'lambda_train': [5, 0], 'normalize_factors': [2, 1, 1], 'norm_biases': [0, 0, 0]}, 'train': {'n_epochs': 300, 'batch_size': 12, 'accumulate_grad_batches': 1, 'lr': 0.0002, 'clip_grad': None, 'save_model': True, 'num_workers': 0, 'ema_decay': 0, 'weight_decay': 1e-12, 'seed': 0, 'progress_bar': False, 'optimizer': 'adamw'}, 'dataset': {'datadir': 'graph/', 'name': 'reddit_v2', 'remove_h': None, 'sample': 'eco'}}
+222 reddit_v2
+Size of dataset 116 15 146
+Distribution of Number of Nodes: tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0076, 0.0076, 0.0000,
+        0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0076, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0076, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.9389])
+Distribution of Node Types: tensor([1])
+Distribution of Edge Types: tensor([0.9736, 0.0264])
+DataBatch(x=[1713, 64], edge_index=[2, 6454], edge_attr=[6454, 2], y=[12, 0], batch=[1713], ptr=[13])
+12
+tensor([], size=(12, 0))
+{'X': 64, 'E': 2, 'y': 1} {'X': 64, 'E': 2, 'y': 0}
+Epoch 0: Test NLL 547738.81 -- Test Atom type MSE 56.27 --  Test Edge type MSE: 1891.25 -- Test Global feat. MSE 0.00 -- Test X Reconstruction loss 2809.31 -- Test E Reconstruction loss 51614.81 -- Test y Reconstruction loss  0.00
+
+ {'log_SNR_max': 9.346872329711914, 'log_SNR_min': -18.45358657836914} 
+
+Test loss: 547738.8125
+Average X coordinate at each step [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Average E coordinate at each step [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Examples of generated graphs:
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([28,  8,  7, 51, 53, 26, 45, 16, 48, 61, 45,  9, 38, 35, 39, 16, 53, 45,
+        51, 45, 48, 28, 47, 50, 10, 45, 57, 45, 16, 24, 45, 45, 24, 19, 36, 45,
+        36, 36, 10,  7, 57,  4, 30,  0, 19, 45, 45, 51, 56, 20, 38, 36, 53, 24,
+        61,  9, 22, 10, 45, 10, 16, 51, 45, 45, 45, 45, 36, 11, 38, 45, 21, 51,
+        47, 45, 62, 52, 14, 24, 46,  5, 29, 61, 11, 45, 45, 45, 51, 29, 45, 61,
+        50, 16, 11, 12, 24, 29, 16, 18,  9, 11, 61, 10, 45, 43, 45, 47, 57, 12,
+        24, 53, 10, 55, 24, 36, 51, 11, 16, 10, 45,  9,  0, 50,  9, 19, 42, 12,
+        47,  2, 45, 57, 24, 36, 48,  0, 53, 29, 14, 10, 51,  9, 16, 41,  9, 45,
+        46, 61, 16, 45, 50, 56], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([ 0, 24, 48, 38, 48, 29, 14, 38, 55, 58, 45, 47, 36, 61, 40, 50, 24, 34,
+         0, 61, 43, 50, 11, 14, 57, 45, 19, 39, 43, 40, 11, 11,  8, 30, 36, 51,
+        27,  8,  0, 41, 27, 45, 12, 36, 29, 18, 21, 45,  0, 29,  0, 47, 51, 45,
+        48, 22, 50, 45, 57, 45, 61, 45,  3, 57, 16, 57, 37, 16, 16, 36, 45, 23,
+        10, 10, 45, 50, 21, 12, 36, 45, 41, 48, 10, 38,  7, 47, 46, 53, 14, 53,
+        39,  0,  9, 16,  2, 50, 38, 23, 61, 16, 45, 51, 50, 61, 29, 10, 51, 10,
+        45, 49, 20, 32, 45, 29, 45, 29, 61, 33, 30, 11, 16, 44, 38, 61, 36, 48,
+        19, 27, 21, 24, 10, 10, 48, 45, 25, 12, 29, 36, 45, 22, 45, 18,  0, 57,
+        20, 45, 50, 61, 61, 45], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  tensor([47, 45,  2, 47, 45, 48, 26, 24, 39, 53, 30, 47, 37, 27, 45, 48, 55,  9,
+        26, 47, 20, 45, 45, 45, 27, 61, 51, 12, 49, 51, 48, 38, 45, 36,  0, 26,
+        45, 45, 47, 36, 22, 45, 36, 47, 29, 39, 57, 45, 39, 34, 49,  8, 36, 35,
+        23, 39, 24, 47,  0, 50, 45, 26, 34, 10, 45,  1, 37, 41, 29, 26, 53, 36,
+        49, 29, 45, 26,  1, 16, 11, 29, 50, 33, 19, 45,  0, 19,  0,  0, 45, 20,
+         8, 45, 39, 43, 39, 36, 57, 16, 45, 30, 45, 47, 25, 51, 10, 11, 36, 53,
+        29,  6, 36, 24,  8, 57, 31, 57, 45, 61, 57, 50, 10, 25, 45, 47, 45, 45,
+        45, 31, 45,  5, 58, 34,  0,  6, 48, 10, 38, 11, 47, 16,  7, 45, 45, 35,
+         2, 45, 40, 61, 50, 39], device='cuda:0')
+E tensor([[ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        [ 0,  0,  0,  ..., -1, -1, -1],
+        ...,
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1],
+        [-1, -1, -1,  ..., -1, -1, -1]], device='cuda:0')
+X:  tensor([61, 45, 39, 27, 57, 19, 24, 26, 27, 36, 22, 45, 32, 45, 45, 48, 12, 22,
+        62, 10,  8, 36, 27, 25, 24, 45, 47, 16, 46, 51, 22, 53, 36, 24, 11, 38,
+        45,  7, 57, 57, 43, 36, 26, 34,  9,  8, 45, 50, 16, 50, 19, 51, 62, 19,
+        50, 50,  9, 38, 57, 57, 11,  3, 45, 53,  3, 25, 50, 26, 45, 58, 36, 47,
+        61, 45, 16, 29,  9, 38, 27,  3, 43, 36, 60, 10, 24,  1, 62, 21, 36, 23,
+        57, 18, 25, 36, 12, 16, 36, 29, 57, 30, 50, 50, 29, 53, 57, 53, 45, 45,
+         4, 49,  7, 26, 16, 23, 49, 14, 45, 30, 53, 10, 12, 16, 38, 10, 22, 34,
+        47, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1], device='cuda:0')
+E tensor([[0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        ...,
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0],
+        [0, 0, 0,  ..., 0, 0, 0]], device='cuda:0')
+X:  

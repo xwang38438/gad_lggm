@@ -6,7 +6,7 @@ import torch
 
 from dataset import init_dataset, compute_input_output_dims
 from extra_features import ExtraFeatures, DummyExtraFeatures
-from diffusion_discrete import DiscreteDenoisingDiffusion
+from diffusion_model import LiftedDenoisingDiffusion
 from analysis.spectre_utils import CrossDomainSamplingMetrics
 import utils
 
@@ -17,7 +17,7 @@ def main(cfg: DictConfig):
     print(cfg)
     # e.g. reddit, 
     data_loaders, num_classes, max_n_nodes, nodes_dist, edge_types, node_types, n_nodes = init_dataset(cfg.dataset.name, cfg.train.batch_size, hydra_path, cfg.dataset.sample, cfg.general.num_train)
-    extra_features = ExtraFeatures(cfg.model.extra_features, max_n_nodes)
+    extra_features = DummyExtraFeatures()
     domain_features = DummyExtraFeatures()
 
     train_dataloader = data_loaders['train']
@@ -35,8 +35,7 @@ def main(cfg: DictConfig):
 
     sampling_metrics = CrossDomainSamplingMetrics(data_loaders)
 
-    # discrete diffusion model without considering the continuous node features
-    model = DiscreteDenoisingDiffusion(cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics) 
+    model = LiftedDenoisingDiffusion(cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics) 
 
 
     # Set the Model and Trainer
