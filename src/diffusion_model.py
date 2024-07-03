@@ -712,21 +712,44 @@ class LiftedDenoisingDiffusion(pl.LightningModule):
         noisy_data = {'X_t': X_0, 'E_t': E_0, 'y_t': y_0, 't': torch.zeros(y_0.shape[0], 1).type_as(y_0)}
         extra_data = self.compute_extra_data(noisy_data)
         eps0 = self.forward(noisy_data, extra_data, node_mask)
+        
+        print(555)
+        print(eps0.X)
 
         # Compute mu for p(zs | zt).
         sigma_0 = diffusion_utils.sigma(gamma_0, target_shape=eps0.X.size())
+        
+        print(666)
+        print(sigma_0)
+        
         alpha_0 = diffusion_utils.alpha(gamma_0, target_shape=eps0.X.size())
 
         pred_X = 1. / alpha_0 * (X_0 - sigma_0 * eps0.X)
+        print(777)
+        print(pred_X)
+        
+        
         pred_E = 1. / alpha_0.unsqueeze(1) * (E_0 - sigma_0.unsqueeze(1) * eps0.E)
         pred_y = 1. / alpha_0.squeeze(1) * (y_0 - sigma_0.squeeze(1) * eps0.y)
         assert (pred_E == torch.transpose(pred_E, 1, 2)).all()
 
         sampled = diffusion_utils.sample_normal(pred_X, pred_E, pred_y, sigma, node_mask).type_as(pred_X)
+        
+        print(888)
+        print(sampled.X)
+        
+        
         assert (sampled.E == torch.transpose(sampled.E, 1, 2)).all()
 
         sampled = utils.unnormalize(sampled.X, sampled.E, sampled.y, self.norm_values,
-                                    self.norm_biases, node_mask, collapse=True)
+                                    self.norm_biases, node_mask, collapse=False) #original: collapse=True
+        
+        print(999)
+        print(sampled.X)
+        
+        # check values of X
+
+        
         return sampled
 
     def sample_p_zs_given_zt(self, s, t, X_t, E_t, y_t, node_mask):

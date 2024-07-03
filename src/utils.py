@@ -44,6 +44,10 @@ def unnormalize(X, E, y, norm_values, norm_biases, node_mask, collapse=False):
     node_mask
     """
     X = (X * norm_values[0] + norm_biases[0])
+    
+    # print('test unnormalize 111')
+    # print(X)
+    
     E = (E * norm_values[1] + norm_biases[1])
     y = y * norm_values[2] + norm_biases[2]
 
