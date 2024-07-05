@@ -54,6 +54,47 @@ class ExtraFeatures:
             raise ValueError(f"Features type {self.features_type} not implemented")
 
 
+
+class GAD_ExtraFeatures:
+    def __init__(self, extra_features_type, max_n_nodes):
+        self.max_n_nodes = max_n_nodes
+        self.ncycles = NodeCycleFeatures()
+        self.features_type = extra_features_type
+        if extra_features_type in ['eigenvalues', 'all']:
+            self.eigenfeatures = EigenFeatures(mode=extra_features_type)
+
+    def __call__(self, noisy_data):
+        n = noisy_data['node_mask'].sum(dim=1).unsqueeze(1) / self.max_n_nodes
+        x_cycles, y_cycles = self.ncycles(noisy_data)       # (bs, n_cycles)
+
+        if self.features_type == 'cycles':
+            E = noisy_data['E_t']
+            extra_edge_attr = torch.zeros((*E.shape[:-1], 0)).type_as(E)
+            return utils.PlaceHolder(X=x_cycles, E=extra_edge_attr, y=torch.hstack((n, y_cycles)))
+
+        elif self.features_type == 'eigenvalues':
+            eigenfeatures = self.eigenfeatures(noisy_data)
+            E = noisy_data['E_t']
+            extra_edge_attr = torch.zeros((*E.shape[:-1], 0)).type_as(E)
+            n_components, batched_eigenvalues = eigenfeatures   # (bs, 1), (bs, 10)
+            return utils.PlaceHolder(X=x_cycles, E=extra_edge_attr, y=torch.hstack((n, y_cycles, n_components,
+                                                                                    batched_eigenvalues)))
+        elif self.features_type == 'all':
+            eigenfeatures = self.eigenfeatures(noisy_data)
+            E = noisy_data['E_t']
+            extra_edge_attr = torch.zeros((*E.shape[:-1], 0)).type_as(E)
+            n_components, batched_eigenvalues, nonlcc_indicator, k_lowest_eigvec = eigenfeatures   # (bs, 1), (bs, 10),
+                                                                                                # (bs, n, 1), (bs, n, 2)
+
+            return utils.PlaceHolder(X=torch.cat((x_cycles, nonlcc_indicator, k_lowest_eigvec), dim=-1),
+                                     E=extra_edge_attr,
+                                     y=torch.hstack((n, y_cycles, n_components, batched_eigenvalues)))
+        else:
+            raise ValueError(f"Features type {self.features_type} not implemented")
+
+
+
+
 class NodeCycleFeatures:
     def __init__(self):
         self.kcycles = KNodeCycles()

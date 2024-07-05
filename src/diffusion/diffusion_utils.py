@@ -261,14 +261,14 @@ def sample_discrete_features(probX, probE, node_mask):
     # Sample E
     E_t = probE.multinomial(1).reshape(bs, n, n)   # (bs, n, n)
     E_t = torch.triu(E_t, diagonal=1)
-    E_t = (E_t + torch.transpose(E_t, 1, 2))
+    E_t = (E_t + torch.transpose(E_t, 1, 2))  # symmetrize
 
     return PlaceHolder(X=X_t, E=E_t, y=torch.zeros(bs, 0).type_as(X_t))
 
 
 def compute_posterior_distribution(M, M_t, Qt_M, Qsb_M, Qtb_M):
     ''' M: X or E
-        Compute xt @ Qt.T * x0 @ (Qsb / x0 @ Qtb @ xt.T)
+        Compute xt @ Qt.T * x0 @ (Qsb / (x0 @ Qtb @ xt.T))
     '''
     # Flatten feature tensors
     M = M.flatten(start_dim=1, end_dim=-2).to(torch.float32)        # (bs, N, d) with N = n or n * n

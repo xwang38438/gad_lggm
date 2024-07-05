@@ -31,11 +31,11 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
 
         edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
         edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
-
-        x = node_features
+        
+        x = torch.ones((n_nodes, 1))  
         y = torch.empty(1, 0)
 
-        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, extra_x = node_features)
 
 # replace the domain with the dataset name 
 

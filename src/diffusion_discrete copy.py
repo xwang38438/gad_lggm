@@ -106,6 +106,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.best_val_nll = 1e8
         self.val_counter = 0
 
+        # augmentation config
+        self.diffusion_steps = cfg.augment.diffusion_steps
+
+
 
     def configure_optimizers(self):
         return torch.optim.AdamW(self.parameters(), lr=self.cfg.train.lr, amsgrad=True,
@@ -128,6 +132,8 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             return
         
         dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
+        # get extra X features
+        x_extra_features = data.extra_x
         
         dense_data = dense_data.mask(node_mask)
         X, E = dense_data.X, dense_data.E
@@ -314,6 +320,35 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
 
 
+    def predict_step(self, data, i, D=10):
+        if data.edge_index.numel() == 0:
+            self.print("Found a batch with no edges. Skipping.")
+            return
+        
+        dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
+        dense_data = dense_data.mask(node_mask)
+        X, E = dense_data.X, dense_data.E
+
+        noisy_data = self.apply_noise(X, E, data.y, node_mask, augment=True)
+        extra_data = self.compute_extra_data(noisy_data)
+        pred = self.forward(noisy_data, extra_data, node_mask)
+
+        samples = []
+
+
+        # number of diffusion steps 
+        # data
+        # output same number of graphs as input
+
+        pass
+
+
+
+    
+
+
+
+
     def kl_prior(self, X, E, node_mask):
         """Computes the KL between q(z1 | x) and the prior p(z1) = Normal(0, 1).
 
@@ -418,17 +453,24 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         return utils.PlaceHolder(X=probX0, E=probE0, y=proby0)
 
-    def apply_noise(self, X, E, y, node_mask):
+    def apply_noise(self, X, E, y, node_mask, augment=False):
         """ Sample noise and apply it to the data. """
 
         # Sample a timestep t.
         # When evaluating, the loss for t=0 is computed separately
-        lowest_t = 0 if self.training else 1
-        t_int = torch.randint(lowest_t, self.T + 1, size=(X.size(0), 1), device=X.device).float()  # (bs, 1)
-        s_int = t_int - 1
+        if not augment:
+            lowest_t = 0 if self.training else 1
+            t_int = torch.randint(lowest_t, self.T + 1, size=(X.size(0), 1), device=X.device).float()  # (bs, 1)
+            s_int = t_int - 1
 
-        t_float = t_int / self.T
-        s_float = s_int / self.T
+            t_float = t_int / self.T
+            s_float = s_int / self.T
+        else:
+            t_int = self.diffusion_steps * torch.ones(X.size(0), 1, device = X.device).float()
+            s_int = t_int - 1
+
+            t_float = t_int / self.diffusion_steps
+            s_float = s_int / self.diffusion_steps
 
         # beta_t and alpha_s_bar are used for denoising/loss computation
         beta_t = self.noise_schedule(t_normalized=t_float)                         # (bs, 1)

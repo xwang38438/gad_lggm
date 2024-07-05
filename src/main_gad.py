@@ -24,10 +24,7 @@ def main(cfg: DictConfig):
 
     for batch in train_dataloader: 
         print(batch)
-        # print the number of graphs in the batch
-        print(len(batch))
-        print(batch.y)
-        # print(batch.x[:10, :])
+        print(batch.extra_x)
         break
 
     input_dims, output_dims = compute_input_output_dims(data_loaders['train'], extra_features, domain_features)
@@ -37,7 +34,6 @@ def main(cfg: DictConfig):
 
     # discrete diffusion model without considering the continuous node features
     model = DiscreteDenoisingDiffusion(cfg, input_dims, output_dims, nodes_dist, node_types, edge_types, extra_features, domain_features, data_loaders, sampling_metrics) 
-
 
     # Set the Model and Trainer
     callbacks = []
@@ -51,7 +47,6 @@ def main(cfg: DictConfig):
         last_ckpt_save = ModelCheckpoint(dirpath=f"checkpoints/{cfg.general.name}", filename='last', every_n_epochs=1)
         callbacks.append(last_ckpt_save)
         callbacks.append(checkpoint_callback)
-
 
     if cfg.train.ema_decay > 0:
         ema_callback = utils.EMA(decay=cfg.train.ema_decay)
@@ -77,6 +72,11 @@ def main(cfg: DictConfig):
         trainer.fit(model, train_dataloaders = data_loaders['train'], val_dataloaders = data_loaders['val'], ckpt_path = cfg.general.ckpt_path)
     elif cfg.general.setting == 'test':
         trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+    elif cfg.general.setting == 'augment':
+        # input: model, checkpoint, single dataloader, 
+        # trainer.predict(model, data_loaders['test'], ckpt_path)
+        pass
+
 
 if __name__ == '__main__':
     main()

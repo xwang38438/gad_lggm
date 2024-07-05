@@ -52,3 +52,6 @@ dataset:
     name: bio
     remove_h: null
     sample: 'eco'
+augment:
+    diffusion_steps: 20
+    
