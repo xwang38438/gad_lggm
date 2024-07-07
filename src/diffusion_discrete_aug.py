@@ -93,8 +93,6 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             self.limit_dist = utils.PlaceHolder(X=x_marginals, E=e_marginals,
                                                 y=torch.ones(self.ydim_output) / self.ydim_output)
         
-        elif cfg.model.transition == 'mix':
-            pass # to do
         
 
         self.save_hyperparameters(ignore=['train_metrics', 'sampling_metrics'])
@@ -109,7 +107,6 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         # augmentation config
         self.aug_steps = cfg.augment.diffusion_steps
         self.augment_samples = []
-
 
 
     def configure_optimizers(self):
@@ -132,16 +129,24 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             self.print("Found a batch with no edges. Skipping.")
             return
         
-        dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
-        # get extra X features
-        x_extra_features = data.extra_x
+        # updated 
+        dense_data, node_mask = utils.to_dense_new(data.x, data.cont_x, data.edge_index, data.edge_attr, data.batch)
+        # self.print('check dense_data', dense_data.E.shape, dense_data.cont_X.shape)
+        # break the program here
+
         
         dense_data = dense_data.mask(node_mask)
-        X, E = dense_data.X, dense_data.E
+        X, E, cont_X = dense_data.X, dense_data.E, dense_data.cont_X
         
-        noisy_data = self.apply_noise(X, E, data.y, node_mask)
+        # only add noise to discrete x
+        noisy_data = self.apply_noise(X, E, data.y, node_mask) # dict
+        noisy_data['cont_X'] = cont_X
+        # print('check noisy_data',noisy_data['cont_X'].shape, noisy_data['X_t'].shape)
+
         extra_data = self.compute_extra_data(noisy_data)
 
+
+        # extra node features
         pred = self.forward(noisy_data, extra_data, node_mask)
         loss = self.train_loss(masked_pred_X=pred.X, masked_pred_E=pred.E, pred_y=pred.y,
                                true_X=X, true_E=E, true_y=data.y,
@@ -171,9 +176,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.sampling_metrics.reset()
 
     def validation_step(self, data, i):
-        dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
+        dense_data, node_mask = utils.to_dense_new(data.x, data.cont_x, data.edge_index, data.edge_attr, data.batch)
         dense_data = dense_data.mask(node_mask)
         noisy_data = self.apply_noise(dense_data.X, dense_data.E, data.y, node_mask)
+        noisy_data['cont_X'] = dense_data.cont_X
         extra_data = self.compute_extra_data(noisy_data)
         pred = self.forward(noisy_data, extra_data, node_mask)
         nll = self.compute_val_loss(pred, noisy_data, dense_data.X, dense_data.E, data.y,  node_mask, test=False)
@@ -337,7 +343,6 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.print("Applying noise...")
         noisy_data = self.apply_noise(X, E, data.y, node_mask, augment=True)
         self.print(noisy_data['E_t'].shape, noisy_data['X_t'].shape, noisy_data['y_t'].shape)
-        extra_data = self.compute_extra_data(noisy_data)
         self.print("Predicting...")
         
         X, E, y = noisy_data['X_t'], noisy_data['E_t'], noisy_data['y_t']
@@ -451,7 +456,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         kl_e = (self.test_E_kl if test else self.val_E_kl)(prob_true.E, torch.log(prob_pred.E))
         return self.T * (kl_x + kl_e)
 
-    def reconstruction_logp(self, t, X, E, node_mask):
+    def reconstruction_logp(self, t, X, E, node_mask, cont_X=None):
         # Compute noise values for t = 0.
         t_zeros = torch.zeros_like(t)
         beta_0 = self.noise_schedule(t_zeros)
@@ -471,7 +476,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         # Predictions
         noisy_data = {'X_t': sampled_0.X, 'E_t': sampled_0.E, 'y_t': sampled_0.y, 'node_mask': node_mask,
-                      't': torch.zeros(X0.shape[0], 1).type_as(y0)}
+                      't': torch.zeros(X0.shape[0], 1).type_as(y0), 'cont_X': cont_X}
+        
+        # update to do
         extra_data = self.compute_extra_data(noisy_data)
         pred0 = self.forward(noisy_data, extra_data, node_mask)
 
@@ -556,7 +563,8 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         # 4. Reconstruction loss
         # Compute L0 term : -log p (X, E, y | z_0) = reconstruction loss
-        prob0 = self.reconstruction_logp(t, X, E, node_mask)
+        contX = noisy_data['cont_X']
+        prob0 = self.reconstruction_logp(t, X, E, node_mask, contX)
 
         loss_term_0 = self.val_X_logp(X * prob0.X.log()) + self.val_E_logp(E * prob0.E.log())
 
@@ -576,7 +584,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         return nll
 
     def forward(self, noisy_data, extra_data, node_mask):
-        self.print(f"Forward pass... {noisy_data['X_t'].shape} {extra_data.X.shape} {node_mask.shape}")  
+        # self.print(f"Forward pass... {noisy_data['X_t'].shape} {extra_data.X.shape} {node_mask.shape}")  
         
         X = torch.cat((noisy_data['X_t'], extra_data.X), dim=2).float() # (bs, n, dx)
         E = torch.cat((noisy_data['E_t'], extra_data.E), dim=3).float() # (bs, n, n, de)
@@ -763,8 +771,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         extra_features = self.extra_features(noisy_data)
         extra_molecular_features = self.domain_features(noisy_data)
-
-        extra_X = torch.cat((extra_features.X, extra_molecular_features.X), dim=-1)
+        
+        # updated continuous
+        extra_X = torch.cat((extra_features.X, noisy_data['cont_X'], extra_molecular_features.X), dim=-1)
+        # print('size_matched', extra_X.shape)
         extra_E = torch.cat((extra_features.E, extra_molecular_features.E), dim=-1)
         extra_y = torch.cat((extra_features.y, extra_molecular_features.y), dim=-1)
 

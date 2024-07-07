@@ -1,6 +1,13 @@
 import torch
 import utils
 
+class ExtraNodeFeatures:
+    def __init__(self):
+        """ ."""
+
+    def __call__(self, noisy_data):
+        return None 
+
 
 class DummyExtraFeatures:
     def __init__(self):

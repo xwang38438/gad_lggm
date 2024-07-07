@@ -65,6 +65,19 @@ def to_dense(x, edge_index, edge_attr, batch):
 
     return PlaceHolder(X=X, E=E, y=None), node_mask
 
+def to_dense_new(x, cont_x, edge_index, edge_attr, batch):
+    X, node_mask = to_dense_batch(x=x, batch=batch)
+    cont_X, _ = to_dense_batch(x=cont_x, batch=batch)
+    # node_mask = node_mask.float()
+    edge_index, edge_attr = torch_geometric.utils.remove_self_loops(edge_index, edge_attr)
+    # TODO: carefully check if setting node_mask as a bool breaks the continuous case
+    max_num_nodes = X.size(1)
+    E = to_dense_adj(edge_index=edge_index, batch=batch, edge_attr=edge_attr, max_num_nodes=max_num_nodes)
+    E = encode_no_edge(E)
+
+    return new_PlaceHolder(X=X, E=E, cont_X=cont_X, y=None), node_mask
+
+
 
 def encode_no_edge(E):
     assert len(E.shape) == 4
@@ -133,6 +146,43 @@ class PlaceHolder:
             self.E = self.E * e_mask1 * e_mask2
             assert torch.allclose(self.E, torch.transpose(self.E, 1, 2))
         return self
+
+
+class new_PlaceHolder:
+    def __init__(self, X, cont_X, E, y):
+        self.X = X
+        self.E = E
+        self.y = y
+        self.cont_X = cont_X
+
+    def type_as(self, x: torch.Tensor):
+        """ Changes the device and dtype of X, E, y. """
+        self.X = self.X.type_as(x)
+        self.cont_X = self.cont_X.type_as(x)
+        self.E = self.E.type_as(x)
+        self.y = self.y.type_as(x)
+        return self
+
+    def mask(self, node_mask, collapse=False):
+        x_mask = node_mask.unsqueeze(-1)          # bs, n, 1
+        e_mask1 = x_mask.unsqueeze(2)             # bs, n, 1, 1
+        e_mask2 = x_mask.unsqueeze(1)             # bs, 1, n, 1
+
+        if collapse:
+            self.X = torch.argmax(self.X, dim=-1)
+            self.cont_X = torch.argmax(self.cont_X, dim=-1)
+            self.E = torch.argmax(self.E, dim=-1)
+
+            self.X[node_mask == 0] = - 1
+            self.cont_X[node_mask == 0] = - 1
+            self.E[(e_mask1 * e_mask2).squeeze(-1) == 0] = - 1
+        else:
+            self.X = self.X * x_mask
+            self.cont_X = self.cont_X * x_mask
+            self.E = self.E * e_mask1 * e_mask2
+            assert torch.allclose(self.E, torch.transpose(self.E, 1, 2))
+        return self
+
 
 
 def setup_wandb(cfg):

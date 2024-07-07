@@ -24,11 +24,14 @@ def main(cfg: DictConfig):
 
     for batch in train_dataloader: 
         print(batch)
+        print(batch.cont_x.shape)
         # print(batch.extra_x)
         break
 
     input_dims, output_dims = compute_input_output_dims(data_loaders['train'], extra_features, domain_features)
     print(input_dims, output_dims)
+
+
 
     sampling_metrics = CrossDomainSamplingMetrics(data_loaders)
 

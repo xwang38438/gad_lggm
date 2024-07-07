@@ -22,7 +22,7 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
 
         return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
 
-    if isinstance(data, tuple):
+    if isinstance(data, tuple) and len(data) == 2:
         adj_matrix, node_features = data
         n_nodes = adj_matrix.shape[0]
 
@@ -32,17 +32,33 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
         edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
         edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
         
-        x = torch.ones((n_nodes, 1))  
+        # turn node_features to float tensor
+        x = node_features.float()
         y = torch.empty(1, 0)
 
-        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, extra_x = node_features)
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+    
+    elif isinstance(data, tuple) and len(data) == 3:
+        adj_matrix, labels, node_features = data
+        n_nodes = adj_matrix.shape[0]
+
+        edge_index = adj_matrix.nonzero().t()
+        edge_attr = torch.tensor([[0, 1] for _ in range(edge_index.shape[1])])
+
+        edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
+        edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
+
+        x = labels.float()
+        y = torch.empty(1, 0) 
+
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, cont_x=node_features)
 
 # replace the domain with the dataset name 
 
 
 # update for the GAD dataset
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['reddit', 'reddit_onehot'] # , 'tolokers', 'questions', 'reddit'    
+    domains = ['reddit', 'reddit_onehot', 'reddit_continuous'] # , 'tolokers', 'questions', 'reddit'    
     for domain in domains:
         if not os.path.exists(f'{hydra_path}/../gad_datasets/{domain}/train.pt'):
             print(111, domain)
@@ -205,6 +221,8 @@ def edge_counts(train_loader):
 
 
 def compute_input_output_dims(train_loader, extra_features, domain_features):
+    # add extra features for X
+    
     example_batch = next(iter(train_loader))
     ex_dense, node_mask = to_dense(example_batch.x, example_batch.edge_index, example_batch.edge_attr, example_batch.batch)
     example_data = {'X_t': ex_dense.X, 'E_t': ex_dense.E, 'y_t': example_batch['y'], 'node_mask': node_mask}
@@ -219,6 +237,11 @@ def compute_input_output_dims(train_loader, extra_features, domain_features):
     input_dims['y'] += ex_extra_feat.y.size(-1)
 
     ex_extra_molecular_feat = domain_features(example_data)
+
+    # if example_batch has attribute 'cont_x'
+    if hasattr(example_batch, 'cont_x'):
+        input_dims['X'] += example_batch['cont_x'].size(1)
+
     input_dims['X'] += ex_extra_molecular_feat.X.size(-1)
     input_dims['E'] += ex_extra_molecular_feat.E.size(-1)
     input_dims['y'] += ex_extra_molecular_feat.y.size(-1)
