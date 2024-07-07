@@ -6,7 +6,7 @@ import torch
 
 from dataset import init_dataset, compute_input_output_dims
 from extra_features import ExtraFeatures, DummyExtraFeatures
-from diffusion_discrete import DiscreteDenoisingDiffusion
+from diffusion_discrete_aug import DiscreteDenoisingDiffusion
 from analysis.spectre_utils import CrossDomainSamplingMetrics
 import utils
 
@@ -24,7 +24,7 @@ def main(cfg: DictConfig):
 
     for batch in train_dataloader: 
         print(batch)
-        print(batch.extra_x)
+        # print(batch.extra_x)
         break
 
     input_dims, output_dims = compute_input_output_dims(data_loaders['train'], extra_features, domain_features)
@@ -74,8 +74,7 @@ def main(cfg: DictConfig):
         trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
     elif cfg.general.setting == 'augment':
         # input: model, checkpoint, single dataloader, 
-        # trainer.predict(model, data_loaders['test'], ckpt_path)
-        pass
+        trainer.predict(model, data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
 
 
 if __name__ == '__main__':

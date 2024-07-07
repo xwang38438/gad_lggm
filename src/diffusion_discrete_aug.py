@@ -107,7 +107,8 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.val_counter = 0
 
         # augmentation config
-        self.diffusion_steps = cfg.augment.diffusion_steps
+        self.aug_steps = cfg.augment.diffusion_steps
+        self.augment_samples = []
 
 
 
@@ -327,20 +328,56 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         
         dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
         dense_data = dense_data.mask(node_mask)
+        
+        # create a list of sum of node mask in dim 0
+        n_nodes = node_mask.sum(1)
+        print('n_nodes',n_nodes)
+        
         X, E = dense_data.X, dense_data.E
-
+        self.print("Applying noise...")
         noisy_data = self.apply_noise(X, E, data.y, node_mask, augment=True)
+        self.print(noisy_data['E_t'].shape, noisy_data['X_t'].shape, noisy_data['y_t'].shape)
         extra_data = self.compute_extra_data(noisy_data)
-        pred = self.forward(noisy_data, extra_data, node_mask)
+        self.print("Predicting...")
+        
+        X, E, y = noisy_data['X_t'], noisy_data['E_t'], noisy_data['y_t']
+        assert (E == torch.transpose(E, 1, 2)).all()
+        
+        for s_int in reversed(range(0, self.aug_steps)):
+            self.print('time step:', s_int)
+            s_array = s_int * torch.ones((X.shape[0], 1)).type_as(y)
+            t_array = s_array + 1
+            s_norm = s_array / self.T
+            t_norm = t_array / self.T
+            
+            print(111)
+            self.print(s_norm.shape, t_norm.shape)
 
-        samples = []
+            sampled_s, discrete_sampled_s = self.sample_p_zs_given_zt(s_norm, t_norm, X, E, y, node_mask)
+            # X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+            X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+            self.print(333)
+            self.print(X.shape, E.shape)
+            
+        sampled_s = sampled_s.mask(node_mask, collapse=True)
+        X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
 
+        augmented_list = []
+        
+        for i in range(X.shape[0]):
+            n = n_nodes[i]
+            X_i = X[i, :n].cpu()
+            E_i = E[i, :n, :n].cpu()
+            augmented_list.append((X_i, E_i))
+        
+        self.augment_samples.extend(augmented_list)
+        
+        return None
 
-        # number of diffusion steps 
-        # data
-        # output same number of graphs as input
+    def on_predict_epoch_end(self) -> None:
+        # save the self.augment_samples in pt file
+        torch.save(self.augment_samples, 'augment_samples.pt')
 
-        pass
 
 
 
@@ -466,11 +503,11 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             t_float = t_int / self.T
             s_float = s_int / self.T
         else:
-            t_int = self.diffusion_steps * torch.ones(X.size(0), 1, device = X.device).float()
+            t_int = self.aug_steps * torch.ones(X.size(0), 1, device = X.device).float()
             s_int = t_int - 1
 
-            t_float = t_int / self.diffusion_steps
-            s_float = s_int / self.diffusion_steps
+            t_float = t_int / self.aug_steps
+            s_float = s_int / self.aug_steps
 
         # beta_t and alpha_s_bar are used for denoising/loss computation
         beta_t = self.noise_schedule(t_normalized=t_float)                         # (bs, 1)
@@ -539,7 +576,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         return nll
 
     def forward(self, noisy_data, extra_data, node_mask):
-        print(noisy_data['X_t'].shape, extra_data.X.shape)
+        self.print(f"Forward pass... {noisy_data['X_t'].shape} {extra_data.X.shape} {node_mask.shape}")  
         
         X = torch.cat((noisy_data['X_t'], extra_data.X), dim=2).float() # (bs, n, dx)
         E = torch.cat((noisy_data['E_t'], extra_data.E), dim=3).float() # (bs, n, n, de)

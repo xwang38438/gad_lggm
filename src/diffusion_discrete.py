@@ -505,6 +505,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         return self.model(X, E, y, node_mask)
 
+    
+
+    
     @torch.no_grad()
     def sample_batch(self, batch_id: int, batch_size: int, keep_chain: int, number_chain_steps: int,
                      save_final: int, num_nodes=None):
