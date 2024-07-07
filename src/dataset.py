@@ -42,7 +42,7 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
 
 # update for the GAD dataset
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['reddit', 'reddit_v2'] # , 'tolokers', 'questions', 'reddit'    
+    domains = ['reddit', 'reddit_onehot'] # , 'tolokers', 'questions', 'reddit'    
     for domain in domains:
         if not os.path.exists(f'{hydra_path}/../gad_datasets/{domain}/train.pt'):
             print(111, domain)
