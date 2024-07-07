@@ -144,9 +144,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
     def on_train_epoch_end(self) -> None:
         to_log = self.train_loss.log_epoch_metrics()
-        self.print(f"Epoch {self.current_epoch}: X_CE: {to_log['train_epoch/x_CE'] :.3f}"
-                      f" -- E_CE: {to_log['train_epoch/E_CE'] :.3f} --"
-                      f" y_CE: {to_log['train_epoch/y_CE'] :.3f}"
+        self.print(f"Epoch {self.current_epoch}: X_CE: {to_log['train_epoch/x_CE'] :.4f}"
+                      f" -- E_CE: {to_log['train_epoch/E_CE'] :.4f} --"
+                      f" y_CE: {to_log['train_epoch/y_CE'] :.4f}"
                       f" -- {time.time() - self.start_epoch_time:.1f}s ")
         
         wandb.log(to_log, commit = True)
