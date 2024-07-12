@@ -32,7 +32,7 @@ def main(cfg: DictConfig):
     if cfg.train.save_model:
         checkpoint_callback = ModelCheckpoint(dirpath=f"checkpoints/{cfg.general.name}",
                                               filename='{epoch}',
-                                              monitor='val/epoch_NLL',
+                                              monitor='val/E_kl', # epoch_NLL
                                               save_top_k=3,
                                               mode='min',
                                               every_n_epochs=1)

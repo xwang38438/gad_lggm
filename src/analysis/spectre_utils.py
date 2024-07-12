@@ -25,7 +25,7 @@ from src.analysis.dist_helper import compute_mmd, gaussian_emd, gaussian, emd, g
 from torch_geometric.utils import to_networkx
 import wandb
 
-PRINT_TIME = False
+PRINT_TIME = True
 __all__ = ['degree_stats', 'clustering_stats', 'orbit_stats_all', 'spectral_stats', 'eval_acc_lobster_graph']
 
 
@@ -811,14 +811,14 @@ class SpectreSamplingMetrics(nn.Module):
             if wandb.run:
                 wandb.run.summary['clustering'] = clustering
 
-        if 'motif' in self.metrics_list:
-            if local_rank == 0:
-                print("Computing motif stats")
-            motif = motif_stats(reference_graphs, networkx_graphs, motif_type='4cycle', ground_truth_match=None, bins=100,
-                                compute_emd=self.compute_emd)
-            to_log['motif'] = motif
-            if wandb.run:
-                wandb.run.summary['motif'] = motif
+        # if 'motif' in self.metrics_list:
+        #     if local_rank == 0:
+        #         print("Computing motif stats")
+        #     motif = motif_stats(reference_graphs, networkx_graphs, motif_type='4cycle', ground_truth_match=None, bins=100,
+        #                         compute_emd=self.compute_emd)
+        #     to_log['motif'] = motif
+        #     if wandb.run:
+        #         wandb.run.summary['motif'] = motif
 
         if 'orbit' in self.metrics_list:
             if local_rank == 0:
@@ -828,37 +828,37 @@ class SpectreSamplingMetrics(nn.Module):
             if wandb.run:
                 wandb.run.summary['orbit'] = orbit
 
-        if 'sbm' in self.metrics_list:
-            if local_rank == 0:
-                print("Computing accuracy...")
-            acc = eval_acc_sbm_graph(networkx_graphs, refinement_steps=100, strict=True)
-            to_log['sbm_acc'] = acc
-            if wandb.run:
-                wandb.run.summary['sbmacc'] = acc
+        # if 'sbm' in self.metrics_list:
+        #     if local_rank == 0:
+        #         print("Computing accuracy...")
+        #     acc = eval_acc_sbm_graph(networkx_graphs, refinement_steps=100, strict=True)
+        #     to_log['sbm_acc'] = acc
+        #     if wandb.run:
+        #         wandb.run.summary['sbmacc'] = acc
 
-        if 'planar' in self.metrics_list:
-            if local_rank ==0:
-                print('Computing planar accuracy...')
-            planar_acc = eval_acc_planar_graph(networkx_graphs)
-            to_log['planar_acc'] = planar_acc
-            if wandb.run:
-                wandb.run.summary['planar_acc'] = planar_acc
+        # if 'planar' in self.metrics_list:
+        #     if local_rank ==0:
+        #         print('Computing planar accuracy...')
+        #     planar_acc = eval_acc_planar_graph(networkx_graphs)
+        #     to_log['planar_acc'] = planar_acc
+        #     if wandb.run:
+        #         wandb.run.summary['planar_acc'] = planar_acc
 
-        if 'sbm' or 'planar' in self.metrics_list:
-            if local_rank == 0:
-                print("Computing all fractions...")
-            frac_unique, frac_unique_non_isomorphic, fraction_unique_non_isomorphic_valid = eval_fraction_unique_non_isomorphic_valid(
-                networkx_graphs, self.train_graphs, is_sbm_graph if 'sbm' in self.metrics_list else is_planar_graph)
-            frac_non_isomorphic = 1.0 - eval_fraction_isomorphic(networkx_graphs, self.train_graphs)
-            to_log.update({'sampling/frac_unique': frac_unique,
-                           'sampling/frac_unique_non_iso': frac_unique_non_isomorphic,
-                           'sampling/frac_unic_non_iso_valid': fraction_unique_non_isomorphic_valid,
-                           'sampling/frac_non_iso': frac_non_isomorphic})
+        # if 'sbm' or 'planar' in self.metrics_list:
+        #     if local_rank == 0:
+        #         print("Computing all fractions...")
+        #     frac_unique, frac_unique_non_isomorphic, fraction_unique_non_isomorphic_valid = eval_fraction_unique_non_isomorphic_valid(
+        #         networkx_graphs, self.train_graphs, is_sbm_graph if 'sbm' in self.metrics_list else is_planar_graph)
+        #     frac_non_isomorphic = 1.0 - eval_fraction_isomorphic(networkx_graphs, self.train_graphs)
+        #     to_log.update({'sampling/frac_unique': frac_unique,
+        #                    'sampling/frac_unique_non_iso': frac_unique_non_isomorphic,
+        #                    'sampling/frac_unic_non_iso_valid': fraction_unique_non_isomorphic_valid,
+        #                    'sampling/frac_non_iso': frac_non_isomorphic})
 
         if local_rank == 0:
             print("Sampling statistics", to_log)
         if wandb.run:
-            wandb.log(to_log, commit=False)
+            wandb.log(to_log, commit=True)
 
     def reset(self):
         pass

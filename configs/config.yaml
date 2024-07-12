@@ -5,13 +5,13 @@ hydra:
     dir: ../outputs/${general.name}
 general:
     name: 'asn'
-    wandb: 'disabled'                # online | offline | disabled
+    wandb: 'online'                # online | offline | disabled
     gpus: 1
     setting: 'train_scratch'
     resume: null
     ckpt_path: null
     sample_every_val: 4
-    check_val_every_n_epochs: 10
+    check_val_every_n_epochs: 1
     samples_to_generate: 100      
     samples_to_save: 3
     chains_to_save: 1

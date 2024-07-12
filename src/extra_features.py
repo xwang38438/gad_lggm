@@ -110,6 +110,9 @@ class NodeCycleFeatures:
         adj_matrix = noisy_data['E_t'][..., 1:].sum(dim=-1).float()
 
         x_cycles, y_cycles = self.kcycles.k_cycles(adj_matrix=adj_matrix)   # (bs, n_cycles)
+        # check device
+        # print('x_cycles',x_cycles.device)
+        # print('noisy_data[node_mask]',noisy_data['node_mask'].device)
         x_cycles = x_cycles.type_as(adj_matrix) * noisy_data['node_mask'].unsqueeze(-1)
         # Avoid large values when the graph is dense
         x_cycles = x_cycles / 10

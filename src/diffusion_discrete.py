@@ -180,14 +180,16 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
                        "val/X_kl": metrics[1],
                        "val/E_kl": metrics[2],
                        "val/X_logp": metrics[3],
-                       "val/E_logp": metrics[4]}, commit=False)
+                       "val/E_logp": metrics[4]}, commit=True)
 
         self.print(f"Epoch {self.current_epoch}: Val NLL {metrics[0] :.2f} -- Val Atom type KL {metrics[1] :.2f} -- ",
                    f"Val Edge type KL: {metrics[2] :.2f}")
 
         # Log val nll with default Lightning logger, so it can be monitored by checkpoint callback
         val_nll = metrics[0]
+        val_E_kl = metrics[2]
         self.log("val/epoch_NLL", val_nll, sync_dist=True)
+        self.log("val/E_kl", val_E_kl, sync_dist=True)
 
         if val_nll < self.best_val_nll:
             self.best_val_nll = val_nll
@@ -253,14 +255,14 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
                        "test/X_kl": metrics[1],
                        "test/E_kl": metrics[2],
                        "test/X_logp": metrics[3],
-                       "test/E_logp": metrics[4]}, commit=False)
+                       "test/E_logp": metrics[4]}, commit=True)
 
         self.print(f"Epoch {self.current_epoch}: Test NLL {metrics[0] :.2f} -- Test Atom type KL {metrics[1] :.2f} -- ",
                    f"Test Edge type KL: {metrics[2] :.2f}")
 
         test_nll = metrics[0]
         if wandb.run:
-            wandb.log({"test/epoch_NLL": test_nll}, commit=False)
+            wandb.log({"test/epoch_NLL": test_nll}, commit=True)
 
         self.print(f'Test loss: {test_nll :.4f}')
 

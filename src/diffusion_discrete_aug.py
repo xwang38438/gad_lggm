@@ -5,7 +5,7 @@ import pytorch_lightning as pl
 import time
 import wandb
 import os
-
+from tqdm import tqdm
 from models.transformer_model import GraphTransformer
 from diffusion.noise_schedule import DiscreteUniformTransition, PredefinedNoiseScheduleDiscrete,\
     MarginalUniformTransition
@@ -193,14 +193,16 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
                        "val/X_kl": metrics[1],
                        "val/E_kl": metrics[2],
                        "val/X_logp": metrics[3],
-                       "val/E_logp": metrics[4]}, commit=False)
+                       "val/E_logp": metrics[4]}, commit=True)
 
         self.print(f"Epoch {self.current_epoch}: Val NLL {metrics[0] :.2f} -- Val Atom type KL {metrics[1] :.2f} -- ",
                    f"Val Edge type KL: {metrics[2] :.2f}")
 
         # Log val nll with default Lightning logger, so it can be monitored by checkpoint callback
         val_nll = metrics[0]
+        val_E_kl = metrics[2]
         self.log("val/epoch_NLL", val_nll, sync_dist=True)
+        self.log("val/E_kl", val_E_kl, sync_dist=True)
 
         if val_nll < self.best_val_nll:
             self.best_val_nll = val_nll
@@ -248,9 +250,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
             utils.setup_wandb(self.cfg)
 
     def test_step(self, data, i):
-        dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
+        dense_data, node_mask = utils.to_dense_new(data.x, data.cont_x, data.edge_index, data.edge_attr, data.batch)
         dense_data = dense_data.mask(node_mask)
         noisy_data = self.apply_noise(dense_data.X, dense_data.E, data.y, node_mask)
+        noisy_data['cont_X'] = dense_data.cont_X
         extra_data = self.compute_extra_data(noisy_data)
         pred = self.forward(noisy_data, extra_data, node_mask)
         nll = self.compute_val_loss(pred, noisy_data, dense_data.X, dense_data.E, data.y, node_mask, test=True)
@@ -266,7 +269,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
                        "test/X_kl": metrics[1],
                        "test/E_kl": metrics[2],
                        "test/X_logp": metrics[3],
-                       "test/E_logp": metrics[4]}, commit=False)
+                       "test/E_logp": metrics[4]}, commit=True)
 
         self.print(f"Epoch {self.current_epoch}: Test NLL {metrics[0] :.2f} -- Test Atom type KL {metrics[1] :.2f} -- ",
                    f"Test Edge type KL: {metrics[2] :.2f}")
@@ -277,26 +280,30 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         self.print(f'Test loss: {test_nll :.4f}')
 
-        samples_left_to_generate = self.cfg.general.final_model_samples_to_generate
-        samples_left_to_save = self.cfg.general.final_model_samples_to_save
-        chains_left_to_save = self.cfg.general.final_model_chains_to_save
+        samples = self.new_sample_batch(self.test_loader)
+        
 
-        samples = []
-        id = 0
-        while samples_left_to_generate > 0:
-            self.print(f'Samples left to generate: {samples_left_to_generate}/'
-                    f'{self.cfg.general.final_model_samples_to_generate}', end='', flush=True)
-            bs = 4 * self.cfg.train.batch_size
-            to_generate = min(samples_left_to_generate, bs)
-            to_save = min(samples_left_to_save, bs)
-            chains_save = min(chains_left_to_save, bs)
-            samples.extend(self.sample_batch(id, to_generate, num_nodes=None, save_final=to_save,
-                                            keep_chain=chains_save, number_chain_steps=self.number_chain_steps))
-            id += to_generate
-            samples_left_to_save -= to_save
-            samples_left_to_generate -= to_generate
-            chains_left_to_save -= chains_save
-        self.print("Saving the generated graphs")
+# below is the code for sampling
+
+        # samples_left_to_generate = self.cfg.general.final_model_samples_to_generate
+        # samples_left_to_save = self.cfg.general.final_model_samples_to_save
+        # chains_left_to_save = self.cfg.general.final_model_chains_to_save
+        # samples = []
+        # id = 0
+        # while samples_left_to_generate > 0:
+        #     self.print(f'Samples left to generate: {samples_left_to_generate}/'
+        #             f'{self.cfg.general.final_model_samples_to_generate}', end='', flush=True)
+        #     bs = 4 * self.cfg.train.batch_size
+        #     to_generate = min(samples_left_to_generate, bs)
+        #     to_save = min(samples_left_to_save, bs)
+        #     chains_save = min(chains_left_to_save, bs)
+        #     samples.extend(self.sample_batch(id, to_generate, num_nodes=None, save_final=to_save,
+        #                                     keep_chain=chains_save, number_chain_steps=self.number_chain_steps))
+        #     id += to_generate
+        #     samples_left_to_save -= to_save
+        #     samples_left_to_generate -= to_generate
+        #     chains_left_to_save -= chains_save
+        # self.print("Saving the generated graphs")
 
 
         filename = f'generated_samples1.txt'
@@ -593,6 +600,56 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         return self.model(X, E, y, node_mask)
 
     @torch.no_grad()
+    def new_sample_batch(self, test_loader):
+        samples = []
+        for batch in tqdm(test_loader):
+            batch_size = batch.batch.max().item() + 1
+            n_nodes = torch.bincount(batch.batch).to(self.device)
+            n_max = torch.max(n_nodes).item()
+            arange = torch.arange(n_max, device=self.device).unsqueeze(0).expand(batch_size, -1)
+            node_mask = arange < n_nodes.unsqueeze(1)
+            
+            z_T = diffusion_utils.sample_discrete_feature_noise(limit_dist=self.limit_dist, node_mask=node_mask)
+            X, E, y = z_T.X, z_T.E, z_T.y
+            # print('the device of X', X.device)
+            # print('the device of E', E.device)
+            # print('the device of y', y.device)
+            # get the continuous features (batch_size, n, dx)
+            
+            dense_data, node_mask = utils.to_dense_new(batch.x, batch.cont_x, batch.edge_index, batch.edge_attr, batch.batch)
+            dense_data = dense_data.mask(node_mask)
+            node_mask = node_mask.to(self.device)
+            cont_X = dense_data.cont_X.to(self.device)
+            # print('1111the device of cont_X', cont_X.device)
+            
+            assert (E == torch.transpose(E, 1, 2)).all()
+            
+            print('start sampling')
+            for s_int in tqdm(reversed(range(0, self.T))):
+
+                s_array = s_int * torch.ones((batch_size, 1)).type_as(y)
+                t_array = s_array + 1
+                s_norm = s_array / self.T
+                t_norm = t_array / self.T     
+                # print('2222the shape of cont_X', cont_X.shape)
+                sampled_s, discrete_sampled_s = self.sample_p_zs_given_zt(s_norm, t_norm, X, E, y, node_mask, cont_X) 
+       
+                X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+                
+            sampled_s = sampled_s.mask(node_mask, collapse=True)
+            X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+            
+            for i in range(batch_size):
+                n = n_nodes[i]
+                X_i = X[i, :n].cpu()
+                E_i = E[i, :n, :n].cpu()
+                samples.append((X_i, E_i))
+        
+        return samples
+        
+
+
+    @torch.no_grad()
     def sample_batch(self, batch_id: int, batch_size: int, keep_chain: int, number_chain_steps: int,
                      save_final: int, num_nodes=None):
         """
@@ -640,9 +697,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
             # ------------------------Visualization------------------------
             # Save the first keep_chain graphs
-            write_index = (s_int * number_chain_steps) // self.T
-            chain_X[write_index] = discrete_sampled_s.X[:keep_chain]
-            chain_E[write_index] = discrete_sampled_s.E[:keep_chain]
+            # write_index = (s_int * number_chain_steps) // self.T
+            # chain_X[write_index] = discrete_sampled_s.X[:keep_chain]
+            # chain_E[write_index] = discrete_sampled_s.E[:keep_chain]
             # -------------------------------------------------------------
 
         # Sample
@@ -705,7 +762,7 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         return molecule_list
 
-    def sample_p_zs_given_zt(self, s, t, X_t, E_t, y_t, node_mask):
+    def sample_p_zs_given_zt(self, s, t, X_t, E_t, y_t, node_mask, cont_X=None):
         """Samples from zs ~ p(zs | zt). Only used during sampling.
            if last_step, return the graph prediction as well"""
         bs, n, dxs = X_t.shape
@@ -720,6 +777,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         # Neural net predictions
         noisy_data = {'X_t': X_t, 'E_t': E_t, 'y_t': y_t, 't': t, 'node_mask': node_mask}
+        if cont_X is not None:
+            noisy_data['cont_X'] = cont_X
+            # print('2222 contx device', cont_X.device)
         extra_data = self.compute_extra_data(noisy_data)
         pred = self.forward(noisy_data, extra_data, node_mask)
 
@@ -772,6 +832,10 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         extra_features = self.extra_features(noisy_data)
         extra_molecular_features = self.domain_features(noisy_data)
         
+        
+        # print(f"extra_features.X shape: {extra_features.X.shape}")
+        # print(f"noisy_data['cont_X'] shape: {noisy_data['cont_X'].shape}")
+        # print(f"extra_molecular_features.X shape: {extra_molecular_features.X.shape}")
         # updated continuous
         extra_X = torch.cat((extra_features.X, noisy_data['cont_X'], extra_molecular_features.X), dim=-1)
         # print('size_matched', extra_X.shape)

@@ -184,10 +184,10 @@ class new_PlaceHolder:
         return self
 
 
-
+# project named be reddit temporarily
 def setup_wandb(cfg):
     config_dict = omegaconf.OmegaConf.to_container(cfg, resolve=True, throw_on_missing=True)
-    kwargs = {'name': cfg.general.name, 'project': f'graph_ddm_{cfg.dataset.name}', 'config': config_dict,
+    kwargs = {'name': cfg.general.name, 'project': f'lggm_gad_reddit_v2', 'config': config_dict,
               'settings': wandb.Settings(_disable_stats=True), 'reinit': True, 'mode': cfg.general.wandb}
     wandb.init(**kwargs)
     wandb.save('*.txt')

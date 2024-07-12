@@ -48,7 +48,8 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
         edge_index, edge_attr = to_undirected(edge_index, edge_attr, n_nodes, reduce = 'mean')
         edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
 
-        x = labels.float()
+        x = labels.float()  #
+        # x = torch.ones((n_nodes, 1)) 
         y = torch.empty(1, 0) 
 
         return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, cont_x=node_features)
