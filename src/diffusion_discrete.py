@@ -106,6 +106,9 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.best_val_nll = 1e8
         self.val_counter = 0
 
+        # augmentation config
+        self.aug_steps = cfg.augment.diffusion_steps
+        self.augment_samples = []
 
     def configure_optimizers(self):
         return torch.optim.AdamW(self.parameters(), lr=self.cfg.train.lr, amsgrad=True,
@@ -315,6 +318,78 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
         self.print("Done testing.")
 
 
+    def predict_step(self, data, i, D=10):
+        print('start predict step')
+        if data.edge_index.numel() == 0:
+            self.print("Found a batch with no edges. Skipping.")
+            return
+        
+        dense_data, node_mask = utils.to_dense(data.x, data.edge_index, data.edge_attr, data.batch)
+        dense_data = dense_data.mask(node_mask)
+        
+        # create a list of sum of node mask in dim 0
+        n_nodes = node_mask.sum(1)
+        print('n_nodes',n_nodes)
+        
+        X, E = dense_data.X, dense_data.E
+        print(111, X.shape, E.shape)
+        self.print("Applying noise...")
+        noisy_data = self.apply_noise(X, E, data.y, node_mask, augment=True)
+        self.print(noisy_data['E_t'].shape, noisy_data['X_t'].shape, noisy_data['y_t'].shape)
+        self.print("Predicting...")
+        
+        X, E, y = noisy_data['X_t'], noisy_data['E_t'], noisy_data['y_t']
+        print(222, X.shape, E.shape)
+        assert (E == torch.transpose(E, 1, 2)).all()
+        
+        for s_int in reversed(range(0, self.aug_steps)):
+            self.print('time step:', s_int)
+            s_array = s_int * torch.ones((X.shape[0], 1)).type_as(y)
+            t_array = s_array + 1
+            s_norm = s_array / self.T
+            t_norm = t_array / self.T
+            
+            # print(111)
+            # self.print(s_norm.shape, t_norm.shape)
+
+            sampled_s, discrete_sampled_s = self.sample_p_zs_given_zt(s_norm, t_norm, X, E, y, node_mask)
+            # X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+            X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+            # self.print(333)
+            # self.print(X.shape, E.shape)
+            
+        sampled_s = sampled_s.mask(node_mask, collapse=True)
+        X, E, y = sampled_s.X, sampled_s.E, sampled_s.y
+        print(333, X.shape, E.shape)
+
+        augmented_list = []
+        
+        for i in range(X.shape[0]):
+            from torch_geometric.data import Data
+            n = n_nodes[i]
+            X_i = X[i, :n].cpu()   # n
+            E_i = E[i, :n, :n].cpu() # 1 * n * n * de
+            print(444, X_i.shape, E_i.shape)
+            # convert X and E to a pyg data object
+            
+            # convert X_i to one-hot encoding
+            x = F.one_hot(X_i, num_classes=self.Xdim_output).float()
+            print(555, x.shape)
+
+            edge_index = utils.adj_to_edge_index(E_i)
+            pyg_data = Data(x=x, edge_index=edge_index)
+
+            augmented_list.append(pyg_data)
+        
+        self.augment_samples.extend(augmented_list)
+        
+        return None
+
+    def on_predict_epoch_end(self) -> None:
+        # save the self.augment_samples in pt file
+        torch.save(self.augment_samples, 'augment_samples.pt')
+
+
 
     def kl_prior(self, X, E, node_mask):
         """Computes the KL between q(z1 | x) and the prior p(z1) = Normal(0, 1).
@@ -420,17 +495,24 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
         return utils.PlaceHolder(X=probX0, E=probE0, y=proby0)
 
-    def apply_noise(self, X, E, y, node_mask):
+    def apply_noise(self, X, E, y, node_mask, augment = False):
         """ Sample noise and apply it to the data. """
 
         # Sample a timestep t.
         # When evaluating, the loss for t=0 is computed separately
-        lowest_t = 0 if self.training else 1
-        t_int = torch.randint(lowest_t, self.T + 1, size=(X.size(0), 1), device=X.device).float()  # (bs, 1)
-        s_int = t_int - 1
+        if not augment:
+            lowest_t = 0 if self.training else 1
+            t_int = torch.randint(lowest_t, self.T + 1, size=(X.size(0), 1), device=X.device).float()  # (bs, 1)
+            s_int = t_int - 1
 
-        t_float = t_int / self.T
-        s_float = s_int / self.T
+            t_float = t_int / self.T
+            s_float = s_int / self.T
+        else:
+            t_int = self.aug_steps * torch.ones(X.size(0), 1, device = X.device).float()
+            s_int = t_int - 1
+
+            t_float = t_int / self.aug_steps
+            s_float = s_int / self.aug_steps
 
         # beta_t and alpha_s_bar are used for denoising/loss computation
         beta_t = self.noise_schedule(t_normalized=t_float)                         # (bs, 1)

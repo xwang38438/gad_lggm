@@ -66,6 +66,9 @@ def main(cfg: DictConfig):
         trainer.fit(model, train_dataloaders = data_loaders['train'], val_dataloaders = data_loaders['val'], ckpt_path = cfg.general.ckpt_path)
     elif cfg.general.setting == 'test':
         trainer.test(model, dataloaders = data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+    elif cfg.general.setting == 'augment':
+        trainer.predict(model, data_loaders['test'], ckpt_path = cfg.general.ckpt_path)
+
 
 if __name__ == '__main__':
     main()

@@ -397,7 +397,6 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):   # replace domain_feature
 
 
 
-
     def kl_prior(self, X, E, node_mask):
         """Computes the KL between q(z1 | x) and the prior p(z1) = Normal(0, 1).
 

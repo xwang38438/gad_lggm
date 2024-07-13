@@ -5,6 +5,22 @@ from torch_geometric.utils import to_dense_adj, to_dense_batch
 import torch
 import omegaconf
 import wandb
+import numpy as np
+
+def adj_to_edge_index(adj):
+
+    if isinstance(adj, np.ndarray):
+        adj = torch.tensor(adj)
+    
+    assert adj.shape[0] == adj.shape[1], "Adjacency matrix should be square"
+    row, col = torch.triu_indices(adj.shape[0], adj.shape[1], offset=1)
+    edge_index = torch.stack([row, col], dim=0)
+    mask = adj[row, col].bool()
+    edge_index = edge_index[:, mask]
+    edge_index_reverse = torch.stack([edge_index[1], edge_index[0]], dim=0)
+    edge_index = torch.cat([edge_index, edge_index_reverse], dim=1)
+    
+    return edge_index
 
 
 def create_folders(args):

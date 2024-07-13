@@ -4,3 +4,4 @@ src/__pycache__
 src/models/__pycache__
 src/sh_archive
 src/*txt
+src/terminal_outputs
