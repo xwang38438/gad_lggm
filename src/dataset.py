@@ -58,8 +58,43 @@ def arrange_data(data): # input a tuple of (adj_matrix, node_features) n_nodes x
 
 
 # update for the GAD dataset
+def load_dataset_v2(dataname, batch_size, hydra_path):
+    if not os.path.exists(f'{hydra_path}/../gad_datasets/{dataname}/train.pt'):
+        print(111, dataname)
+        data = torch.load(f'{hydra_path}/../gad_datasets/{dataname}/{dataname}.pt')
+        torch.manual_seed(0)
+        n = len(data)
+        indices = torch.randperm(n)
+        train_indices = indices[:int(0.8 * n)]
+        val_indices = indices[int(0.8 * n):int(0.9 * n)]
+        test_indices = indices[int(0.9 * n):]
+   
+        train_data = [data[_] for _ in train_indices]
+        val_data = [data[_] for _ in val_indices]
+        test_data = [data[_] for _ in test_indices]
+
+        torch.save(train_indices, f'{hydra_path}/../gad_datasets/{dataname}/train_indices.pt')
+        torch.save(val_indices, f'{hydra_path}/../gad_datasets/{dataname}/val_indices.pt')
+        torch.save(test_indices, f'{hydra_path}/../gad_datasets/{dataname}/test_indices.pt')
+        
+        torch.save(train_data, f'{hydra_path}/../gad_datasets/{dataname}/train.pt')
+        torch.save(val_data, f'{hydra_path}/../gad_datasets/{dataname}/val.pt')
+        torch.save(test_data, f'{hydra_path}/../gad_datasets/{dataname}/test.pt')
+        
+    train_data = [_ for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/train.pt')]
+    val_data = [_ for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/val.pt')]
+    test_data = [_ for _ in torch.load(f'{hydra_path}/../gad_datasets/{dataname}/test.pt')]
+
+    print('Size of dataset', len(train_data), len(val_data), len(test_data))
+    train_loader = DataLoader(train_data, batch_size = batch_size, shuffle=True)
+    val_loader = DataLoader(val_data, batch_size = batch_size, shuffle=False)
+    test_loader = DataLoader(test_data, batch_size = batch_size, shuffle=False)
+    
+    return train_loader, val_loader, test_loader
+
+
 def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
-    domains = ['reddit', 'reddit_onehot', 'reddit_continuous'] # , 'tolokers', 'questions', 'reddit'    
+    domains = ['reddit', 'reddit_onehot', 'reddit_continuous', 'large_reddit'] # , 'tolokers', 'questions', 'reddit'    
     for domain in domains:
         if not os.path.exists(f'{hydra_path}/../gad_datasets/{domain}/train.pt'):
             print(111, domain)
@@ -141,7 +176,8 @@ def load_dataset(dataname, batch_size, hydra_path, sample, num_train):
 
 def init_dataset(dataname, batch_size, hydra_path, sample, num_train):
     # data_name = 'reddit_v2'
-    train_loader, val_loader, test_loader = load_dataset(dataname, batch_size, hydra_path, sample, num_train)
+    # train_loader, val_loader, test_loader = load_dataset(dataname, batch_size, hydra_path, sample, num_train)
+    train_loader, val_loader, test_loader = load_dataset_v2(dataname, batch_size, hydra_path)
 
     n_nodes = node_counts(1000, train_loader, val_loader)
     node_types = torch.tensor([1]) # Node type: 0 for normal, 1 for anomalous ; only used for marginal transition
